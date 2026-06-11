@@ -154,7 +154,12 @@ window.HearimNVC = (function () {
       hidden: '사실은 더 많이 관심을 받고 싶어요',
       needs: ['care', 'understanding'],
       feelings: ['서운함', '상처'],
-      advice: '가까이 다가가서 "나 신경 써. 무슨 일 있어?"라고 물어보세요.',
+      advice: '"나 신경 써. 무슨 일 있어?"라고 물어보세요.',
+      replies: [
+        { tone:'🤗 공감형', text:'나 신경 써. 무슨 일 있어? 말해줘 💗' },
+        { tone:'💬 솔직형', text:'솔직히 말해줘. 내가 뭘 잘못한 건지 알고 싶어.' },
+        { tone:'🌸 다정형', text:'야, 화났어? 나한테 화내도 돼. 들을게.' },
+      ],
     },
     {
       trigger: /괜찮아|나 괜찮아|별거 아니야/,
@@ -163,6 +168,11 @@ window.HearimNVC = (function () {
       needs: ['understanding', 'care'],
       feelings: ['참음', '외로움'],
       advice: '"정말 괜찮아? 아닌 것 같은데"라고 한 번 더 물어봐 주세요.',
+      replies: [
+        { tone:'🤗 공감형', text:'정말 괜찮아? 아닌 것 같은데. 말해줘 💗' },
+        { tone:'💬 솔직형', text:'나 네 얼굴 보면 괜찮아 보이지 않아. 솔직하게 말해줘.' },
+        { tone:'🌸 다정형', text:'괜찮다고 해도 나는 네 편이야. 이야기하고 싶으면 언제든.' },
+      ],
     },
     {
       trigger: /그냥|뭐|모르겠어|아무거나/,
@@ -171,6 +181,11 @@ window.HearimNVC = (function () {
       needs: ['understanding', 'honesty'],
       feelings: ['막막함', '표현하기 어려움'],
       advice: '"그냥이 뭔지 궁금해. 편하게 말해줘"라고 열어주세요.',
+      replies: [
+        { tone:'🤗 공감형', text:'그냥이 뭔지 궁금해. 편하게 말해줘 💗' },
+        { tone:'💬 솔직형', text:'말하기 어려운 거 알아. 근데 나 들을 준비 됐어.' },
+        { tone:'🌸 다정형', text:'아무 말 안 해도 돼. 그냥 같이 있어줄게.' },
+      ],
     },
     {
       trigger: /나 요즘 힘들어|많이 힘들어|너무 힘들어/,
@@ -178,7 +193,12 @@ window.HearimNVC = (function () {
       hidden: '위로와 공감을 원해요. 혼자 있기 싫어요',
       needs: ['support', 'connection'],
       feelings: ['지침', '외로움'],
-      advice: '조언하지 말고 "많이 힘들었겠다"로 먼저 안아주세요.',
+      advice: '조언하지 말고 "많이 힘들었겠다"로 먼저 공감해주세요.',
+      replies: [
+        { tone:'🤗 공감형', text:'많이 힘들었겠다. 옆에 있어줄게 💗' },
+        { tone:'💬 솔직형', text:'힘들면 말해. 나 네 편이야. 뭐든 들을게.' },
+        { tone:'🌸 다정형', text:'고생했다. 오늘 맛있는 거 먹으러 가자. 내가 살게 😊' },
+      ],
     },
     {
       trigger: /너는 몰라|이해 못해|어차피|설명해도/,
@@ -187,6 +207,11 @@ window.HearimNVC = (function () {
       needs: ['understanding', 'connection'],
       feelings: ['포기감', '고립감'],
       advice: '"설명해줘. 이해하고 싶어"라고 다시 열어보세요.',
+      replies: [
+        { tone:'🤗 공감형', text:'설명해줘. 이해하고 싶어. 진짜로 💗' },
+        { tone:'💬 솔직형', text:'내가 모를 수도 있어. 근데 알고 싶어. 말해줘.' },
+        { tone:'🌸 다정형', text:'어차피 말해봤자라고 생각하지 마. 나 들을게, 진심으로.' },
+      ],
     },
     {
       trigger: /자꾸 잊어|기억도 못|기억이나 해|또 잊었어/,
@@ -194,7 +219,12 @@ window.HearimNVC = (function () {
       hidden: '내가 당신에게 중요한 존재인지 확인하고 싶어요',
       needs: ['meaning', 'respect'],
       feelings: ['서운함', '불안'],
-      advice: '"미안해, 중요한데 잊었어. 다시 말해줘"라고 진심으로 사과해보세요.',
+      advice: '"미안해, 중요한데 잊었어. 다시 말해줘"라고 진심으로 사과해주세요.',
+      replies: [
+        { tone:'🤗 공감형', text:'미안해, 중요한데 잊었어. 다시 말해줄 수 있어? 💗' },
+        { tone:'💬 솔직형', text:'내 잘못이야. 앞으로 더 신경 쓸게. 정말 미안해.' },
+        { tone:'🌸 다정형', text:'너 나한테 중요한 사람이야. 잊어서 미안해 💗' },
+      ],
     },
     {
       trigger: /왜 나한테만|나만 이렇게|나만 희생|나만 노력/,
@@ -202,7 +232,12 @@ window.HearimNVC = (function () {
       hidden: '나의 노력을 알아봐주길 원해요',
       needs: ['respect', 'meaning'],
       feelings: ['억울함', '지침'],
-      advice: '"많이 힘들었겠다. 너가 얼마나 노력하는지 알아"라고 인정해주세요.',
+      advice: '"많이 힘들었겠다. 네가 얼마나 노력하는지 알아"라고 인정해주세요.',
+      replies: [
+        { tone:'🤗 공감형', text:'많이 힘들었겠다. 네가 얼마나 노력하는지 알아 💗' },
+        { tone:'💬 솔직형', text:'그동안 고마웠어. 내가 더 잘 챙겼어야 했는데.' },
+        { tone:'🌸 다정형', text:'너 진짜 수고했다. 이번엔 내가 더 할게.' },
+      ],
     },
     {
       trigger: /어차피|해도 소용없어|달라지겠어|기대 안 해/,
@@ -211,6 +246,11 @@ window.HearimNVC = (function () {
       needs: ['safety', 'understanding'],
       feelings: ['무기력', '포기감'],
       advice: '"그렇게 느꼈다면 미안해. 이번엔 다를게"라고 말하고 행동으로 보여주세요.',
+      replies: [
+        { tone:'🤗 공감형', text:'그렇게 느꼈다면 미안해. 이번엔 달라질게 💗' },
+        { tone:'💬 솔직형', text:'포기하지 마. 나 진지하게 바꾸려고 해. 기회 한 번만 줘.' },
+        { tone:'🌸 다정형', text:'나도 알아, 말만 했던 거. 이번엔 행동으로 보여줄게.' },
+      ],
     },
     {
       trigger: /혼자 있고 싶어|내버려 둬|혼자 생각|공간이 필요/,
@@ -218,7 +258,12 @@ window.HearimNVC = (function () {
       hidden: '감정을 정리할 시간이 필요해요. 포기가 아니에요',
       needs: ['autonomy', 'safety'],
       feelings: ['과부하', '정리 필요'],
-      advice: '"알겠어, 천천히 생각해. 언제든 얘기하고 싶으면 여기 있을게"라고 말해주세요.',
+      advice: '"알겠어, 천천히 생각해. 언제든 얘기하고 싶으면 여기 있을게"라고 해주세요.',
+      replies: [
+        { tone:'🤗 공감형', text:'알겠어. 천천히 생각해. 언제든 얘기하고 싶으면 여기 있을게 💗' },
+        { tone:'💬 솔직형', text:'괜찮아, 혼자 있어도 돼. 나 기다릴게.' },
+        { tone:'🌸 다정형', text:'공간 줄게. 근데 나 여기 있다는 거 잊지 마 💗' },
+      ],
     },
     {
       trigger: /피곤해|지쳐|힘없어|의욕이 없|무기력/,
@@ -226,7 +271,12 @@ window.HearimNVC = (function () {
       hidden: '지금 많이 지쳐있어요. 응원이 필요해요',
       needs: ['support', 'care'],
       feelings: ['소진', '고갈'],
-      advice: '"정말 수고했어. 오늘 쉬어"라고 위로해주세요. 말이 필요없을 수 있어요.',
+      advice: '"정말 수고했어. 오늘 쉬어"라고 위로해주세요.',
+      replies: [
+        { tone:'🤗 공감형', text:'정말 수고했어. 오늘 쉬어. 내가 다 할게 💗' },
+        { tone:'💬 솔직형', text:'많이 지쳤지? 뭐가 제일 힘들어? 나눠서 해결하자.' },
+        { tone:'🌸 다정형', text:'오늘 치킨 어때? 나 시켜줄게. 그냥 쉬어 😊' },
+      ],
     },
     {
       trigger: /뭘 원하는 거야|뭘 원해|원하는 게 뭐|어떻게 해줘야/,
@@ -234,7 +284,12 @@ window.HearimNVC = (function () {
       hidden: '상대를 이해하고 싶지만 어떻게 해야 할지 몰라요',
       needs: ['understanding', 'honesty'],
       feelings: ['당혹감', '무력감'],
-      advice: '판단하지 않고 "어떻게 하면 내가 도움이 될 수 있을까?"라고 물어보세요.',
+      advice: '"어떻게 하면 내가 도움이 될 수 있을까?"라고 물어보세요.',
+      replies: [
+        { tone:'🤗 공감형', text:'어떻게 하면 내가 도움이 될 수 있을까? 말해줘 💗' },
+        { tone:'💬 솔직형', text:'내가 뭘 해줘야 할지 솔직하게 말해. 최선을 다해볼게.' },
+        { tone:'🌸 다정형', text:'내가 부족한 거 알아. 근데 노력할게. 가르쳐줘 💗' },
+      ],
     },
     {
       trigger: /사랑하는 것 맞아|나 좋아해|나한테 관심 있어/,
@@ -243,6 +298,11 @@ window.HearimNVC = (function () {
       needs: ['safety', 'connection'],
       feelings: ['불안', '그리움'],
       advice: '말로만 답하지 말고 행동으로 보여주세요. 안아주거나 눈 맞춰주세요.',
+      replies: [
+        { tone:'🤗 공감형', text:'당연하지. 왜 그런 생각 했어? 나 여기 있어 💗' },
+        { tone:'💬 솔직형', text:'좋아해. 많이. 불안했어? 말했어야지.' },
+        { tone:'🌸 다정형', text:'바보야, 당연하지. 이리 와, 안아줄게 💗' },
+      ],
     },
   ];
 
@@ -284,6 +344,27 @@ window.HearimNVC = (function () {
     return found.length ? found : ['복합 감정'];
   }
 
+  // ── 전송용 메시지 3종 생성 (카카오에 바로 보낼 수 있는 형태) ──
+  function buildSendMessages(obs, feel, needLabel, req) {
+    return [
+      {
+        tone: '💬 부드럽게',
+        desc: '진심을 따뜻하게',
+        text: `${obs}, 나는 ${feel}. 나에게는 ${needLabel}이(가) 필요해. ${req} 💗`,
+      },
+      {
+        tone: '💪 솔직하게',
+        desc: '감정과 부탁 직접 전달',
+        text: `솔직히 말할게. 나 ${feel}. 그러니까 ${req}`,
+      },
+      {
+        tone: '✨ 간결하게',
+        desc: '핵심만 짧게',
+        text: `나 ${feel}. ${req} 💗`,
+      },
+    ];
+  }
+
   // ── NVC 번역 (로컬 DB) ──
   function transformNVCLocal(text, relation) {
     const pattern = matchNVC(text);
@@ -291,7 +372,7 @@ window.HearimNVC = (function () {
     const needKey = pattern?.needKey || 'understanding';
     const need = NEEDS[needKey];
 
-    // 관찰 문장 생성
+    // 관찰 문장
     const observation = pattern
       ? `당신이 ${pattern.observeHint}`
       : `이런 상황이 계속될 때`;
@@ -300,16 +381,13 @@ window.HearimNVC = (function () {
     const feeling = pattern?.feeling ||
       (emotions.length ? `${emotions.join(', ')}을 느껴` : '힘든 감정을 느껴');
 
-    // 욕구 문장
-    const needStatement = `나는 ${need.label}이(가) 필요해`;
-
     // 부탁 문장
     const request = pattern
       ? `${pattern.requestHint}`
       : `이 부분에 대해 같이 이야기해볼 수 있을까?`;
 
-    // 완성된 NVC 문장
-    const full = `"${observation}(관찰), 나는 ${feeling}(감정). 나는 ${need.desc}(욕구). ${request}(부탁)"`;
+    // 전송용 메시지 3종
+    const messages = buildSendMessages(observation, feeling, need.label, request);
 
     return {
       observation,
@@ -318,7 +396,7 @@ window.HearimNVC = (function () {
       needLabel: need.label,
       needEmoji: need.emoji,
       request,
-      full,
+      messages,
       needTags: [need.label, ...emotions.slice(0,2)],
       feelingTags: emotions,
       tip: `NVC는 비난 없이 내 감정을 전달하는 방법이에요. "${observation}"처럼 사실만 이야기하고, 내 감정을 솔직하게 표현해보세요.`,
@@ -338,6 +416,7 @@ window.HearimNVC = (function () {
         needs: pattern.needs.map(k => NEEDS[k]),
         feelings: pattern.feelings,
         advice: pattern.advice,
+        replyMessages: pattern.replies || [],
         tip: '이 말의 이면에는 충족되지 못한 욕구가 있어요. 비난이 아닌 신호로 받아들여보세요.',
         source: 'db',
       };
@@ -350,6 +429,11 @@ window.HearimNVC = (function () {
       needs: [NEEDS.understanding, NEEDS.connection],
       feelings: emotions,
       advice: '방어하지 말고 먼저 "많이 힘들었겠다"라고 공감해주세요.',
+      replyMessages: [
+        { tone: '🤗 공감형', text: '많이 힘들었겠다. 나 여기 있어 💗' },
+        { tone: '💬 솔직형', text: '솔직히 말해줘. 나 들을게.' },
+        { tone: '🌸 다정형', text: '내 편이야. 언제든 말해 💗' },
+      ],
       tip: '상대의 공격적인 말 뒤에는 항상 충족되지 못한 욕구가 있어요.',
       source: 'db',
     };

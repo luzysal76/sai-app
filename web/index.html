@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="./css/styles.css"/>
   <link rel="stylesheet" href="./css/styles-new.css"/>
   <link rel="stylesheet" href="./css/styles-hifi.css"/>
+  <link rel="stylesheet" href="./css/styles-nvc.css"/>
 </head>
 <body>
 <div class="app">
@@ -353,105 +354,96 @@
         <button class="nvc-tab" id="nvcTab2">❓ 상대 말 분석하기</button>
       </div>
 
-      <!-- 모드 1: 내 말 → NVC 번역 -->
+      <!-- ── 모드 1: 내 말 → 전송용 NVC 메시지 ── -->
       <div id="nvcMode1">
-        <div class="card nvc-intro-card">
-          <p class="nvc-intro-text">💡 감정이 격해진 말을 <b>비폭력 대화(NVC)</b> 원칙에 따라 변환해드려요.<br><span class="zh-inline">将情绪激动的话转换为非暴力沟通表达方式</span></p>
-        </div>
         <div class="card">
-          <label class="field-label" for="nvcInput">나의 감정적인 말을 적어보세요 <span class="zh-inline">输入您想表达的情绪化语句</span></label>
-          <textarea id="nvcInput" placeholder="예) 당신은 맨날 당신 생각만 해. 내 말은 듣고 있는 거야? · 如：你就知道自己，有没有在听我说话？"></textarea>
+          <label class="field-label" for="nvcInput">나의 감정적인 말을 적어보세요</label>
+          <textarea id="nvcInput" placeholder="예) 당신은 맨날 당신 생각만 해. 내 말은 듣고 있는 거야?"></textarea>
           <div class="examples" style="margin-top:10px">
-            <span class="examples-label">예시 · 示例</span>
+            <span class="examples-label">예시</span>
             <button class="ex" data-nvc-ex="당신은 맨날 당신 생각만 해.">맨날 당신 생각만</button>
             <button class="ex" data-nvc-ex="내 말을 무시하는 거야?">무시하지 마</button>
-            <button class="ex" data-nvc-ex="왜 이렇게 차갑게 대해?">차갑게 대해</button>
+            <button class="ex" data-nvc-ex="왜 이렇게 차갑게 대해?">왜 이렇게 차가워</button>
             <button class="ex" data-nvc-ex="약속을 자꾸 어기면 어떡해.">약속을 어겨</button>
           </div>
-          <button class="btn-primary" id="nvcBtn" style="margin-top:14px">💗 NVC로 번역하기 · 转换为非暴力表达</button>
+          <button class="btn-primary" id="nvcBtn" style="margin-top:14px">💗 전송용 메시지로 바꾸기</button>
         </div>
+
+        <!-- 결과: 메시지 3종 위주 -->
         <div class="result hidden" id="nvcResult">
-          <!-- 4단계 카드 -->
-          <div class="nvc-cards">
-            <div class="nvc-card nvc-obs">
-              <div class="nvc-step-label"><span class="nvc-step-num">1</span><span>관찰 <span class="zh-inline">观察</span></span></div>
-              <p class="nvc-step-desc">판단·평가 없이 있었던 일만</p>
-              <p class="nvc-step-text" id="nvcObs"></p>
-            </div>
-            <div class="nvc-card nvc-feel">
-              <div class="nvc-step-label"><span class="nvc-step-num" style="background:#ff9f87">2</span><span>감정 <span class="zh-inline">感受</span></span></div>
-              <p class="nvc-step-desc">내 감정을 솔직하게</p>
-              <p class="nvc-step-text" id="nvcFeel"></p>
-              <div id="nvcFeelTags" style="margin-top:8px"></div>
-            </div>
-            <div class="nvc-card nvc-need">
-              <div class="nvc-step-label"><span class="nvc-step-num" style="background:#c084fc">3</span><span>욕구 <span class="zh-inline">需要</span></span></div>
-              <p class="nvc-step-desc">충족되지 못한 진짜 필요</p>
-              <p class="nvc-step-text" id="nvcNeed"></p>
-              <span class="nvc-need-highlight" id="nvcNeedLabel"></span>
-            </div>
-            <div class="nvc-card nvc-req">
-              <div class="nvc-step-label"><span class="nvc-step-num" style="background:#4ade80">4</span><span>부탁 <span class="zh-inline">请求</span></span></div>
-              <p class="nvc-step-desc">구체적이고 실현 가능한 요청</p>
-              <p class="nvc-step-text" id="nvcReq"></p>
+          <div class="nvc-result-header">
+            <span class="nvc-result-title">💌 카카오에 바로 보낼 수 있는 메시지</span>
+            <span class="nvc-result-sub">탭하면 복사</span>
+          </div>
+          <!-- 메시지 3종 (JS에서 렌더) -->
+          <div id="nvcMessages"></div>
+
+          <!-- NVC 분석 이유 (접기/펼치기) -->
+          <button class="nvc-reason-toggle" id="nvcReasonToggle">
+            <span>📖 왜 이렇게 말하나요? (NVC 4단계 보기)</span>
+            <span class="nvc-toggle-arrow">▼</span>
+          </button>
+          <div class="nvc-reason-body hidden" id="nvcReasonBody">
+            <div class="nvc-mini-cards">
+              <div class="nvc-mini nvc-obs">
+                <span class="nvc-mini-icon">👁</span>
+                <div><b>관찰</b><p id="nvcObs"></p></div>
+              </div>
+              <div class="nvc-mini nvc-feel">
+                <span class="nvc-mini-icon">💗</span>
+                <div><b>감정</b><p id="nvcFeel"></p></div>
+              </div>
+              <div class="nvc-mini nvc-need">
+                <span class="nvc-mini-icon">🌱</span>
+                <div><b>욕구</b><p id="nvcNeed"></p><span class="nvc-need-highlight" id="nvcNeedLabel"></span></div>
+              </div>
+              <div class="nvc-mini nvc-req">
+                <span class="nvc-mini-icon">🙏</span>
+                <div><b>부탁</b><p id="nvcReq"></p></div>
+              </div>
             </div>
           </div>
-          <!-- 완성 문장 -->
-          <div class="card nvc-full-card">
-            <div class="nvc-full-label">✨ 완성된 NVC 문장 <span class="zh-inline">完整非暴力表达</span></div>
-            <p id="nvcFull" class="nvc-full-text"></p>
-            <button class="nvc-copy-btn" id="nvcCopyBtn">📋 복사하기 · 复制</button>
-          </div>
-          <div class="card tip-card"><span class="tip-emoji">💡</span><p id="nvcTip"></p></div>
+          <div class="card tip-card" style="margin-top:10px"><span class="tip-emoji">💡</span><p id="nvcTip"></p></div>
         </div>
       </div>
 
-      <!-- 모드 2: 상대 말 → 숨은 욕구 분석 -->
+      <!-- ── 모드 2: 상대 말 → 답장 메시지 ── -->
       <div id="nvcMode2" class="hidden">
-        <div class="card nvc-intro-card">
-          <p class="nvc-intro-text">💡 상대방의 가시 돋친 말, 차가운 메시지 이면에 숨겨진 <b>진짜 욕구</b>를 분석해드려요.<br><span class="zh-inline">分析对方话语背后真正的需求</span></p>
-        </div>
         <div class="card">
-          <label class="field-label" for="nvcHInput">상대가 한 말을 적어보세요 <span class="zh-inline">输入对方说的话</span></label>
-          <textarea id="nvcHInput" placeholder="예) 됐어. 알아서 해. / 나 요즘 너무 힘들어. · 如：算了，你自己看着办 / 我最近太累了"></textarea>
+          <label class="field-label" for="nvcHInput">상대가 한 말을 적어보세요</label>
+          <textarea id="nvcHInput" placeholder="예) 됐어. 알아서 해. / 나 요즘 너무 힘들어."></textarea>
           <div class="examples" style="margin-top:10px">
-            <span class="examples-label">예시 · 示例</span>
+            <span class="examples-label">예시</span>
             <button class="ex" data-nvc-h-ex="됐어. 알아서 해.">됐어, 알아서해</button>
             <button class="ex" data-nvc-h-ex="나 요즘 너무 힘들어.">너무 힘들어</button>
             <button class="ex" data-nvc-h-ex="괜찮아. 별거 아니야.">괜찮아</button>
             <button class="ex" data-nvc-h-ex="어차피 이해 못할 거잖아.">이해 못할 거잖아</button>
           </div>
-          <button class="btn-primary" id="nvcHBtn" style="margin-top:14px">🔍 숨은 욕구 분석하기 · 分析隐藏需求</button>
+          <button class="btn-primary" id="nvcHBtn" style="margin-top:14px">🔍 숨은 마음 분석 + 답장 생성</button>
         </div>
+
+        <!-- 결과: 숨은 욕구 + 답장 3종 -->
         <div class="result hidden" id="nvcHResult">
-          <div class="card nvc-analysis-card">
-            <div class="nvc-analysis-row">
-              <span class="nvc-a-icon">😶</span>
-              <div>
-                <div class="nvc-a-label">표면적 표현 <span class="zh-inline">表面意思</span></div>
-                <p class="nvc-a-text" id="nvcHSurface"></p>
-              </div>
-            </div>
-          </div>
+          <!-- 숨은 욕구 요약 -->
           <div class="card nvc-hidden-card">
             <div class="nvc-analysis-row">
               <span class="nvc-a-icon">💗</span>
               <div>
-                <div class="nvc-a-label">이면에 숨겨진 진짜 욕구 <span class="zh-inline">隐藏的真实需求</span></div>
-                <p class="nvc-a-text nvc-hidden-text" id="nvcHHidden"></p>
+                <div class="nvc-a-label">이 말 뒤에 숨겨진 진짜 마음</div>
+                <p class="nvc-hidden-text" id="nvcHHidden"></p>
               </div>
             </div>
             <div id="nvcHNeeds" style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px"></div>
-            <div id="nvcHFeelings" style="margin-top:8px"></div>
           </div>
-          <div class="card action-card">
-            <span class="action-emoji">💬</span>
-            <div>
-              <span class="action-label">이렇게 답해보세요 <span class="zh-inline">建议这样回应</span></span>
-              <p id="nvcHAdvice"></p>
-            </div>
+
+          <!-- 답장 메시지 3종 -->
+          <div class="nvc-result-header" style="margin-top:14px">
+            <span class="nvc-result-title">💌 이렇게 답해보세요</span>
+            <span class="nvc-result-sub">탭하면 복사</span>
           </div>
-          <div class="card tip-card"><span class="tip-emoji">💡</span><p id="nvcHTip"></p></div>
+          <div id="nvcHMessages"></div>
+
+          <div class="card tip-card" style="margin-top:10px"><span class="tip-emoji">💡</span><p id="nvcHTip"></p></div>
         </div>
       </div>
     </section>
