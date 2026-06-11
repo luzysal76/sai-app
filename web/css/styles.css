@@ -1,6 +1,6 @@
 :root {
   --pink: #ff6b9d; --pink-soft: #ffe3ee; --pink-deep: #e84a7f;
-  --purple: #a06bff; --ink: #2b2230; --gray: #8a8190;
+  --purple: #6b4eaa; --purple-soft: #ede8f7; --ink: #2b2230; --gray: #8a8190;
   --card: #ffffff; --line: #f0e3ea; --radius: 18px;
   --shadow: 0 8px 28px rgba(255, 107, 157, 0.12);
 }
@@ -180,3 +180,12 @@ textarea:focus { outline: none; border-color: var(--pink); background: #fff; }
 .app-footer { padding: 12px 4px 24px; text-align: center; }
 .app-footer p { font-size: 11px; color: var(--gray); }
 .hidden { display: none !important; }
+
+/* ===== 한중 병기 (Bilingual) ===== */
+.zh {
+  display: block; font-size: 10px; font-weight: 500; opacity: 0.65;
+  margin-top: 1px; letter-spacing: 0.3px; line-height: 1.3;
+  color: currentColor;
+}
+.zh-inline { font-size: 0.78em; opacity: 0.65; margin-left: 4px; }
+.tab-zh { display: block; font-size: 9px; opacity: 0.65; line-height: 1.1; margin-top: 1px; }

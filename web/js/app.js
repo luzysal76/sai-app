@@ -8,20 +8,20 @@
 
   const TABS = ['home','relmap','tools','diary'];
   const META = {
-    home: { title:'헤아림', sub:'연애·인간관계 커뮤니케이션 번역기' },
-    relmap: { title:'관계 지도', sub:'내 주변 사람들을 RPG처럼' },
-    tools: { title:'도구', sub:'8가지 관계 분석 도구' },
-    diary: { title:'감정 일기', sub:'오늘의 관계 감정 기록' },
-    translator: { title:'대화 번역기', sub:'상대 말의 진짜 속뜻' },
-    kakao:      { title:'카톡 분석기', sub:'관심도·답장 추천' },
-    diagnosis:  { title:'관계 진단', sub:'현재 상태·발전 가능성' },
-    readcheck:  { title:'읽씹 분석', sub:'무응답 가능성 해석' },
-    reply:      { title:'답장 생성기', sub:'톤별 답장 추천' },
-    coach:      { title:'성장 코치', sub:'오늘의 관계 미션' },
-    aidiag:     { title:'AI 관계 진단', sub:'친밀도·신뢰도 분석' },
-    capture:    { title:'대화 캡처 분석', sub:'감정·위험 신호 탐지' },
-    'relmap-add':{ title:'관계 추가·편집', sub:'' },
-    'timeline':  { title:'관계 타임라인', sub:'우리 관계의 변화 흐름' },
+    home:     { title:'헤아림', sub:'연애·인간관계 번역기 · 恋爱关系沟通解析' },
+    relmap:   { title:'관계 지도 · 关系图谱', sub:'내 주변 사람들을 RPG처럼' },
+    tools:    { title:'도구 · 工具', sub:'8가지 관계 분석 도구 · 8种关系分析工具' },
+    diary:    { title:'감정 일기 · 情感日记', sub:'오늘의 관계 감정 기록' },
+    translator:  { title:'대화 번역기 · 对话解析器', sub:'상대 말의 진짜 속뜻 · 言下之意' },
+    kakao:       { title:'카톡 분석기 · 聊天分析器', sub:'관심도·답장 추천 · 关注度分析' },
+    diagnosis:   { title:'관계 진단 · 关系诊断', sub:'현재 상태·발전 가능성 · 现状分析' },
+    readcheck:   { title:'읽씹 분석 · 不回消息分析', sub:'무응답 가능성 해석' },
+    reply:       { title:'답장 생성기 · 回复生成器', sub:'톤별 답장 추천 · 风格化回复' },
+    coach:       { title:'성장 코치 · 关系成长', sub:'오늘의 관계 미션 · 今日任务' },
+    aidiag:      { title:'AI 관계 진단 · AI关系诊断', sub:'친밀도·신뢰도 분석' },
+    capture:     { title:'대화 캡처 분석 · 截图分析', sub:'감정·위험 신호 탐지 · 情感检测' },
+    'relmap-add':{ title:'관계 추가·편집 · 添加/编辑', sub:'' },
+    'timeline':  { title:'관계 타임라인 · 关系时间线', sub:'우리 관계의 변화 흐름 · 关系变化历程' },
   };
 
   let NAV = { tab: 'home', page: null };
