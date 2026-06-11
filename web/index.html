@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#ff6b9d" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8C%3C/text%3E%3C/svg%3E" />
+  <title>헤아림 · 연애·인간관계 커뮤니케이션 번역기</title>
+  <meta name="description" content="상대의 진짜 속뜻을 헤아려보세요. 연애·인간관계 커뮤니케이션 번역기." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Pretendard&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <div class="logo">
+        <span class="logo-emoji">💌</span>
+        <div class="logo-text">
+          <h1>헤아림</h1>
+          <p>연애·인간관계 커뮤니케이션 번역기</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <!-- 관계 선택 -->
+      <section class="card">
+        <label class="field-label">누구와의 대화인가요?</label>
+        <div class="chip-group" id="relationGroup">
+          <button class="chip active" data-relation="lover">💑 연인</button>
+          <button class="chip" data-relation="some">💗 썸</button>
+          <button class="chip" data-relation="friend">🧑‍🤝‍🧑 친구</button>
+          <button class="chip" data-relation="family">👨‍👩‍👧 가족</button>
+          <button class="chip" data-relation="work">💼 직장</button>
+        </div>
+      </section>
+
+      <!-- 입력 -->
+      <section class="card">
+        <label class="field-label" for="inputText">상대가 한 말을 그대로 적어주세요</label>
+        <textarea id="inputText" placeholder="예) 나 오늘 좀 피곤해... / 알아서 해 / 됐어 신경 쓰지 마"></textarea>
+        <div class="input-footer">
+          <span class="hint" id="charHint">0자</span>
+          <button class="btn-primary" id="translateBtn">
+            <span class="btn-label">속뜻 번역하기</span>
+          </button>
+        </div>
+        <div class="examples">
+          <span class="examples-label">빠른 예시</span>
+          <button class="ex" data-ex="나 오늘 좀 피곤해">나 오늘 좀 피곤해</button>
+          <button class="ex" data-ex="알아서 해">알아서 해</button>
+          <button class="ex" data-ex="됐어 신경 쓰지 마">됐어 신경 쓰지 마</button>
+          <button class="ex" data-ex="우리 얘기 좀 해">우리 얘기 좀 해</button>
+        </div>
+      </section>
+
+      <!-- 결과 -->
+      <section class="result hidden" id="resultSection">
+        <div class="card result-card">
+          <div class="result-head">
+            <span class="result-badge">진짜 속뜻</span>
+            <div class="emotion-tags" id="emotionTags"></div>
+          </div>
+          <p class="result-meaning" id="resultMeaning"></p>
+          <div class="confidence" id="confidenceBar">
+            <span class="confidence-label">해석 신뢰도</span>
+            <div class="confidence-track"><div class="confidence-fill" id="confidenceFill"></div></div>
+            <span class="confidence-val" id="confidenceVal"></span>
+          </div>
+        </div>
+
+        <div class="card">
+          <label class="field-label">💬 이렇게 답해보세요</label>
+          <div class="reply-list" id="replyList"></div>
+        </div>
+
+        <div class="card tip-card" id="tipCard">
+          <span class="tip-emoji">💡</span>
+          <p id="tipText"></p>
+        </div>
+      </section>
+
+      <div class="loading hidden" id="loading">
+        <div class="spinner"></div>
+        <p>상대의 마음을 헤아리는 중...</p>
+      </div>
+    </main>
+
+    <footer class="app-footer">
+      <p>헤아림 MVP · 해석은 참고용이에요. 진심은 결국 대화로 💗</p>
+    </footer>
+  </div>
+
+  <script src="./js/data.js"></script>
+  <script src="./js/engine.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>

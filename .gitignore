@@ -1,0 +1,23 @@
+# dependencies
+node_modules/
+
+# logs
+*.log
+/tmp/
+
+# playwright
+.playwright-mcp/
+hearim-result.png
+
+# secrets (Firebase / Fastlane)
+fastlane-key.json
+api_key.json
+AuthKey.p8
+key.properties
+*.jks
+.env
+.env.*
+
+# os
+.DS_Store
+Thumbs.db
