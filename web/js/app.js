@@ -21,6 +21,7 @@
     aidiag:     { title:'AI 관계 진단', sub:'친밀도·신뢰도 분석' },
     capture:    { title:'대화 캡처 분석', sub:'감정·위험 신호 탐지' },
     'relmap-add':{ title:'관계 추가·편집', sub:'' },
+    'timeline':  { title:'관계 타임라인', sub:'우리 관계의 변화 흐름' },
   };
 
   let NAV = { tab: 'home', page: null };

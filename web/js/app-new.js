@@ -5,7 +5,7 @@
 (function () {
   const $ = (s, r) => (r || document).querySelector(s);
   const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
-  const R = window.HearimRelations, D = window.HearimDiary;
+  const R = window.HearimRelations, D = window.HearimDiary, TL = window.HearimTimeline;
   const { esc, shake } = window.HU;
   const { showPage, goBack } = window.HN;
 
@@ -48,6 +48,7 @@
             <div class="rel-stat"><span class="stat-l">갈등</span><div class="stat-track"><div class="stat-fill ${conflClass}" style="width:${conflPct}%"></div></div><span class="stat-v">${conflLabel}</span></div>
           </div>
           <div class="rel-actions">
+            <button class="rel-action-btn primary" data-id="${p.id}" data-action="timeline">타임라인</button>
             <button class="rel-action-btn" data-id="${p.id}" data-action="edit">편집</button>
             <button class="rel-action-btn danger" data-id="${p.id}" data-action="delete">삭제</button>
           </div>
@@ -57,8 +58,9 @@
     $$('.rel-action-btn', cards).forEach(btn => {
       btn.addEventListener('click', e => {
         const { id, action } = e.currentTarget.dataset;
-        if (action === 'delete') { if (confirm('삭제할까요?')) { R.remove(id); renderRelmap(); window.HU._refreshHome?.(); } }
-        if (action === 'edit')   { openRelForm(id); }
+        if (action === 'delete')   { if (confirm('삭제할까요?')) { R.remove(id); renderRelmap(); window.HU._refreshHome?.(); } }
+        if (action === 'edit')     { openRelForm(id); }
+        if (action === 'timeline') { openTimeline(id); }
       });
     });
   }
@@ -164,7 +166,10 @@
     // save
     $('#diarySaveBtn').addEventListener('click',()=>{
       const people=$('#diaryPeople').value.split(/[,，\s]+/).map(s=>s.trim()).filter(Boolean);
-      D.saveEntry({ mood:selectedMood, people, note:$('#diaryNote').value.trim() });
+      const note=$('#diaryNote').value.trim();
+      D.saveEntry({ mood:selectedMood, people, note });
+      // 타임라인 자동 기록
+      TL?.autoRecordFromDiary(people, selectedMood, note);
       $('#diarySavedBadge').classList.remove('hidden');
       setTimeout(()=>$('#diarySavedBadge').classList.add('hidden'),2000);
       renderDiaryHistory(); renderDiaryPattern(); window.HU._refreshHome?.();
@@ -201,8 +206,128 @@
     $('#diaryPatternText').textContent=p.insight;
   }
 
+  // ==================== 관계 타임라인 ====================
+  let tlPersonId = null;
+  let tlSelectedType = 'positive';
+
+  function openTimeline(personId) {
+    tlPersonId = personId;
+    const p = R.getAll().find(x => x.id === personId);
+    if (!p) return;
+    // 헤더
+    const hdr = $('#tlPersonHeader');
+    hdr.innerHTML = `
+      <span class="tl-ph-emoji">${esc(p.emoji)}</span>
+      <div class="tl-ph-info">
+        <div class="tl-ph-name">${esc(p.name)}</div>
+        <div class="tl-ph-type">${esc(R.TYPE_LABEL[p.type]||p.type)}</div>
+      </div>`;
+    // 폼 초기화
+    const today = new Date();
+    const pad = n => String(n).padStart(2,'0');
+    $('#tlDate').value = `${today.getFullYear()}-${pad(today.getMonth()+1)}-${pad(today.getDate())}`;
+    $('#tlTitle').value = '';
+    $('#tlNote').value = '';
+    tlSelectedType = 'positive';
+    $$('#tlTypeRow .tl-type-btn').forEach(b => b.classList.toggle('active', b.dataset.type === 'positive'));
+    $('#tlAddForm').classList.add('hidden');
+    renderTimeline();
+    showPage('timeline');
+  }
+
+  function renderTimeline() {
+    if (!tlPersonId) return;
+    const sum = TL.getSummary(tlPersonId);
+    const sumCard = $('#tlSummaryCard'), insCard = $('#tlInsight');
+    if (sum) {
+      sumCard.classList.remove('hidden');
+      sumCard.innerHTML = `
+        <div class="tl-sum-top">
+          <span class="tl-sum-label">관계 건강도</span>
+          <span class="tl-sum-trend">${esc(sum.trend)}</span>
+        </div>
+        <div class="tl-health-track"><div class="tl-health-fill" style="width:${sum.health}%"></div></div>
+        <div class="tl-sum-bottom">
+          <span>${sum.health}점</span>
+          <span>총 ${sum.count}개 기록 · ${sum.days > 0 ? sum.days + '일 동안' : '오늘 시작'}</span>
+          <span>💚${sum.pos} ❤️${sum.neg}</span>
+        </div>`;
+      insCard.classList.remove('hidden');
+      insCard.innerHTML = `<span style="font-size:18px">✨</span> ${esc(sum.insight)}`;
+    } else {
+      sumCard.classList.add('hidden');
+      insCard.classList.add('hidden');
+    }
+
+    const events = TL.getEvents(tlPersonId);
+    const cont = $('#tlEvents'), empty = $('#tlEmpty');
+    if (!events.length) {
+      cont.innerHTML = ''; empty.classList.remove('hidden'); return;
+    }
+    empty.classList.add('hidden');
+    cont.innerHTML = events.map(ev => {
+      const t = TL.TYPE[ev.type] || TL.TYPE.neutral;
+      const srcLabel = ev.source === 'diary' ? '📔 일기 자동' : ev.source === 'system' ? '🤖 시스템' : '';
+      return `
+        <div class="tl-event" style="--dot-color:${t.dot}">
+          <div class="tl-ev-date">${esc(ev.date)}</div>
+          <div class="tl-ev-head">
+            <span class="tl-ev-emoji">${t.emoji}</span>
+            <span class="tl-ev-title">${esc(ev.title)}</span>
+            <button class="tl-ev-del" data-eid="${ev.id}" title="삭제">×</button>
+          </div>
+          <span class="tl-ev-type" style="background:${t.color}">${t.label}</span>
+          ${ev.note ? `<div class="tl-ev-note">${esc(ev.note)}</div>` : ''}
+          ${srcLabel ? `<div class="tl-ev-src">${srcLabel}</div>` : ''}
+        </div>`;
+    }).join('');
+
+    $$('.tl-ev-del', cont).forEach(btn => {
+      btn.addEventListener('click', e => {
+        TL.removeEvent(tlPersonId, e.currentTarget.dataset.eid);
+        renderTimeline();
+      });
+    });
+  }
+
+  function initTimelineForm() {
+    // 토글 버튼
+    $('#tlAddToggle').addEventListener('click', () => {
+      const form = $('#tlAddForm');
+      form.classList.toggle('hidden');
+      if (!form.classList.contains('hidden')) form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+    $('#tlCancelBtn').addEventListener('click', () => $('#tlAddForm').classList.add('hidden'));
+
+    // 타입 버튼
+    $$('#tlTypeRow .tl-type-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        $$('#tlTypeRow .tl-type-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        tlSelectedType = btn.dataset.type;
+      });
+    });
+
+    // 저장
+    $('#tlSaveEventBtn').addEventListener('click', () => {
+      const title = $('#tlTitle').value.trim();
+      if (!title) return shake($('#tlTitle'));
+      TL.addEvent(tlPersonId, {
+        date:  $('#tlDate').value,
+        type:  tlSelectedType,
+        title,
+        note:  $('#tlNote').value.trim(),
+        source: 'manual',
+      });
+      $('#tlTitle').value = ''; $('#tlNote').value = '';
+      $('#tlAddForm').classList.add('hidden');
+      renderTimeline();
+    });
+  }
+
   // ==================== init ====================
   initRelForm();
   initDiary();
+  initTimelineForm();
   renderRelmap();
 })();

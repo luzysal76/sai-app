@@ -266,6 +266,39 @@
       </div>
     </section>
 
+    <!-- 관계 타임라인 (NEW) -->
+    <section class="page hidden" id="page-timeline">
+      <div class="tl-person-header" id="tlPersonHeader"></div>
+      <div class="card tl-summary-card hidden" id="tlSummaryCard"></div>
+      <div class="card tl-insight hidden" id="tlInsight"></div>
+      <button class="btn-ghost" id="tlAddToggle">+ 이벤트 직접 추가</button>
+      <div class="card hidden" id="tlAddForm">
+        <label class="field-label">날짜</label>
+        <input type="date" id="tlDate" class="text-input"/>
+        <label class="field-label mt">어떤 일이 있었나요?</label>
+        <div class="tl-type-row" id="tlTypeRow">
+          <button class="tl-type-btn active" data-type="positive">😊 좋은 일</button>
+          <button class="tl-type-btn" data-type="neutral">😐 일상</button>
+          <button class="tl-type-btn" data-type="negative">😢 힘든 일</button>
+          <button class="tl-type-btn" data-type="milestone">⭐ 특별한 날</button>
+          <button class="tl-type-btn" data-type="recovery">🌈 회복</button>
+        </div>
+        <label class="field-label mt">제목</label>
+        <input type="text" id="tlTitle" class="text-input" placeholder="예) 오래 통화함, 갈등이 생겼어"/>
+        <label class="field-label mt">메모 (선택)</label>
+        <textarea id="tlNote" placeholder="간단히 기록해두세요" style="min-height:72px"></textarea>
+        <button class="btn-primary mt" id="tlSaveEventBtn">기록하기</button>
+        <button class="btn-ghost" id="tlCancelBtn" style="margin-top:8px">취소</button>
+      </div>
+      <div class="tl-events-wrap">
+        <div id="tlEvents"></div>
+        <div class="tl-empty hidden" id="tlEmpty">
+          <span>🗓️</span>
+          <p>아직 기록이 없어요<br/>일기를 쓰거나 위에서 직접 추가해보세요 💗</p>
+        </div>
+      </div>
+    </section>
+
     <!-- 관계 추가/편집 (relmap sub) -->
     <section class="page hidden" id="page-relmap-add">
       <div class="card">
@@ -309,6 +342,7 @@
 <script src="./js/analyzers.js"></script>
 <script src="./js/relations.js"></script>
 <script src="./js/diary.js"></script>
+<script src="./js/timeline.js"></script>
 <script src="./js/app.js"></script>
 <script src="./js/app-new.js"></script>
 </body>
