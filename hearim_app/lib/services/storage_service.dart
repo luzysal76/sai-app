@@ -148,7 +148,7 @@ class StorageService {
     for (final name in mentionedNames) {
       final person = persons.firstWhere(
         (p) => p.name.contains(name) || name.contains(p.name),
-        orElse: () => Person(id: ''),
+        orElse: () => Person(id: '', name: ''),
       );
       if (person.id.isEmpty) continue;
 
