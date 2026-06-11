@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#ff6b9d" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8C%3C/text%3E%3C/svg%3E" />
   <title>헤아림 · 연애·인간관계 커뮤니케이션 번역기</title>
-  <meta name="description" content="상대의 진짜 속뜻을 헤아려보세요. 연애·인간관계 커뮤니케이션 번역기." />
+  <meta name="description" content="상대의 진짜 속뜻을 헤아려보세요. 대화 번역, 카톡 분석, 관계 진단, 읽씹 분석, 답장 생성." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Pretendard&display=swap" rel="stylesheet" />
@@ -15,86 +15,188 @@
 <body>
   <div class="app">
     <header class="app-header">
-      <div class="logo">
+      <button class="back-btn hidden" id="backBtn" aria-label="뒤로">←</button>
+      <div class="logo" id="homeLogo">
         <span class="logo-emoji">💌</span>
         <div class="logo-text">
-          <h1>헤아림</h1>
-          <p>연애·인간관계 커뮤니케이션 번역기</p>
+          <h1 id="headerTitle">헤아림</h1>
+          <p id="headerSub">연애·인간관계 커뮤니케이션 번역기</p>
         </div>
       </div>
     </header>
 
     <main class="app-main">
-      <!-- 관계 선택 -->
-      <section class="card">
-        <label class="field-label">누구와의 대화인가요?</label>
-        <div class="chip-group" id="relationGroup">
-          <button class="chip active" data-relation="lover">💑 연인</button>
-          <button class="chip" data-relation="some">💗 썸</button>
-          <button class="chip" data-relation="friend">🧑‍🤝‍🧑 친구</button>
-          <button class="chip" data-relation="family">👨‍👩‍👧 가족</button>
-          <button class="chip" data-relation="work">💼 직장</button>
+      <!-- ===== HOME ===== -->
+      <section class="view" id="view-home">
+        <div class="hero">
+          <p class="hero-text">상대의 말, 진짜 속뜻이 궁금할 때<br /><b>헤아림</b>이 대신 읽어드려요 💗</p>
+        </div>
+        <div class="feature-grid" id="featureGrid">
+          <button class="feature-card" data-go="translator"><span class="fc-emoji">💬</span><span class="fc-title">대화 번역기</span><span class="fc-desc">속뜻·숨은감정 분석</span></button>
+          <button class="feature-card" data-go="kakao"><span class="fc-emoji">💕</span><span class="fc-title">카톡 분석기</span><span class="fc-desc">관심도·답장 추천</span></button>
+          <button class="feature-card" data-go="diagnosis"><span class="fc-emoji">🩺</span><span class="fc-title">관계 진단</span><span class="fc-desc">현재 상태·발전 가능성</span></button>
+          <button class="feature-card" data-go="readcheck"><span class="fc-emoji">📵</span><span class="fc-title">읽씹 분석</span><span class="fc-desc">무응답 가능성 해석</span></button>
+          <button class="feature-card" data-go="reply"><span class="fc-emoji">✍️</span><span class="fc-title">답장 생성기</span><span class="fc-desc">톤별 답장 추천</span></button>
+          <button class="feature-card" data-go="coach"><span class="fc-emoji">🌱</span><span class="fc-title">성장 코치</span><span class="fc-desc">오늘의 관계 미션</span></button>
         </div>
       </section>
 
-      <!-- 입력 -->
-      <section class="card">
-        <label class="field-label" for="inputText">상대가 한 말을 그대로 적어주세요</label>
-        <textarea id="inputText" placeholder="예) 나 오늘 좀 피곤해... / 알아서 해 / 됐어 신경 쓰지 마"></textarea>
-        <div class="input-footer">
-          <span class="hint" id="charHint">0자</span>
-          <button class="btn-primary" id="translateBtn">
-            <span class="btn-label">속뜻 번역하기</span>
-          </button>
-        </div>
-        <div class="examples">
-          <span class="examples-label">빠른 예시</span>
-          <button class="ex" data-ex="나 오늘 좀 피곤해">나 오늘 좀 피곤해</button>
-          <button class="ex" data-ex="알아서 해">알아서 해</button>
-          <button class="ex" data-ex="됐어 신경 쓰지 마">됐어 신경 쓰지 마</button>
-          <button class="ex" data-ex="우리 얘기 좀 해">우리 얘기 좀 해</button>
-        </div>
-      </section>
-
-      <!-- 결과 -->
-      <section class="result hidden" id="resultSection">
-        <div class="card result-card">
-          <div class="result-head">
-            <span class="result-badge">진짜 속뜻</span>
-            <div class="emotion-tags" id="emotionTags"></div>
-          </div>
-          <p class="result-meaning" id="resultMeaning"></p>
-          <div class="confidence" id="confidenceBar">
-            <span class="confidence-label">해석 신뢰도</span>
-            <div class="confidence-track"><div class="confidence-fill" id="confidenceFill"></div></div>
-            <span class="confidence-val" id="confidenceVal"></span>
-          </div>
-        </div>
-
+      <!-- ===== 1. 대화 번역기 ===== -->
+      <section class="view hidden" id="view-translator">
         <div class="card">
-          <label class="field-label">💬 이렇게 답해보세요</label>
-          <div class="reply-list" id="replyList"></div>
+          <label class="field-label">누구와의 대화인가요?</label>
+          <div class="chip-group relation-group"></div>
         </div>
-
-        <div class="card tip-card" id="tipCard">
-          <span class="tip-emoji">💡</span>
-          <p id="tipText"></p>
+        <div class="card">
+          <label class="field-label" for="trInput">상대가 한 말을 그대로 적어주세요</label>
+          <textarea id="trInput" placeholder="예) 괜찮아. / 알아서 해 / 다음에 보자"></textarea>
+          <div class="examples" data-target="trInput">
+            <span class="examples-label">예시</span>
+            <button class="ex" data-ex="괜찮아.">괜찮아</button>
+            <button class="ex" data-ex="알아서 해">알아서 해</button>
+            <button class="ex" data-ex="다음에 보자">다음에 보자</button>
+          </div>
+          <button class="btn-primary" id="trBtn">속뜻 번역하기</button>
+        </div>
+        <div class="result hidden" id="trResult">
+          <div class="card result-card">
+            <div class="two-col">
+              <div class="mini"><span class="mini-label">표면 의미</span><p class="mini-val" id="trSurface"></p></div>
+              <div class="mini"><span class="mini-label">숨은 감정</span><p class="mini-val" id="trHidden"></p></div>
+            </div>
+            <div class="emotion-tags" id="trEmotions"></div>
+            <div class="poss-block" id="trPoss"></div>
+            <div class="confidence"><span class="confidence-label">신뢰도</span><div class="confidence-track"><div class="confidence-fill" id="trConf"></div></div><span class="confidence-val" id="trConfVal"></span></div>
+          </div>
+          <div class="card action-card"><span class="action-emoji">🎯</span><div><span class="action-label">추천 행동</span><p id="trAction"></p></div></div>
+          <div class="card tip-card"><span class="tip-emoji">💡</span><p id="trTip"></p></div>
         </div>
       </section>
 
-      <div class="loading hidden" id="loading">
-        <div class="spinner"></div>
-        <p>상대의 마음을 헤아리는 중...</p>
-      </div>
+      <!-- ===== 2. 카톡 분석기 ===== -->
+      <section class="view hidden" id="view-kakao">
+        <div class="card">
+          <label class="field-label" for="kkInput">대화 내용을 붙여넣으세요</label>
+          <textarea id="kkInput" class="tall" placeholder="카톡 대화를 그대로 복사해서 붙여넣어 주세요.&#10;예)&#10;나: 오늘 뭐했어?&#10;상대: ㅋㅋ 집에서 쉬었지~ 너는?&#10;나: 나도! 다음에 같이 영화 볼래?&#10;상대: 오 좋아좋아 😊"></textarea>
+          <button class="btn-primary" id="kkBtn">관심도 분석하기</button>
+        </div>
+        <div class="result hidden" id="kkResult">
+          <div class="card result-card center">
+            <span class="score-label">상대 관심도</span>
+            <div class="big-score" id="kkScore">0점</div>
+            <div class="hearts" id="kkHearts"></div>
+            <div class="thermo" id="kkThermo"></div>
+            <div class="emotion-tags center-tags" id="kkEmotions"></div>
+          </div>
+          <div class="card"><label class="field-label">💬 추천 답장 3종</label><div class="reply-list" id="kkReplies"></div></div>
+          <div class="card tip-card"><span class="tip-emoji">💡</span><p id="kkTip"></p></div>
+        </div>
+      </section>
+
+      <!-- ===== 3. 관계 진단 ===== -->
+      <section class="view hidden" id="view-diagnosis">
+        <div class="card">
+          <label class="field-label">관계를 선택하세요</label>
+          <div class="chip-group relation-group"></div>
+        </div>
+        <div class="card">
+          <div class="q-block">
+            <span class="q-label">상대의 답장 속도는?</span>
+            <div class="seg" data-q="reply"><button data-v="0">느림</button><button data-v="1" class="active">보통</button><button data-v="2">빠름</button></div>
+          </div>
+          <div class="q-block">
+            <span class="q-label">만남/통화 빈도는?</span>
+            <div class="seg" data-q="meet"><button data-v="0">드묾</button><button data-v="1" class="active">보통</button><button data-v="2">잦음</button></div>
+          </div>
+          <div class="q-block">
+            <span class="q-label">먼저 연락하는 쪽은?</span>
+            <div class="seg" data-q="first"><button data-v="0">주로 나</button><button data-v="1" class="active">반반</button><button data-v="2">주로 상대</button></div>
+          </div>
+          <button class="btn-primary" id="dgBtn">관계 진단하기</button>
+        </div>
+        <div class="result hidden" id="dgResult">
+          <div class="card result-card center">
+            <span class="result-badge" id="dgStage"></span>
+            <div class="thermo" id="dgThermo"></div>
+            <div class="two-col mt">
+              <div class="mini"><span class="mini-label">관심도</span><p class="mini-val big" id="dgScore"></p></div>
+              <div class="mini"><span class="mini-label">발전 가능성</span><p class="mini-val big" id="dgPotential"></p></div>
+            </div>
+          </div>
+          <div class="card action-card"><span class="action-emoji">🎯</span><div><span class="action-label">추천</span><p id="dgAdvice"></p></div></div>
+        </div>
+      </section>
+
+      <!-- ===== 4. 읽씹 분석 ===== -->
+      <section class="view hidden" id="view-readcheck">
+        <div class="card">
+          <label class="field-label">관계를 선택하세요</label>
+          <div class="chip-group relation-group"></div>
+        </div>
+        <div class="card">
+          <label class="field-label" for="rcInput">답장 없이 지난 시간 (시간 단위)</label>
+          <div class="num-row">
+            <input type="number" id="rcInput" min="0" max="168" value="8" />
+            <span class="num-unit">시간째</span>
+          </div>
+          <div class="examples quick-hours">
+            <button class="ex" data-h="1">1시간</button>
+            <button class="ex" data-h="8">8시간</button>
+            <button class="ex" data-h="24">하루</button>
+            <button class="ex" data-h="72">3일</button>
+          </div>
+          <button class="btn-primary" id="rcBtn">가능성 분석하기</button>
+        </div>
+        <div class="result hidden" id="rcResult">
+          <div class="card result-card">
+            <div class="rc-head"><span class="result-badge" id="rcHours"></span><span class="worry" id="rcWorry"></span></div>
+            <div class="poss-block" id="rcPoss"></div>
+          </div>
+          <div class="card warn-card"><span class="warn-emoji">⚠️</span><p id="rcCaution"></p></div>
+          <div class="card tip-card"><span class="tip-emoji">💡</span><p id="rcTip"></p></div>
+        </div>
+      </section>
+
+      <!-- ===== 5. 답장 생성기 ===== -->
+      <section class="view hidden" id="view-reply">
+        <div class="card">
+          <label class="field-label">관계를 선택하세요</label>
+          <div class="chip-group relation-group"></div>
+        </div>
+        <div class="card">
+          <label class="field-label" for="rpInput">상대가 보낸 말</label>
+          <textarea id="rpInput" placeholder="예) 오늘 너무 힘들다"></textarea>
+          <button class="btn-primary" id="rpBtn">답장 생성하기</button>
+        </div>
+        <div class="result hidden" id="rpResult">
+          <div class="card"><label class="field-label">✍️ 톤별 추천 답장 (탭하면 복사)</label><div class="reply-list" id="rpReplies"></div></div>
+          <div class="card tip-card"><span class="tip-emoji">💡</span><p id="rpNote"></p></div>
+        </div>
+      </section>
+
+      <!-- ===== 6. 성장 코치 ===== -->
+      <section class="view hidden" id="view-coach">
+        <div class="card">
+          <label class="field-label">관계를 선택하세요</label>
+          <div class="chip-group relation-group"></div>
+        </div>
+        <div class="card coach-card">
+          <div class="coach-head"><span class="coach-emoji">🌱</span><div><span class="action-label">오늘의 미션</span><p class="coach-sub">작은 행동이 관계를 키워요</p></div></div>
+          <div class="mission-list" id="missionList"></div>
+          <div class="coach-progress"><div class="coach-bar"><div class="coach-fill" id="coachFill"></div></div><span id="coachCount">0/3</span></div>
+          <button class="btn-ghost" id="coachRefresh">미션 새로고침 🔄</button>
+        </div>
+      </section>
+
+      <div class="loading hidden" id="loading"><div class="spinner"></div><p>상대의 마음을 헤아리는 중...</p></div>
     </main>
 
-    <footer class="app-footer">
-      <p>헤아림 MVP · 해석은 참고용이에요. 진심은 결국 대화로 💗</p>
-    </footer>
+    <footer class="app-footer"><p>헤아림 MVP · 해석은 참고용이에요. 진심은 결국 대화로 💗</p></footer>
   </div>
 
   <script src="./js/data.js"></script>
   <script src="./js/engine.js"></script>
+  <script src="./js/analyzers.js"></script>
   <script src="./js/app.js"></script>
 </body>
 </html>

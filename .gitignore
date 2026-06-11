@@ -5,8 +5,9 @@ node_modules/
 *.log
 /tmp/
 
-# playwright
+# playwright / test screenshots
 .playwright-mcp/
+*.jpeg
 hearim-result.png
 
 # secrets (Firebase / Fastlane)
