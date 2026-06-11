@@ -158,12 +158,17 @@
     $('#trBtn').addEventListener('click',()=>{
       const text=$('#trInput').value.trim(); if(!text)return shake($('#trInput'));
       withLoading('trResult', async()=>{
-        const r=await E.translate(text,relOf('#page-translator'),{apiEndpoint:''});
-        $('#trSurface').textContent=r.surface; $('#trHidden').textContent=r.hidden;
-        renderTags($('#trEmotions'),r.emotions); renderPoss($('#trPoss'),r.possibilities);
-        $('#trAction').textContent=r.action; $('#trTip').textContent=r.tip||'';
-        const c=$('#trConf'); requestAnimationFrame(()=>c.style.width=r.confidence+'%');
-        $('#trConfVal').textContent=r.confidence+'%';
+        const r=await E.translate(text, relOf('#page-translator'));
+        $('#trSurface').textContent=r.surface||''; $('#trHidden').textContent=r.hidden||'';
+        renderTags($('#trEmotions'),r.emotions||[]); renderPoss($('#trPoss'),r.possibilities||[]);
+        $('#trAction').textContent=r.action||''; $('#trTip').textContent=r.tip||'';
+        const conf=r.confidence||75;
+        const c=$('#trConf'); requestAnimationFrame(()=>c.style.width=conf+'%');
+        $('#trConfVal').textContent=conf+'%';
+        if(r.replies?.length) renderReplies($('#trResult .reply-list')||document.createElement('div'),r.replies);
+        // AI 사용 여부 표시
+        const badge=r.source==='claude'?'🤖 Claude AI 분석':'📚 DB 분석';
+        $('#trTip').textContent=(r.tip||'')+' ('+badge+')';
       });
     });
   }
@@ -172,12 +177,16 @@
   function initKakao() {
     $('#kkBtn').addEventListener('click',()=>{
       const text=$('#kkInput').value.trim(); if(!text)return shake($('#kkInput'));
-      withLoading('kkResult',()=>{
-        const r=A.analyzeKakao(text);
-        $('#kkScore').textContent=r.score+'점'; $('#kkHearts').textContent=r.hearts;
+      withLoading('kkResult', async()=>{
+        // Claude AI 우선 시도, 실패 시 DB fallback
+        let r = await E.translateKakao(text, relOf('#page-kakao'));
+        if (!r) r = A.analyzeKakao(text);
+        $('#kkScore').textContent=r.score+'점';
+        const hearts='❤️'.repeat(Math.min(5,Math.round((r.hearts||r.score/20)))).padEnd(0,'🤍')||'';
+        $('#kkHearts').textContent=hearts;
         renderThermo($('#kkThermo'),E.temperature(r.score));
-        renderTags($('#kkEmotions'),r.emotions);
-        renderReplies($('#kkReplies'),r.replies); $('#kkTip').textContent=r.tip;
+        renderTags($('#kkEmotions'),r.emotions||[]);
+        renderReplies($('#kkReplies'),r.replies||[]); $('#kkTip').textContent=r.tip||'';
       });
     });
   }
@@ -248,13 +257,15 @@
     $('#adBtn').addEventListener('click',()=>{
       const chat=$('#adChat').value.trim(), concern=$('#adConcern').value.trim();
       if(!chat&&!concern)return shake($('#adChat'));
-      withLoading('adResult',()=>{
-        const r=A.analyzeAiDiag(chat,concern,relOf('#page-aidiag'));
+      withLoading('adResult', async()=>{
+        // Claude AI 우선, 실패 시 로컬 분석
+        let r = await E.translateDiag(chat, concern, relOf('#page-aidiag'));
+        if (!r) r = A.analyzeAiDiag(chat, concern, relOf('#page-aidiag'));
         const metrics=[
-          {icon:'💗',label:'친밀도',val:r.affinity,color:'#ff6b9d'},
-          {icon:'🤝',label:'신뢰도',val:r.trust,color:'#a06bff'},
-          {icon:'💙',label:'감정 안정성',val:r.stability,color:'#4a9eff'},
-          {icon:'💬',label:'소통 만족도',val:r.satisfaction,color:'#41c46e'},
+          {icon:'💗',label:'친밀도 / 亲密度',val:r.affinity,color:'#ff6b9d'},
+          {icon:'🤝',label:'신뢰도 / 信任度',val:r.trust,color:'#6b4eaa'},
+          {icon:'💙',label:'감정 안정성 / 稳定性',val:r.stability,color:'#4a9eff'},
+          {icon:'💬',label:'소통 만족도 / 沟通满意度',val:r.satisfaction,color:'#41c46e'},
         ];
         const grid=$('#adGrid');
         grid.innerHTML=metrics.map(m=>`
@@ -267,6 +278,9 @@
           $$('.am-val',grid).forEach((el,i)=>{ el.textContent=metrics[i].val+'%'; });
           $$('.am-fill',grid).forEach((el,i)=>{ el.style.width=metrics[i].val+'%'; });
         });
+        // AI 인사이트 표시
+        if(r.insight) { $('#adNote').textContent=r.insight; }
+        else if(r.source==='claude') { $('#adNote').textContent='Claude AI 분석 결과예요. 数据来自AI分析。'; }
       });
     });
   }

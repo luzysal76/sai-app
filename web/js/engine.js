@@ -73,25 +73,69 @@
     return { icon: '❄', label: '거리감', desc: '거리두기 신호에 주의', level: 1 };
   }
 
+  async function callApi(endpoint, body) {
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    if (!res.ok) throw new Error('API ' + res.status);
+    return res.json();
+  }
+
+  /**
+   * translate: DB 매칭 → (폴백 시) Claude API 호출
+   * opts.apiEndpoint 가 있으면 그걸 우선. 없으면 window.HEARIM_CONFIG 참조.
+   */
   async function translate(rawText, relation, options) {
     const opts = options || {};
+    const cfg  = window.HEARIM_CONFIG;
     const dbResult = interpret(rawText, relation);
-    const useApi = opts.apiEndpoint && (!dbResult || dbResult.source === 'fallback');
-    if (!useApi) return dbResult;
+
+    // DB 매칭 성공 + AI 꺼진 경우 → DB 결과 즉시 반환
+    const useAI = cfg ? cfg.useAI : false;
+    if (!useAI && dbResult && dbResult.source === 'db') return dbResult;
+
+    // API 엔드포인트 결정
+    const endpoint = opts.apiEndpoint || cfg?.api?.translate;
+    if (!endpoint) return dbResult;
+
+    // DB 폴백이면 항상 AI 호출. DB 매칭도 AI 보완 가능(opts.always 시).
+    const shouldCall = !dbResult || dbResult.source !== 'db' || opts.always;
+    if (!shouldCall) return dbResult;
+
     try {
-      const res = await fetch(opts.apiEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: rawText, relation }),
-      });
-      if (!res.ok) throw new Error('API ' + res.status);
-      const data = await res.json();
-      return { source: 'api', ...data };
+      const data = await callApi(endpoint, { text: rawText, relation });
+      return { source: 'claude', ...data };
     } catch (e) {
-      console.warn('[헤아림] API 폴백 실패, DB 사용:', e.message);
+      console.warn('[헤아림] Claude API 실패, DB 사용:', e.message);
       return dbResult;
     }
   }
 
-  window.HearimEngine = { normalize, interpret, temperature, translate };
+  /** 카톡 분석 AI 호출 */
+  async function translateKakao(text, relation) {
+    const cfg = window.HEARIM_CONFIG;
+    if (!cfg?.useAI || !cfg?.api?.analyzeKakao) return null;
+    try {
+      return await callApi(cfg.api.analyzeKakao, { text, relation });
+    } catch (e) {
+      console.warn('[헤아림] Kakao AI 실패:', e.message);
+      return null;
+    }
+  }
+
+  /** AI 관계 진단 호출 */
+  async function translateDiag(chat, concern, relation) {
+    const cfg = window.HEARIM_CONFIG;
+    if (!cfg?.useAI || !cfg?.api?.diagRelation) return null;
+    try {
+      return await callApi(cfg.api.diagRelation, { chat, concern, relation });
+    } catch (e) {
+      console.warn('[헤아림] Diag AI 실패:', e.message);
+      return null;
+    }
+  }
+
+  window.HearimEngine = { normalize, interpret, temperature, translate, translateKakao, translateDiag };
 })();

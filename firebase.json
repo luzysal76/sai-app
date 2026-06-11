@@ -1,0 +1,33 @@
+{
+  "functions": {
+    "source": "functions",
+    "runtime": "nodejs20"
+  },
+  "hosting": {
+    "public": "web",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "/api/translate",
+        "function": "translate"
+      },
+      {
+        "source": "/api/analyzeKakao",
+        "function": "analyzeKakao"
+      },
+      {
+        "source": "/api/diagRelation",
+        "function": "diagRelation"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "emulators": {
+    "functions": { "port": 5001 },
+    "hosting": { "port": 5000 },
+    "ui": { "enabled": true, "port": 4000 }
+  }
+}

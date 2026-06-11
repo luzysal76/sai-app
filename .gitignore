@@ -18,6 +18,11 @@ key.properties
 *.jks
 .env
 .env.*
+.secret
+
+# Firebase
+.firebase/
+functions/.env*
 
 # os
 .DS_Store
