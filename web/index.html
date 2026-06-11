@@ -86,6 +86,8 @@
         <button class="feature-card" data-go="coach"><span class="fc-emoji">🌱</span><span class="fc-title">성장 코치<span class="zh">关系成长</span></span><span class="fc-desc">오늘의 관계 미션 · 今日关系任务</span></button>
         <button class="feature-card" data-go="aidiag"><span class="fc-emoji">🔍</span><span class="fc-title">AI 관계 진단<span class="zh">AI关系诊断</span></span><span class="fc-desc">친밀도·신뢰도·안정성 · 亲密度·信任度</span></button>
         <button class="feature-card" data-go="capture"><span class="fc-emoji">📸</span><span class="fc-title">대화 캡처 분석<span class="zh">截图分析</span></span><span class="fc-desc">감정·위험 신호 탐지 · 情感·危险信号</span></button>
+        <button class="feature-card" data-go="dictionary"><span class="fc-emoji">📖</span><span class="fc-title">표현 사전<span class="zh">表达词典</span></span><span class="fc-desc">68종 속뜻 검색 · 68种言下之意</span></button>
+        <button class="feature-card" data-go="scenario"><span class="fc-emoji">🎭</span><span class="fc-title">대화 시나리오<span class="zh">对话场景</span></span><span class="fc-desc">상황별 대화 가이드 · 场景对话指南</span></button>
       </div>
     </div>
 
@@ -129,7 +131,10 @@
           <button class="ex" data-ex="다음에 보자">다음에 보자</button>
           <button class="ex" data-ex="화 안 났어">화 안 났어</button>
         </div>
-        <button class="btn-primary" id="trBtn">속뜻 번역하기 · 解析言下之意</button>
+        <div class="tr-btn-row">
+          <button class="btn-primary" id="trBtn">속뜻 번역하기 · 解析言下之意</button>
+          <button class="mic-btn" id="trMicBtn" title="음성 입력 · 语音输入">🎤</button>
+        </div>
       </div>
       <div class="result hidden" id="trResult">
         <div class="card result-card">
@@ -138,8 +143,18 @@
           <div class="poss-block" id="trPoss"></div>
           <div class="confidence"><span class="confidence-label">신뢰도 <span class="zh-inline">可信度</span></span><div class="confidence-track"><div class="confidence-fill" id="trConf"></div></div><span class="confidence-val" id="trConfVal"></span></div>
         </div>
+        <div class="redflag-card hidden" id="trRedFlag">
+          <div class="rf-head"><span id="rfLabel"></span></div>
+          <p id="rfDesc"></p>
+          <div class="rf-btns">
+            <button class="rf-guide-btn" id="rfGuideBtn">💬 대화 가이드</button>
+            <button class="rf-counsel-btn hidden" id="rfCounselBtn">📞 전문가 상담</button>
+          </div>
+          <div class="rf-guide-text hidden" id="rfGuideText"></div>
+        </div>
         <div class="card action-card"><span class="action-emoji">🎯</span><div><span class="action-label">추천 행동 <span class="zh-inline">推荐行动</span></span><p id="trAction"></p></div></div>
         <div class="card tip-card"><span class="tip-emoji">💡</span><p id="trTip"></p></div>
+        <button class="share-btn" id="trShareBtn">🔗 결과 공유 · 分享结果</button>
       </div>
     </section>
 
@@ -299,6 +314,24 @@
       </div>
     </section>
 
+    <!-- ===== 표현 사전 ===== -->
+    <section class="page hidden" id="page-dictionary">
+      <div class="dict-search-wrap">
+        <span class="dict-search-icon">🔍</span>
+        <input type="search" id="dictSearch" class="dict-search" placeholder="표현 검색 · 搜索表达 (예: 괜찮아, 알아서 해)"/>
+      </div>
+      <div class="dict-index-bar" id="dictIndex"></div>
+      <div class="dict-count" id="dictCount"></div>
+      <div class="dict-list" id="dictList"></div>
+    </section>
+
+    <!-- ===== 대화 시나리오 ===== -->
+    <section class="page hidden" id="page-scenario">
+      <p class="section-label">상황을 선택하세요 · 选择对话场景</p>
+      <div class="sc-grid" id="scenarioGrid"></div>
+      <div class="sc-detail hidden" id="scenarioDetail"></div>
+    </section>
+
     <!-- 관계 추가/편집 (relmap sub) -->
     <section class="page hidden" id="page-relmap-add">
       <div class="card">
@@ -329,6 +362,9 @@
     <div class="loading hidden" id="loading"><div class="spinner"></div><p>상대의 마음을 헤아리는 중... · 分析中...</p></div>
   </main>
 
+  <!-- 사전 상세 모달 -->
+  <div class="dict-modal hidden" id="dictModal"></div>
+
   <nav class="bottom-nav">
     <button class="tab-btn active" data-tab="home"><span class="tab-icon">🏠</span><span class="tab-label">홈<span class="tab-zh">首页</span></span></button>
     <button class="tab-btn" data-tab="relmap"><span class="tab-icon">💫</span><span class="tab-label">관계도<span class="tab-zh">关系图</span></span></button>
@@ -345,6 +381,9 @@
 <script src="./js/relations.js"></script>
 <script src="./js/diary.js"></script>
 <script src="./js/timeline.js"></script>
+<script src="./js/redflag.js"></script>
+<script src="./js/dictionary.js"></script>
+<script src="./js/scenario.js"></script>
 <script src="./js/app.js"></script>
 <script src="./js/app-new.js"></script>
 </body>

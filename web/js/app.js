@@ -20,6 +20,8 @@
     coach:       { title:'성장 코치 · 关系成长', sub:'오늘의 관계 미션 · 今日任务' },
     aidiag:      { title:'AI 관계 진단 · AI关系诊断', sub:'친밀도·신뢰도 분석' },
     capture:     { title:'대화 캡처 분석 · 截图分析', sub:'감정·위험 신호 탐지 · 情感检测' },
+    dictionary:  { title:'표현 사전 · 表达词典', sub:'68종 속뜻 & 감정 DB · 68种言下之意' },
+    scenario:    { title:'대화 시나리오 · 对话场景', sub:'상황별 대화 가이드 · 场景对话指南' },
     'relmap-add':{ title:'관계 추가·편집 · 添加/编辑', sub:'' },
     'timeline':  { title:'관계 타임라인 · 关系时间线', sub:'우리 관계의 변화 흐름 · 关系变化历程' },
   };
@@ -77,7 +79,14 @@
   }
 
   function showTab(tab) { NAV={tab,page:null}; updateUI(); }
-  function showPage(page) { NAV={...NAV, page}; updateUI(); }
+  function showPage(page) {
+    NAV={...NAV, page}; updateUI();
+    // 시나리오 페이지 진입 이벤트 (scenario.js 에서 수신)
+    document.dispatchEvent(new CustomEvent('hearim:page', { detail: page }));
+    // 사전 페이지 진입 시 초기화
+    if (page === 'dictionary') { setTimeout(() => window.HU._initDictionary?.(), 0); }
+    if (page === 'scenario')   { setTimeout(() => window.HU._initScenario?.(), 0); }
+  }
   function goBack() { NAV={...NAV, page:null}; updateUI(); if(NAV.tab==='relmap') window.HU._renderRelmap?.(); }
 
   window.HN = { showTab, showPage, goBack };
@@ -155,22 +164,99 @@
   // ---------- 도구: 대화 번역기 ----------
   function initTranslator() {
     $$('#page-translator .ex').forEach(b=>b.addEventListener('click',()=>{ $('#trInput').value=b.dataset.ex; }));
-    $('#trBtn').addEventListener('click',()=>{
-      const text=$('#trInput').value.trim(); if(!text)return shake($('#trInput'));
-      withLoading('trResult', async()=>{
-        const r=await E.translate(text, relOf('#page-translator'));
-        $('#trSurface').textContent=r.surface||''; $('#trHidden').textContent=r.hidden||'';
-        renderTags($('#trEmotions'),r.emotions||[]); renderPoss($('#trPoss'),r.possibilities||[]);
-        $('#trAction').textContent=r.action||''; $('#trTip').textContent=r.tip||'';
-        const conf=r.confidence||75;
-        const c=$('#trConf'); requestAnimationFrame(()=>c.style.width=conf+'%');
-        $('#trConfVal').textContent=conf+'%';
-        if(r.replies?.length) renderReplies($('#trResult .reply-list')||document.createElement('div'),r.replies);
-        // AI 사용 여부 표시
-        const badge=r.source==='claude'?'🤖 Claude AI 분석':'📚 DB 분석';
-        $('#trTip').textContent=(r.tip||'')+' ('+badge+')';
+
+    // ── 음성 입력 ──
+    const micBtn = $('#trMicBtn');
+    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRec && micBtn) {
+      const rec = new SpeechRec();
+      rec.lang = 'ko-KR'; rec.continuous = false; rec.interimResults = false;
+      let recActive = false;
+      micBtn.addEventListener('click', () => {
+        if (recActive) { rec.stop(); return; }
+        rec.start(); recActive = true;
+        micBtn.classList.add('mic-active'); micBtn.textContent = '🔴';
+      });
+      rec.onresult = e => {
+        const txt = e.results[0][0].transcript;
+        $('#trInput').value = txt;
+      };
+      rec.onend = () => { recActive = false; micBtn.classList.remove('mic-active'); micBtn.textContent = '🎤'; };
+      rec.onerror = () => { recActive = false; micBtn.classList.remove('mic-active'); micBtn.textContent = '🎤'; };
+    } else if (micBtn) {
+      micBtn.title = '음성 인식 미지원 브라우저';
+      micBtn.style.opacity = '0.4';
+    }
+
+    // ── 번역 실행 ──
+    $('#trBtn').addEventListener('click', () => {
+      const text = $('#trInput').value.trim(); if (!text) return shake($('#trInput'));
+      withLoading('trResult', async () => {
+        const r = await E.translate(text, relOf('#page-translator'));
+        $('#trSurface').textContent = r.surface || '';
+        $('#trHidden').textContent  = r.hidden  || '';
+        renderTags($('#trEmotions'), r.emotions || []);
+        renderPoss($('#trPoss'), r.possibilities || []);
+        $('#trAction').textContent = r.action || '';
+        const conf = r.confidence || 75;
+        requestAnimationFrame(() => { $('#trConf').style.width = conf + '%'; });
+        $('#trConfVal').textContent = conf + '%';
+        const badge = r.source === 'claude' ? '🤖 Claude AI 분석' : '📚 DB 분석';
+        $('#trTip').textContent = (r.tip || '') + ' (' + badge + ')';
+        if (r.replies?.length) renderReplies($('#trResult .reply-list') || document.createElement('div'), r.replies);
+
+        // ── RED FLAG ──
+        const RF = window.HearimRedFlag;
+        const rfCard = $('#trRedFlag');
+        if (RF && rfCard) {
+          const flag = RF.detect(text);
+          if (flag) {
+            rfCard.style.setProperty('--rf-color', flag.color);
+            rfCard.style.background  = flag.bg;
+            rfCard.style.borderColor = flag.color;
+            $('#rfLabel').textContent = flag.label;
+            $('#rfDesc').textContent  = flag.desc;
+            const guideBtn   = $('#rfGuideBtn');
+            const counselBtn = $('#rfCounselBtn');
+            const guideText  = $('#rfGuideText');
+            if (flag.counsel) counselBtn.classList.remove('hidden');
+            else counselBtn.classList.add('hidden');
+            guideBtn.onclick = () => {
+              guideText.textContent = flag.guideCopy;
+              guideText.classList.toggle('hidden');
+            };
+            counselBtn.onclick = () => { window.open('https://www.counselingcenter.or.kr/', '_blank'); };
+            rfCard.classList.remove('hidden');
+          } else {
+            rfCard.classList.add('hidden');
+          }
+        }
+
+        // ── 공유 버튼 ──
+        const shareBtn = $('#trShareBtn');
+        if (shareBtn) {
+          shareBtn.onclick = () => {
+            const shareText = `[헤아림 번역 결과]\n"${text}"\n\n▸ 표면: ${r.surface}\n▸ 속뜻: ${r.hidden}\n▸ 추천 행동: ${r.action}\n\nhttps://hearim.app`;
+            if (navigator.share) {
+              navigator.share({ title: '헤아림 번역 결과', text: shareText }).catch(() => {});
+            } else {
+              fbCopy(shareText, () => {
+                shareBtn.textContent = '✓ 복사됨';
+                setTimeout(() => { shareBtn.textContent = '🔗 결과 공유 · 分享结果'; }, 2000);
+              });
+            }
+          };
+        }
       });
     });
+  }
+
+  function fbCopy(text, cb) {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.cssText = 'position:fixed;opacity:0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta); cb && cb();
   }
 
   // ---------- 도구: 카톡 분석기 ----------
@@ -315,6 +401,7 @@
     initHome();
     initTranslator(); initKakao(); initDiagnosis(); initReadCheck();
     initReply(); initCoach(); initAiDiag(); initCapture();
+    // 사전/시나리오는 첫 페이지 진입 시 초기화 (showPage에서 호출)
     updateUI();
   }
   init();
