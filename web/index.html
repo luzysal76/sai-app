@@ -4,8 +4,8 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
   <meta name="theme-color" content="#ff6b9d"/>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8C%3C/text%3E%3C/svg%3E"/>
-  <title>헤아림 · 연애·인간관계 커뮤니케이션 번역기</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%AB%3C/text%3E%3C/svg%3E"/>
+  <title>사이 · AI 관계 운영체제</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet"/>
@@ -13,16 +13,17 @@
   <link rel="stylesheet" href="./css/styles-new.css"/>
   <link rel="stylesheet" href="./css/styles-hifi.css"/>
   <link rel="stylesheet" href="./css/styles-nvc.css"/>
+  <link rel="stylesheet" href="./css/styles-bankbook.css"/>
 </head>
 <body>
 <div class="app">
   <header class="app-header">
     <button class="back-btn hidden" id="backBtn">←</button>
     <div class="logo-wrap">
-      <span class="logo-emoji">💌</span>
+      <span class="logo-emoji">💫</span>
       <div class="logo-text">
-        <h1 id="headerTitle">헤아림</h1>
-        <p id="headerSub">연애·인간관계 번역기 · 恋爱关系沟通解析</p>
+        <h1 id="headerTitle">사이</h1>
+        <p id="headerSub">AI 관계 운영체제 · Relationship OS</p>
       </div>
     </div>
   </header>
@@ -53,12 +54,12 @@
       </button>
       <p class="section-label">빠른 기능 · 快捷功能</p>
       <div class="feature-grid grid3" id="homeGrid">
-        <button class="feature-card sm" data-go="translator"><span class="fc-emoji">💬</span><span class="fc-title">대화 번역기<span class="zh">对话解析</span></span></button>
-        <button class="feature-card sm" data-go="kakao"><span class="fc-emoji">💕</span><span class="fc-title">카톡 분석기<span class="zh">聊天分析</span></span></button>
-        <button class="feature-card sm" data-go="readcheck"><span class="fc-emoji">📵</span><span class="fc-title">읽씹 분석<span class="zh">不回消息分析</span></span></button>
-        <button class="feature-card sm" data-go="reply"><span class="fc-emoji">✍️</span><span class="fc-title">답장 생성기<span class="zh">回复生成</span></span></button>
-        <button class="feature-card sm nvc-highlight" data-go="nvc"><span class="fc-emoji">💗</span><span class="fc-title">NVC 번역기<span class="zh">非暴力沟通</span></span></button>
-        <button class="feature-card sm" data-go="aidiag"><span class="fc-emoji">🔍</span><span class="fc-title">AI 관계 진단<span class="zh">AI关系诊断</span></span></button>
+        <button class="feature-card sm bb-highlight" data-go="bankbook"><span class="fc-emoji">🏦</span><span class="fc-title">관계 통장</span></button>
+        <button class="feature-card sm" data-go="translator"><span class="fc-emoji">💬</span><span class="fc-title">대화 번역기</span></button>
+        <button class="feature-card sm" data-go="kakao"><span class="fc-emoji">💕</span><span class="fc-title">카톡 분석기</span></button>
+        <button class="feature-card sm" data-go="readcheck"><span class="fc-emoji">📵</span><span class="fc-title">읽씹 분석</span></button>
+        <button class="feature-card sm nvc-highlight" data-go="nvc"><span class="fc-emoji">💗</span><span class="fc-title">NVC 번역기</span></button>
+        <button class="feature-card sm" data-go="reply"><span class="fc-emoji">✍️</span><span class="fc-title">답장 생성기</span></button>
       </div>
     </div>
 
@@ -90,7 +91,8 @@
         <button class="feature-card" data-go="capture"><span class="fc-emoji">📸</span><span class="fc-title">대화 캡처 분석<span class="zh">截图分析</span></span><span class="fc-desc">감정·위험 신호 탐지 · 情感·危险信号</span></button>
         <button class="feature-card" data-go="dictionary"><span class="fc-emoji">📖</span><span class="fc-title">표현 사전<span class="zh">表达词典</span></span><span class="fc-desc">68종 속뜻 검색 · 68种言下之意</span></button>
         <button class="feature-card" data-go="scenario"><span class="fc-emoji">🎭</span><span class="fc-title">대화 시나리오<span class="zh">对话场景</span></span><span class="fc-desc">상황별 대화 가이드 · 场景对话指南</span></button>
-        <button class="feature-card nvc-highlight" data-go="nvc"><span class="fc-emoji">💗</span><span class="fc-title">NVC 번역기<span class="zh">非暴力沟通</span></span><span class="fc-desc">갈등 문장 → 사랑의 언어로 · 冲突语→非暴力表达</span></button>
+        <button class="feature-card bb-highlight" data-go="bankbook"><span class="fc-emoji">🏦</span><span class="fc-title">관계 통장</span><span class="fc-desc">신뢰·호감·관심 잔액 관리</span></button>
+        <button class="feature-card nvc-highlight" data-go="nvc"><span class="fc-emoji">💗</span><span class="fc-title">NVC 번역기</span><span class="fc-desc">갈등 문장 → 사랑의 언어로</span></button>
       </div>
     </div>
 
@@ -346,6 +348,72 @@
       <div class="sc-detail hidden" id="scenarioDetail"></div>
     </section>
 
+    <!-- ===== 관계 통장 ===== -->
+    <section class="page hidden" id="page-bankbook">
+      <!-- 인물 선택 -->
+      <div class="card">
+        <label class="field-label">누구의 통장을 볼까요?</label>
+        <div class="bb-person-scroll" id="bbPersonScroll">
+          <div class="bb-empty" style="padding:12px 0;width:100%">
+            <p class="bb-empty-text">관계 지도에서 먼저 사람을 등록해주세요</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 통장 카드 (선택 후 표시) -->
+      <div id="bbMain" class="hidden">
+        <!-- 통장 카드 -->
+        <div class="bb-book-card">
+          <div class="bb-book-header">
+            <span class="bb-book-title">관계 통장 · RELATIONSHIP BANK</span>
+            <span class="bb-book-person" id="bbPersonName">—</span>
+          </div>
+          <div class="bb-total-score">
+            <span class="bb-score-num" id="bbTotalScore">—</span>
+            <span class="bb-score-unit">점</span>
+            <div class="bb-status-badge" id="bbStatusBadge">
+              <span id="bbStatusIcon"></span>
+              <span id="bbStatusLabel"></span>
+            </div>
+          </div>
+          <div class="bb-balances">
+            <div class="bb-balance-row">
+              <span class="bb-bal-icon">🔑</span>
+              <span class="bb-bal-label">신뢰</span>
+              <div class="bb-bal-track"><div class="bb-bal-fill bb-bal-trust" id="bbTrustFill" style="width:0%"></div></div>
+              <span class="bb-bal-num" id="bbTrustNum">0</span>
+            </div>
+            <div class="bb-balance-row">
+              <span class="bb-bal-icon">💗</span>
+              <span class="bb-bal-label">호감</span>
+              <div class="bb-bal-track"><div class="bb-bal-fill bb-bal-affinity" id="bbAffinityFill" style="width:0%"></div></div>
+              <span class="bb-bal-num" id="bbAffinityNum">0</span>
+            </div>
+            <div class="bb-balance-row">
+              <span class="bb-bal-icon">💙</span>
+              <span class="bb-bal-label">관심</span>
+              <div class="bb-bal-track"><div class="bb-bal-fill bb-bal-care" id="bbCareFill" style="width:0%"></div></div>
+              <span class="bb-bal-num" id="bbCareNum">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 행동 기록 -->
+        <div class="bb-action-head">
+          <span class="bb-action-title">오늘 있었던 일 기록</span>
+        </div>
+        <div class="bb-action-tabs">
+          <button class="bb-action-tab active-pos" id="bbTabPos">😊 좋은 일</button>
+          <button class="bb-action-tab" id="bbTabNeg">😔 아쉬운 일</button>
+        </div>
+        <div class="bb-action-grid" id="bbActionGrid"></div>
+
+        <!-- 거래 내역 -->
+        <div class="bb-history-head">📋 최근 내역</div>
+        <div id="bbHistory"></div>
+      </div>
+    </section>
+
     <!-- ===== NVC 번역기 ===== -->
     <section class="page hidden" id="page-nvc">
       <!-- 모드 탭 -->
@@ -475,8 +543,9 @@
       </div>
     </section>
 
-    <div class="loading hidden" id="loading"><div class="spinner"></div><p>상대의 마음을 헤아리는 중... · 分析中...</p></div>
+    <div class="loading hidden" id="loading"><div class="spinner"></div><p>마음을 읽는 중... · 分析中...</p></div>
   </main>
+  <div class="bb-toast" id="bbToast"></div>
 
   <!-- 사전 상세 모달 -->
   <div class="dict-modal hidden" id="dictModal"></div>
@@ -502,8 +571,10 @@
 <script src="./js/dictionary.js"></script>
 <script src="./js/scenario.js"></script>
 <script src="./js/nvc-engine.js"></script>
+<script src="./js/bankbook.js"></script>
 <script src="./js/app.js"></script>
 <script src="./js/app-new.js"></script>
 <script src="./js/nvc-ui.js"></script>
+<script src="./js/bankbook-ui.js"></script>
 </body>
 </html>

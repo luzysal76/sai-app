@@ -271,6 +271,16 @@
   box-shadow: 0 4px 12px rgba(107,78,170,.15);
 }
 
+/* ── 20-1. 관계 통장 하이라이트 카드 (도구 그리드) ── */
+.bb-highlight {
+  background: linear-gradient(#1a0533, #1a0533) padding-box,
+              linear-gradient(135deg, #c084fc, #ff6b9d) border-box !important;
+  border: 2px solid transparent !important;
+}
+.bb-highlight .fc-emoji,
+.bb-highlight .fc-title,
+.bb-highlight .fc-desc { color: #fff !important; -webkit-text-fill-color: #fff !important; }
+
 /* ── 20. 텍스트에어리어 포커스 글로우 ── */
 textarea:focus {
   border-color: var(--pink);

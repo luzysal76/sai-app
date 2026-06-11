@@ -1,0 +1,198 @@
+/* ============================================================
+   사이(Sai) — 관계 통장 전용 스타일
+   ============================================================ */
+
+/* ── 인물 선택 스크롤 ── */
+.bb-person-scroll {
+  display: flex; gap: 10px; overflow-x: auto;
+  padding: 4px 0 12px; scrollbar-width: none;
+}
+.bb-person-scroll::-webkit-scrollbar { display: none; }
+.bb-person-chip {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 4px; cursor: pointer; flex-shrink: 0;
+  padding: 8px 14px; border-radius: 16px;
+  border: 2px solid transparent;
+  background: #f5f0ff; font-family: inherit;
+  transition: all .15s;
+}
+.bb-person-chip.active {
+  background: linear-gradient(#fff, #fff) padding-box,
+              linear-gradient(135deg, var(--pink), var(--purple)) border-box;
+  box-shadow: 0 4px 14px rgba(255,107,157,.25);
+}
+.bb-chip-emoji { font-size: 22px; }
+.bb-chip-name  { font-size: 11px; font-weight: 700; color: var(--text-dark); }
+
+/* ── 통장 카드 ── */
+.bb-book-card {
+  border-radius: 24px; padding: 22px 20px;
+  background: linear-gradient(135deg, #1a0533 0%, #3b1d6e 60%, #6b1e4d 100%);
+  color: #fff; position: relative; overflow: hidden;
+  box-shadow: 0 12px 36px rgba(107,30,77,.4);
+}
+.bb-book-card::before {
+  content: ''; position: absolute; top: -40px; right: -40px;
+  width: 160px; height: 160px; border-radius: 50%;
+  background: rgba(255,107,157,.15);
+}
+.bb-book-card::after {
+  content: ''; position: absolute; bottom: -30px; left: -20px;
+  width: 120px; height: 120px; border-radius: 50%;
+  background: rgba(107,78,170,.2);
+}
+.bb-book-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20px; position: relative; z-index: 1;
+}
+.bb-book-title {
+  font-size: 12px; font-weight: 700; opacity: .7; letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.bb-book-person {
+  font-size: 14px; font-weight: 800;
+  background: linear-gradient(120deg, #ff9fd2, #c89eff);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.bb-total-score {
+  position: relative; z-index: 1; margin-bottom: 20px;
+}
+.bb-score-num {
+  font-size: 52px; font-weight: 900; line-height: 1;
+  background: linear-gradient(120deg, #fff, #ffc8e0);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.bb-score-unit { font-size: 18px; opacity: .8; }
+.bb-status-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,.12); border-radius: 999px;
+  padding: 6px 14px; font-size: 13px; font-weight: 700;
+  margin-top: 6px;
+}
+
+/* ── 3가지 잔액 바 ── */
+.bb-balances {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.bb-balance-row {
+  display: flex; align-items: center; gap: 10px;
+}
+.bb-bal-icon { font-size: 16px; width: 24px; text-align: center; flex-shrink: 0; }
+.bb-bal-label {
+  font-size: 12px; font-weight: 700; opacity: .8; width: 32px; flex-shrink: 0;
+}
+.bb-bal-track {
+  flex: 1; height: 8px; border-radius: 999px;
+  background: rgba(255,255,255,.15);
+}
+.bb-bal-fill {
+  height: 100%; border-radius: 999px;
+  transition: width .6s cubic-bezier(.4,0,.2,1);
+}
+.bb-bal-trust    { background: linear-gradient(90deg, #c084fc, #a855f7); }
+.bb-bal-affinity { background: linear-gradient(90deg, #ff9fd2, #ff6b9d); }
+.bb-bal-care     { background: linear-gradient(90deg, #7dd3fc, #3b82f6); }
+.bb-bal-num {
+  font-size: 13px; font-weight: 800; width: 28px; text-align: right; flex-shrink: 0;
+  opacity: .9;
+}
+
+/* ── 행동 기록 섹션 ── */
+.bb-action-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin: 18px 0 12px;
+}
+.bb-action-title { font-size: 15px; font-weight: 800; color: var(--text-dark); }
+
+.bb-action-tabs {
+  display: flex; gap: 6px; margin-bottom: 12px;
+}
+.bb-action-tab {
+  flex: 1; padding: 10px; border-radius: 12px;
+  font-family: inherit; font-size: 13px; font-weight: 700;
+  cursor: pointer; transition: all .15s; border: none;
+  background: #f5f0ff; color: var(--purple);
+}
+.bb-action-tab.active-pos {
+  background: linear-gradient(120deg, #4ade80, #22c55e); color: #fff;
+  box-shadow: 0 4px 12px rgba(34,197,94,.3);
+}
+.bb-action-tab.active-neg {
+  background: linear-gradient(120deg, #f87171, #ef4444); color: #fff;
+  box-shadow: 0 4px 12px rgba(239,68,68,.3);
+}
+
+.bb-action-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+  margin-bottom: 16px;
+}
+.bb-action-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 12px 8px; border-radius: 14px;
+  background: #fff; border: 1.5px solid var(--line);
+  font-family: inherit; cursor: pointer;
+  transition: all .15s;
+}
+.bb-action-btn:hover, .bb-action-btn:active {
+  border-color: var(--pink); transform: scale(.97);
+  background: var(--pink-soft);
+}
+.bb-action-btn.neg-btn:hover, .bb-action-btn.neg-btn:active {
+  border-color: #ef4444; background: #fff5f5;
+}
+.bb-action-icon { font-size: 22px; }
+.bb-action-label { font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center; }
+.bb-action-delta {
+  font-size: 10px; font-weight: 800; border-radius: 999px;
+  padding: 2px 6px;
+}
+.bb-action-delta.pos { color: #16a34a; background: #f0fdf4; }
+.bb-action-delta.neg { color: #dc2626; background: #fef2f2; }
+
+/* ── 거래 내역 ── */
+.bb-history-head {
+  font-size: 14px; font-weight: 800; color: var(--text-dark);
+  margin: 18px 0 10px;
+}
+.bb-history-empty {
+  text-align: center; padding: 24px; color: var(--gray);
+  font-size: 14px;
+}
+.bb-history-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 0; border-bottom: 1px solid var(--line);
+}
+.bb-hist-icon { font-size: 20px; flex-shrink: 0; }
+.bb-hist-info { flex: 1; }
+.bb-hist-label { font-size: 14px; font-weight: 700; color: var(--text-dark); }
+.bb-hist-date  { font-size: 11px; color: var(--gray); margin-top: 2px; }
+.bb-hist-deltas {
+  display: flex; flex-direction: column; gap: 2px; align-items: flex-end;
+}
+.bb-hist-delta {
+  font-size: 12px; font-weight: 800;
+}
+.bb-hist-delta.pos { color: #16a34a; }
+.bb-hist-delta.neg { color: #dc2626; }
+
+/* ── 관계 없을 때 빈 상태 ── */
+.bb-empty {
+  text-align: center; padding: 40px 20px;
+}
+.bb-empty-icon { font-size: 48px; margin-bottom: 12px; }
+.bb-empty-text { font-size: 15px; color: var(--gray); line-height: 1.6; }
+
+/* ── 기록 완료 토스트 ── */
+.bb-toast {
+  position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: #1a0533; color: #fff;
+  padding: 12px 24px; border-radius: 999px;
+  font-size: 14px; font-weight: 700;
+  box-shadow: 0 8px 24px rgba(0,0,0,.3);
+  opacity: 0; transition: all .25s;
+  pointer-events: none; z-index: 9999; white-space: nowrap;
+}
+.bb-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
