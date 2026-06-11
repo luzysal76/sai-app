@@ -181,7 +181,38 @@
     if (diff !== 0 && dist.length) dist[0].pct += diff;
   }
 
+  /** 6. AI 관계 진단 — 텍스트 키워드 기반 휴리스틱 */
+  function analyzeAiDiag(recentChat, concern, relation) {
+    const text  = ((recentChat || '') + ' ' + (concern || '')).toLowerCase();
+    const pos   = ['좋아','행복','감사','사랑','재밌','설레','기쁘','웃','귀여','보고싶'].reduce((s,w)=>s+(text.split(w).length-1),0);
+    const neg   = ['싫어','화','답답','불안','서운','외로','힘들','갈등','싸움','짜증','지쳐','무서'].reduce((s,w)=>s+(text.split(w).length-1),0);
+    const base  = { lover:68, some:55, friend:63, family:60, work:48 }[relation] || 58;
+    const len   = text.trim().length;
+    const bonus = len > 80 ? 5 : len > 30 ? 2 : -3;
+    const c     = (n, lo, hi) => Math.max(lo, Math.min(hi, Math.round(n)));
+    return {
+      affinity:    c(base + pos*4 - neg*5 + bonus, 20, 96),
+      trust:       c(base + 8 + pos*3 - neg*4 + bonus, 20, 96),
+      stability:   c(62 - neg*7 + pos*3, 15, 92),
+      satisfaction:c(base - 5 + pos*5 - neg*6 + bonus, 15, 90),
+    };
+  }
+
+  /** 7. 캡처 분석 — 시뮬레이션 (AI 연동 전 데모) */
+  function analyzeCaptureSimulated(seed) {
+    const idx = ((seed || 0) % 5 + 5) % 5;
+    const templates = [
+      { emotions:[{label:'😊 긍정',pct:45},{label:'😐 중립',pct:35},{label:'😢 서운함',pct:12},{label:'😡 화남',pct:8}],  risks:['단답형 응답이 다소 많아요'] },
+      { emotions:[{label:'😊 긍정',pct:62},{label:'😐 중립',pct:25},{label:'😢 서운함',pct:9}, {label:'😡 화남',pct:4}],  risks:[] },
+      { emotions:[{label:'😊 긍정',pct:28},{label:'😐 중립',pct:32},{label:'😢 서운함',pct:25},{label:'😡 화남',pct:15}], risks:['방어적 표현이 증가하고 있어요','감정 표현이 줄어들고 있어요'] },
+      { emotions:[{label:'😊 긍정',pct:55},{label:'😐 중립',pct:28},{label:'😢 서운함',pct:12},{label:'😡 화남',pct:5}],  risks:['대화 주도권이 한쪽에 치우쳐 있어요'] },
+      { emotions:[{label:'😊 긍정',pct:72},{label:'😐 중립',pct:18},{label:'😢 서운함',pct:7}, {label:'😡 화남',pct:3}],  risks:[] },
+    ];
+    return { ...templates[idx], note:'AI 연동 시 실제 대화 내용을 분석해 더 정확한 결과를 제공해요.' };
+  }
+
   window.HearimAnalyzers = {
     analyzeKakao, diagnose, analyzeReadCheck, generateReply, dailyMissions,
+    analyzeAiDiag, analyzeCaptureSimulated,
   };
 })();
