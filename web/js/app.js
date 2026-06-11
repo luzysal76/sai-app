@@ -167,22 +167,27 @@
 
     // ── 음성 입력 ──
     const micBtn = $('#trMicBtn');
+    const waveform = $('#micWaveform');
     const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const stopMic = () => {
+      micBtn.classList.remove('mic-active'); micBtn.textContent = '🎤';
+      if (waveform) waveform.classList.remove('active');
+    };
+    const startMic = () => {
+      micBtn.classList.add('mic-active'); micBtn.textContent = '🔴';
+      if (waveform) waveform.classList.add('active');
+    };
     if (SpeechRec && micBtn) {
       const rec = new SpeechRec();
       rec.lang = 'ko-KR'; rec.continuous = false; rec.interimResults = false;
       let recActive = false;
       micBtn.addEventListener('click', () => {
         if (recActive) { rec.stop(); return; }
-        rec.start(); recActive = true;
-        micBtn.classList.add('mic-active'); micBtn.textContent = '🔴';
+        rec.start(); recActive = true; startMic();
       });
-      rec.onresult = e => {
-        const txt = e.results[0][0].transcript;
-        $('#trInput').value = txt;
-      };
-      rec.onend = () => { recActive = false; micBtn.classList.remove('mic-active'); micBtn.textContent = '🎤'; };
-      rec.onerror = () => { recActive = false; micBtn.classList.remove('mic-active'); micBtn.textContent = '🎤'; };
+      rec.onresult = e => { $('#trInput').value = e.results[0][0].transcript; };
+      rec.onend   = () => { recActive = false; stopMic(); };
+      rec.onerror = () => { recActive = false; stopMic(); };
     } else if (micBtn) {
       micBtn.title = '음성 인식 미지원 브라우저';
       micBtn.style.opacity = '0.4';
@@ -216,6 +221,13 @@
             rfCard.style.borderColor = flag.color;
             $('#rfLabel').textContent = flag.label;
             $('#rfDesc').textContent  = flag.desc;
+            // 위험도 뱃지
+            const levelBadge = $('#rfLevelBadge');
+            if (levelBadge) {
+              const levelText = { high:'위험도 높음', medium:'위험도 중간', low:'위험도 낮음' };
+              levelBadge.textContent = levelText[flag.level] || '';
+              levelBadge.className = `rf-level-badge rf-level-${flag.level}`;
+            }
             const guideBtn   = $('#rfGuideBtn');
             const counselBtn = $('#rfCounselBtn');
             const guideText  = $('#rfGuideText');
@@ -242,9 +254,34 @@
             } else {
               fbCopy(shareText, () => {
                 shareBtn.textContent = '✓ 복사됨';
-                setTimeout(() => { shareBtn.textContent = '🔗 결과 공유 · 分享结果'; }, 2000);
+                setTimeout(() => { shareBtn.textContent = '🔗 공유 · 分享'; }, 2000);
               });
             }
+          };
+        }
+
+        // ── 북마크 ──
+        const bookmarkBtn = $('#trBookmarkBtn');
+        if (bookmarkBtn) {
+          const key = 'hearim_bookmarks';
+          const bookmarks = JSON.parse(localStorage.getItem(key) || '[]');
+          const isBookmarked = bookmarks.some(b => b.text === text);
+          bookmarkBtn.textContent = isBookmarked ? '🔖 저장됨 ✓' : '🔖 저장 · 收藏';
+          bookmarkBtn.classList.toggle('saved', isBookmarked);
+          bookmarkBtn.onclick = () => {
+            const stored = JSON.parse(localStorage.getItem(key) || '[]');
+            const idx = stored.findIndex(b => b.text === text);
+            if (idx >= 0) {
+              stored.splice(idx, 1);
+              bookmarkBtn.textContent = '🔖 저장 · 收藏';
+              bookmarkBtn.classList.remove('saved');
+            } else {
+              stored.unshift({ text, surface: r.surface, hidden: r.hidden, action: r.action, date: new Date().toLocaleDateString('ko-KR') });
+              if (stored.length > 50) stored.pop();
+              bookmarkBtn.textContent = '🔖 저장됨 ✓';
+              bookmarkBtn.classList.add('saved');
+            }
+            localStorage.setItem(key, JSON.stringify(stored));
           };
         }
       });

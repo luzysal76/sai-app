@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="./css/styles.css"/>
   <link rel="stylesheet" href="./css/styles-new.css"/>
+  <link rel="stylesheet" href="./css/styles-hifi.css"/>
 </head>
 <body>
 <div class="app">
@@ -135,6 +136,11 @@
           <button class="btn-primary" id="trBtn">속뜻 번역하기 · 解析言下之意</button>
           <button class="mic-btn" id="trMicBtn" title="음성 입력 · 语音输入">🎤</button>
         </div>
+        <div class="mic-waveform" id="micWaveform">
+          <div class="wf-bar"></div><div class="wf-bar"></div><div class="wf-bar"></div>
+          <div class="wf-bar"></div><div class="wf-bar"></div><div class="wf-bar"></div>
+          <div class="wf-bar"></div>
+        </div>
       </div>
       <div class="result hidden" id="trResult">
         <div class="card result-card">
@@ -144,7 +150,10 @@
           <div class="confidence"><span class="confidence-label">신뢰도 <span class="zh-inline">可信度</span></span><div class="confidence-track"><div class="confidence-fill" id="trConf"></div></div><span class="confidence-val" id="trConfVal"></span></div>
         </div>
         <div class="redflag-card hidden" id="trRedFlag">
-          <div class="rf-head"><span id="rfLabel"></span></div>
+          <div class="rf-head">
+            <span id="rfLabel"></span>
+            <span class="rf-level-badge" id="rfLevelBadge"></span>
+          </div>
           <p id="rfDesc"></p>
           <div class="rf-btns">
             <button class="rf-guide-btn" id="rfGuideBtn">💬 대화 가이드</button>
@@ -154,7 +163,10 @@
         </div>
         <div class="card action-card"><span class="action-emoji">🎯</span><div><span class="action-label">추천 행동 <span class="zh-inline">推荐行动</span></span><p id="trAction"></p></div></div>
         <div class="card tip-card"><span class="tip-emoji">💡</span><p id="trTip"></p></div>
-        <button class="share-btn" id="trShareBtn">🔗 결과 공유 · 分享结果</button>
+        <div class="result-actions">
+          <button class="share-btn" id="trShareBtn">🔗 공유 · 分享</button>
+          <button class="bookmark-btn" id="trBookmarkBtn">🔖 저장 · 收藏</button>
+        </div>
       </div>
     </section>
 
