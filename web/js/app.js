@@ -22,6 +22,7 @@
     capture:     { title:'대화 캡처 분석 · 截图分析', sub:'감정·위험 신호 탐지 · 情感检测' },
     dictionary:  { title:'표현 사전 · 表达词典', sub:'68종 속뜻 & 감정 DB · 68种言下之意' },
     scenario:    { title:'대화 시나리오 · 对话场景', sub:'상황별 대화 가이드 · 场景对话指南' },
+    nvc:         { title:'NVC 번역기 · 非暴力沟通', sub:'갈등 문장을 사랑의 언어로 · 冲突语→非暴力表达' },
     'relmap-add':{ title:'관계 추가·편집 · 添加/编辑', sub:'' },
     'timeline':  { title:'관계 타임라인 · 关系时间线', sub:'우리 관계의 변화 흐름 · 关系变化历程' },
   };
@@ -86,6 +87,7 @@
     // 사전 페이지 진입 시 초기화
     if (page === 'dictionary') { setTimeout(() => window.HU._initDictionary?.(), 0); }
     if (page === 'scenario')   { setTimeout(() => window.HU._initScenario?.(), 0); }
+    if (page === 'nvc')        { setTimeout(() => window.HU._initNVC?.(), 0); }
   }
   function goBack() { NAV={...NAV, page:null}; updateUI(); if(NAV.tab==='relmap') window.HU._renderRelmap?.(); }
 
