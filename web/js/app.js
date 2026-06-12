@@ -24,6 +24,7 @@
     scenario:    { title:'대화 시나리오 · 对话场景', sub:'상황별 대화 가이드 · 场景对话指南' },
     nvc:         { title:'NVC 번역기', sub:'갈등 문장을 사랑의 언어로' },
     bankbook:    { title:'관계 통장', sub:'신뢰·호감·관심 잔액 관리' },
+    timemachine: { title:'관계 타임머신 ⏳', sub:'6개월 관계 패턴 분석 · Pattern analysis' },
     'relmap-add':{ title:'관계 추가·편집 · 添加/编辑', sub:'' },
     'timeline':  { title:'관계 타임라인 · 关系时间线', sub:'우리 관계의 변화 흐름 · 关系变化历程' },
   };
@@ -89,7 +90,8 @@
     if (page === 'dictionary') { setTimeout(() => window.HU._initDictionary?.(), 0); }
     if (page === 'scenario')   { setTimeout(() => window.HU._initScenario?.(), 0); }
     if (page === 'nvc')        { setTimeout(() => window.HU._initNVC?.(), 0); }
-    if (page === 'bankbook')   { setTimeout(() => window.HU._initBankbook?.(), 0); }
+    if (page === 'bankbook')     { setTimeout(() => window.HU._initBankbook?.(), 0); }
+    if (page === 'timemachine') { setTimeout(() => window.HU._initTimemachine?.(), 0); }
   }
   function goBack() { NAV={...NAV, page:null}; updateUI(); if(NAV.tab==='relmap') window.HU._renderRelmap?.(); }
 

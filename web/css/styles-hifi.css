@@ -281,6 +281,16 @@
 .bb-highlight .fc-title,
 .bb-highlight .fc-desc { color: #fff !important; -webkit-text-fill-color: #fff !important; }
 
+/* ── 타임머신 버튼 하이라이트 ── */
+.tm-highlight {
+  background: linear-gradient(135deg, #8b5cf6 0%, #6b4eaa 100%) !important;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(107,78,170,.35) !important;
+}
+.tm-highlight .fc-emoji,
+.tm-highlight .fc-title,
+.tm-highlight .fc-desc { color: #fff !important; -webkit-text-fill-color: #fff !important; }
+
 /* ── 20. 텍스트에어리어 포커스 글로우 ── */
 textarea:focus {
   border-color: var(--pink);

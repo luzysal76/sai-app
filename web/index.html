@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="./css/styles-hifi.css"/>
   <link rel="stylesheet" href="./css/styles-nvc.css"/>
   <link rel="stylesheet" href="./css/styles-bankbook.css"/>
+  <link rel="stylesheet" href="./css/styles-timemachine.css"/>
 </head>
 <body>
 <div class="app">
@@ -60,6 +61,7 @@
         <button class="feature-card sm" data-go="readcheck"><span class="fc-emoji">📵</span><span class="fc-title">읽씹 분석</span></button>
         <button class="feature-card sm nvc-highlight" data-go="nvc"><span class="fc-emoji">💗</span><span class="fc-title">NVC 번역기</span></button>
         <button class="feature-card sm" data-go="reply"><span class="fc-emoji">✍️</span><span class="fc-title">답장 생성기</span></button>
+        <button class="feature-card sm tm-highlight" data-go="timemachine"><span class="fc-emoji">⏳</span><span class="fc-title">관계 타임머신</span></button>
       </div>
     </div>
 
@@ -93,6 +95,7 @@
         <button class="feature-card" data-go="scenario"><span class="fc-emoji">🎭</span><span class="fc-title">대화 시나리오<span class="zh">Scenarios</span></span><span class="fc-desc">상황별 대화 가이드 · Situation guides</span></button>
         <button class="feature-card bb-highlight" data-go="bankbook"><span class="fc-emoji">🏦</span><span class="fc-title">관계 통장</span><span class="fc-desc">신뢰·호감·관심 잔액 관리</span></button>
         <button class="feature-card nvc-highlight" data-go="nvc"><span class="fc-emoji">💗</span><span class="fc-title">NVC 번역기</span><span class="fc-desc">갈등 문장 → 사랑의 언어로</span></button>
+        <button class="feature-card tm-highlight" data-go="timemachine"><span class="fc-emoji">⏳</span><span class="fc-title">관계 타임머신<span class="zh">Time Machine</span></span><span class="fc-desc">6개월 관계 패턴 분석 · Pattern analysis</span></button>
       </div>
     </div>
 
@@ -516,6 +519,34 @@
       </div>
     </section>
 
+    <!-- 관계 타임머신 -->
+    <section class="page hidden" id="page-timemachine">
+      <!-- 인물 선택 -->
+      <div class="card">
+        <label class="field-label">누구에 대해 알아볼까요? <span class="zh-inline">Who?</span></label>
+        <div id="tmPersonChips" class="chip-group" style="margin-bottom:10px"></div>
+        <input type="text" id="tmPersonInput" class="text-input" placeholder="이름 직접 입력 · Or type a name"/>
+      </div>
+
+      <!-- 질문 입력 -->
+      <div class="card">
+        <label class="field-label">어떤 게 궁금해요? <span class="zh-inline">What's on your mind?</span></label>
+        <textarea id="tmQuestion" placeholder="예) 왜 요즘 이 친구랑 어색할까? / 우리 관계 발전하고 있을까? · e.g. Why does it feel awkward lately?"></textarea>
+        <div style="margin:10px 0 4px;font-size:12px;color:#999">예시 질문 · Examples</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
+          <button class="tm-q-chip" data-q="왜 요즘 어색할까?">왜 어색할까?</button>
+          <button class="tm-q-chip" data-q="우리 관계 발전하고 있을까?">발전 가능성은?</button>
+          <button class="tm-q-chip" data-q="갈등이 많은 편인가요?">갈등 패턴은?</button>
+          <button class="tm-q-chip" data-q="연락이 왜 줄었을까?">연락이 줄었어</button>
+          <button class="tm-q-chip" data-q="언제 가장 친밀했나요?">가장 친밀했던 때는?</button>
+        </div>
+        <button class="btn-primary" id="tmAnalyzeBtn">⏳ 6개월 돌아보기 · Analyze 6 Months</button>
+      </div>
+
+      <!-- 결과 -->
+      <div id="tmResult" class="hidden"></div>
+    </section>
+
     <!-- 관계 추가/편집 (relmap sub) -->
     <section class="page hidden" id="page-relmap-add">
       <div class="card">
@@ -576,5 +607,7 @@
 <script src="./js/app-new.js"></script>
 <script src="./js/nvc-ui.js"></script>
 <script src="./js/bankbook-ui.js"></script>
+<script src="./js/timemachine.js"></script>
+<script src="./js/timemachine-ui.js"></script>
 </body>
 </html>
