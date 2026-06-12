@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="./css/styles-nvc.css"/>
   <link rel="stylesheet" href="./css/styles-bankbook.css"/>
   <link rel="stylesheet" href="./css/styles-timemachine.css"/>
+  <link rel="stylesheet" href="./css/styles-mbti.css"/>
 </head>
 <body>
 <div class="app">
@@ -96,6 +97,7 @@
         <button class="feature-card bb-highlight" data-go="bankbook"><span class="fc-emoji">🏦</span><span class="fc-title">관계 통장</span><span class="fc-desc">신뢰·호감·관심 잔액 관리</span></button>
         <button class="feature-card nvc-highlight" data-go="nvc"><span class="fc-emoji">💗</span><span class="fc-title">NVC 번역기</span><span class="fc-desc">갈등 문장 → 사랑의 언어로</span></button>
         <button class="feature-card tm-highlight" data-go="timemachine"><span class="fc-emoji">⏳</span><span class="fc-title">관계 타임머신<span class="zh">Time Machine</span></span><span class="fc-desc">6개월 관계 패턴 분석 · Pattern analysis</span></button>
+        <button class="feature-card mbti-highlight" data-go="mbti"><span class="fc-emoji">🧬</span><span class="fc-title">MBTI 궁합<span class="zh">Compatibility</span></span><span class="fc-desc">16가지 유형 궁합 분석 · Type compatibility</span></button>
       </div>
     </div>
 
@@ -519,6 +521,46 @@
       </div>
     </section>
 
+    <!-- MBTI 궁합 분석기 -->
+    <section class="page hidden" id="page-mbti">
+      <!-- 내 MBTI -->
+      <div class="card">
+        <label class="field-label">내 MBTI <span class="zh-inline">My Type</span></label>
+        <div id="mbtiMine"></div>
+        <div class="mbti-type-display">
+          <span class="mbti-selected-tag" id="mbtiMineTag">ENTJ</span>
+          <div class="mbti-selected-desc" id="mbtiMineDesc"></div>
+        </div>
+      </div>
+
+      <!-- 상대 MBTI -->
+      <div class="card">
+        <label class="field-label">상대방 MBTI <span class="zh-inline">Their Type</span></label>
+        <div id="mbtiTheirs"></div>
+        <div class="mbti-type-display">
+          <span class="mbti-selected-tag" id="mbtiTheirsTag">ENFP</span>
+          <div class="mbti-selected-desc" id="mbtiTheirsDesc"></div>
+        </div>
+      </div>
+
+      <!-- 유명 커플 예시 -->
+      <div class="card">
+        <label class="field-label" style="margin-bottom:8px">유명한 조합 예시</label>
+        <div>
+          <button class="mbti-ex-chip" data-pair="INTJ-ENFP">INTJ ♥ ENFP</button>
+          <button class="mbti-ex-chip" data-pair="INFJ-ENTP">INFJ ♥ ENTP</button>
+          <button class="mbti-ex-chip" data-pair="INFP-ENFJ">INFP ♥ ENFJ</button>
+          <button class="mbti-ex-chip" data-pair="INTP-ENTJ">INTP ♥ ENTJ</button>
+          <button class="mbti-ex-chip" data-pair="ISTJ-ESFP">ISTJ ♥ ESFP</button>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="mbtiAnalyzeBtn">🧬 궁합 분석하기 · Analyze Compatibility</button>
+
+      <!-- 결과 -->
+      <div id="mbtiResult" class="hidden" style="margin-top:16px"></div>
+    </section>
+
     <!-- 관계 타임머신 -->
     <section class="page hidden" id="page-timemachine">
       <!-- 인물 선택 -->
@@ -609,5 +651,7 @@
 <script src="./js/bankbook-ui.js"></script>
 <script src="./js/timemachine.js"></script>
 <script src="./js/timemachine-ui.js"></script>
+<script src="./js/mbti.js"></script>
+<script src="./js/mbti-ui.js"></script>
 </body>
 </html>

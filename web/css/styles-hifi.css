@@ -281,6 +281,16 @@
 .bb-highlight .fc-title,
 .bb-highlight .fc-desc { color: #fff !important; -webkit-text-fill-color: #fff !important; }
 
+/* ── MBTI 궁합 버튼 하이라이트 ── */
+.mbti-highlight {
+  background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%) !important;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(236,72,153,.35) !important;
+}
+.mbti-highlight .fc-emoji,
+.mbti-highlight .fc-title,
+.mbti-highlight .fc-desc { color: #fff !important; -webkit-text-fill-color: #fff !important; }
+
 /* ── 타임머신 버튼 하이라이트 ── */
 .tm-highlight {
   background: linear-gradient(135deg, #8b5cf6 0%, #6b4eaa 100%) !important;
