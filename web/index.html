@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="./css/styles-bankbook.css"/>
   <link rel="stylesheet" href="./css/styles-timemachine.css"/>
   <link rel="stylesheet" href="./css/styles-mbti.css"/>
+  <link rel="stylesheet" href="./css/styles-tarot.css"/>
 </head>
 <body>
 <div class="app">
@@ -63,6 +64,7 @@
         <button class="feature-card sm nvc-highlight" data-go="nvc"><span class="fc-emoji">💗</span><span class="fc-title">NVC 번역기</span></button>
         <button class="feature-card sm" data-go="reply"><span class="fc-emoji">✍️</span><span class="fc-title">답장 생성기</span></button>
         <button class="feature-card sm tm-highlight" data-go="timemachine"><span class="fc-emoji">⏳</span><span class="fc-title">관계 타임머신</span></button>
+        <button class="feature-card sm tarot-highlight" data-go="tarot"><span class="fc-emoji">🔮</span><span class="fc-title">관계 타로</span></button>
       </div>
     </div>
 
@@ -98,6 +100,7 @@
         <button class="feature-card nvc-highlight" data-go="nvc"><span class="fc-emoji">💗</span><span class="fc-title">NVC 번역기</span><span class="fc-desc">갈등 문장 → 사랑의 언어로</span></button>
         <button class="feature-card tm-highlight" data-go="timemachine"><span class="fc-emoji">⏳</span><span class="fc-title">관계 타임머신<span class="zh">Time Machine</span></span><span class="fc-desc">6개월 관계 패턴 분석 · Pattern analysis</span></button>
         <button class="feature-card mbti-highlight" data-go="mbti"><span class="fc-emoji">🧬</span><span class="fc-title">MBTI 궁합<span class="zh">Compatibility</span></span><span class="fc-desc">16가지 유형 궁합 분석 · Type compatibility</span></button>
+        <button class="feature-card tarot-highlight" data-go="tarot"><span class="fc-emoji">🔮</span><span class="fc-title">관계 타로<span class="zh">Love Tarot</span></span><span class="fc-desc">오늘의 타로 카드 · Today's card reading</span></button>
       </div>
     </div>
 
@@ -589,6 +592,38 @@
       <div id="tmResult" class="hidden"></div>
     </section>
 
+    <!-- 15. 관계 타로 -->
+    <section class="page hidden" id="page-tarot">
+      <!-- 인물 선택 -->
+      <div class="card">
+        <label class="field-label">누구에 대한 리딩인가요? <span class="zh-inline">Who?</span></label>
+        <div id="tarotPersonChips" class="chip-group" style="margin-bottom:4px"></div>
+        <label class="field-label" style="margin-top:12px">관계 유형 · Relationship</label>
+        <div class="tarot-ctx-row">
+          <button class="tarot-ctx-btn" data-ctx="lover">💕 연인</button>
+          <button class="tarot-ctx-btn" data-ctx="friend">🤝 친구</button>
+          <button class="tarot-ctx-btn" data-ctx="family">👨‍👩‍👧 가족</button>
+          <button class="tarot-ctx-btn" data-ctx="work">💼 직장</button>
+        </div>
+      </div>
+
+      <!-- 카드 뽑기 -->
+      <div class="card">
+        <label class="field-label">카드를 뽑아보세요 · Draw Your Card</label>
+        <p style="font-size:13px;color:#aaa;margin:0 0 14px">오늘의 타로는 매일 자정에 바뀌어요</p>
+        <div class="tarot-draw-row">
+          <button class="btn-primary" id="tarotTodayBtn">🌟 오늘의 타로</button>
+          <button class="btn-primary" id="tarotRandomBtn" style="background:linear-gradient(135deg,#6b4eaa,#4a1b8c)">🎴 랜덤 뽑기</button>
+        </div>
+      </div>
+
+      <!-- 카드 플립 영역 -->
+      <div id="tarotCardArea" class="hidden"></div>
+
+      <!-- 결과 -->
+      <div id="tarotResult" class="hidden"></div>
+    </section>
+
     <!-- 관계 추가/편집 (relmap sub) -->
     <section class="page hidden" id="page-relmap-add">
       <div class="card">
@@ -653,5 +688,7 @@
 <script src="./js/timemachine-ui.js"></script>
 <script src="./js/mbti.js"></script>
 <script src="./js/mbti-ui.js"></script>
+<script src="./js/tarot.js"></script>
+<script src="./js/tarot-ui.js"></script>
 </body>
 </html>

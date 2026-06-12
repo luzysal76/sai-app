@@ -301,6 +301,16 @@
 .tm-highlight .fc-title,
 .tm-highlight .fc-desc { color: #fff !important; -webkit-text-fill-color: #fff !important; }
 
+/* ── 관계 타로 버튼 하이라이트 ── */
+.tarot-highlight {
+  background: linear-gradient(135deg, #2d1b6e 0%, #7c3aed 100%) !important;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(124,58,237,.4) !important;
+}
+.tarot-highlight .fc-emoji,
+.tarot-highlight .fc-title,
+.tarot-highlight .fc-desc { color: #fff !important; -webkit-text-fill-color: #fff !important; }
+
 /* ── 20. 텍스트에어리어 포커스 글로우 ── */
 textarea:focus {
   border-color: var(--pink);
