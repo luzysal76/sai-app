@@ -51,6 +51,17 @@
         <div class="report-hint" id="reportHint"></div>
         <div class="report-missions" id="reportMissions"></div>
       </div>
+      <!-- 오늘의 타로 미리보기 -->
+      <div class="home-tarot-widget" id="homeTarotWidget">
+        <div class="htw-left">
+          <div class="htw-label">🔮 오늘의 타로</div>
+          <div class="htw-card-name" id="htCardName">카드 로딩 중...</div>
+          <div class="htw-msg" id="htCardMsg"></div>
+          <div class="htw-kws" id="htCardKws"></div>
+        </div>
+        <div class="htw-right" id="htCardSymbol">✨</div>
+      </div>
+
       <button class="relmap-cta" id="relmapCta">
         <span class="rmc-left"><span class="rmc-emoji">💫</span><div><b>관계 지도 <span class="zh-inline">Relation Map</span></b><p>내 주변 사람들을 RPG처럼 관리 · Manage like RPG</p></div></span>
         <span class="rmc-arrow">›</span>
@@ -65,6 +76,7 @@
         <button class="feature-card sm" data-go="reply"><span class="fc-emoji">✍️</span><span class="fc-title">답장 생성기</span></button>
         <button class="feature-card sm tm-highlight" data-go="timemachine"><span class="fc-emoji">⏳</span><span class="fc-title">관계 타임머신</span></button>
         <button class="feature-card sm tarot-highlight" data-go="tarot"><span class="fc-emoji">🔮</span><span class="fc-title">관계 타로</span></button>
+        <button class="feature-card sm mbti-highlight" data-go="mbti"><span class="fc-emoji">🧬</span><span class="fc-title">MBTI 궁합</span></button>
       </div>
     </div>
 
@@ -680,15 +692,15 @@
 <script src="./js/scenario.js"></script>
 <script src="./js/nvc-engine.js"></script>
 <script src="./js/bankbook.js"></script>
+<script src="./js/tarot.js"></script>
+<script src="./js/mbti.js"></script>
 <script src="./js/app.js"></script>
 <script src="./js/app-new.js"></script>
 <script src="./js/nvc-ui.js"></script>
 <script src="./js/bankbook-ui.js"></script>
 <script src="./js/timemachine.js"></script>
 <script src="./js/timemachine-ui.js"></script>
-<script src="./js/mbti.js"></script>
 <script src="./js/mbti-ui.js"></script>
-<script src="./js/tarot.js"></script>
 <script src="./js/tarot-ui.js"></script>
 </body>
 </html>

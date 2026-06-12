@@ -158,6 +158,23 @@
     }
     refreshHome();
     window.HU._refreshHome = refreshHome;
+
+    // 오늘의 타로 위젯 (tarot.js는 app.js 앞에 로드됨)
+    initHomeTarot();
+  }
+
+  function initHomeTarot() {
+    const widget = $('#homeTarotWidget');
+    if (!widget || !window.SaiTarot) return;
+    const card = window.SaiTarot.getTodayCard();
+    const nameEl = $('#htCardName'), msgEl = $('#htCardMsg');
+    const kwsEl = $('#htCardKws'), symEl = $('#htCardSymbol');
+    if (nameEl) nameEl.textContent = card.name;
+    if (symEl)  symEl.textContent = card.symbol;
+    if (msgEl)  msgEl.textContent = card.meaning.slice(0, 42) + '…';
+    if (kwsEl)  kwsEl.innerHTML = card.keyword.slice(0, 3).map(k => `<span class="htw-kw">${k}</span>`).join('');
+    widget.style.cursor = 'pointer';
+    widget.addEventListener('click', () => { NAV.tab = 'tools'; showPage('tarot'); });
   }
 
   // ---------- 관계 그룹 초기화 ----------
