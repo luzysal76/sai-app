@@ -1,0 +1,279 @@
+/* ============================
+   사이(Sai) — 사랑의 언어 테스트 스타일 (Warm Rose)
+   ============================ */
+
+/* ── 인트로 카드 ── */
+.ll-intro-card {
+  text-align: center;
+  background: linear-gradient(145deg, #fff5f5, #fff0f5);
+  border: 1.5px solid rgba(244,63,94,.2) !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.ll-intro-icon { font-size: 52px; }
+
+.ll-intro-title {
+  font-size: 22px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #f43f5e, #fb923c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+}
+
+.ll-intro-desc {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.ll-lang-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.ll-lang-chip {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 11px;
+  border-radius: 20px;
+  background: rgba(244,63,94,.08);
+  color: #f43f5e;
+  border: 1.5px solid rgba(244,63,94,.2);
+}
+
+#lovelangStartBtn {
+  background: linear-gradient(135deg, #f43f5e 0%, #fb923c 100%);
+  box-shadow: 0 6px 20px rgba(244,63,94,.35);
+  width: 100%;
+  margin-top: 4px;
+}
+
+/* ── 진행바 ── */
+.ll-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.ll-progress-bar {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(244,63,94,.15);
+  overflow: hidden;
+}
+
+.ll-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #f43f5e, #fb923c);
+  width: 0%;
+  transition: width .4s ease;
+}
+
+.ll-progress-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #fb7185;
+  white-space: nowrap;
+}
+
+/* ── 질문 번호 ── */
+.ll-q-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: #fb7185;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+  text-align: center;
+}
+
+/* ── A/B 선택 카드 ── */
+.ll-choice-area {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ll-choice-card {
+  width: 100%;
+  padding: 18px 16px;
+  border-radius: 16px;
+  border: 2px solid rgba(244,63,94,.15);
+  background: rgba(255,255,255,.95);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: all .18s;
+}
+
+.ll-choice-card:active { transform: scale(.98); }
+
+.ll-choice-card.selected {
+  background: linear-gradient(135deg, #f43f5e 0%, #fb923c 100%);
+  border-color: transparent;
+  box-shadow: 0 4px 16px rgba(244,63,94,.35);
+}
+
+.ll-choice-label {
+  font-size: 13px;
+  font-weight: 900;
+  color: #f43f5e;
+  background: rgba(244,63,94,.1);
+  border-radius: 8px;
+  padding: 4px 9px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.ll-choice-card.selected .ll-choice-label {
+  background: rgba(255,255,255,.25);
+  color: #fff;
+}
+
+.ll-choice-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.55;
+}
+
+.ll-choice-card.selected .ll-choice-text { color: #fff; }
+
+.ll-or {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+  color: rgba(244,63,94,.4);
+  letter-spacing: 1px;
+}
+
+/* ── 결과 헤더 ── */
+.ll-result-header {
+  text-align: center;
+  background: linear-gradient(145deg, #fff5f5, #fff0f5) !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.ll-result-emoji { font-size: 52px; }
+
+.ll-result-type {
+  font-size: 26px;
+  font-weight: 900;
+}
+
+.ll-result-desc {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* ── 바 차트 카드 ── */
+.ll-bars-card {
+  background: linear-gradient(145deg, #fff5f5, #fff0f5) !important;
+  border: 1.5px solid rgba(244,63,94,.15) !important;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ll-bars-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f43f5e;
+  margin-bottom: 2px;
+}
+
+.ll-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ll-bar-em { font-size: 16px; flex-shrink: 0; }
+
+.ll-bar-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: #555;
+  width: 72px;
+  flex-shrink: 0;
+}
+
+.ll-bar-track {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.06);
+  overflow: hidden;
+}
+
+.ll-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  width: 0;
+}
+
+.ll-bar-score {
+  font-size: 12px;
+  font-weight: 700;
+  width: 26px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.ll-secondary-note {
+  font-size: 12px;
+  color: #888;
+  margin-top: 2px;
+}
+
+/* ── 느낌/상처 카드 ── */
+.ll-feel-card {
+  border-radius: 18px !important;
+}
+
+.ll-feel-head {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.ll-feel-card p {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── 다시하기 ── */
+.ll-retry-btn {
+  background: linear-gradient(135deg, #f43f5e 0%, #fb923c 100%) !important;
+  box-shadow: 0 4px 14px rgba(244,63,94,.3) !important;
+  margin-top: 4px;
+}
+
+/* ── 도구탭 사랑의 언어 하이라이트 ── */
+.ll-highlight {
+  background: linear-gradient(135deg, #be123c 0%, #f43f5e 50%, #fb923c 100%) !important;
+  border: none !important;
+  box-shadow: 0 4px 16px rgba(244,63,94,.4) !important;
+}
+.ll-highlight .fc-emoji { filter: drop-shadow(0 0 6px rgba(251,146,60,.6)); }
+.ll-highlight .fc-title,
+.ll-highlight .fc-desc { color: #fff !important; -webkit-text-fill-color: #fff !important; }

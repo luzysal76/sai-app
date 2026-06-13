@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="./css/styles-saju.css"/>
   <link rel="stylesheet" href="./css/styles-zodiac.css"/>
   <link rel="stylesheet" href="./css/styles-attachment.css"/>
+  <link rel="stylesheet" href="./css/styles-lovelang.css"/>
 </head>
 <body>
 <div class="app">
@@ -121,6 +122,7 @@
         <button class="feature-card saju-highlight" data-go="saju"><span class="fc-emoji">🏮</span><span class="fc-title">사주 궁합<span class="zh">Saju Compat.</span></span><span class="fc-desc">생년월일 오행 궁합 · Five Elements compatibility</span></button>
         <button class="feature-card zodiac-highlight" data-go="zodiac"><span class="fc-emoji">⭐</span><span class="fc-title">별자리 궁합<span class="zh">Zodiac Compat.</span></span><span class="fc-desc">12별자리 원소 에너지 궁합 · Zodiac compatibility</span></button>
         <button class="feature-card att-highlight" data-go="attachment"><span class="fc-emoji">🧠</span><span class="fc-title">애착 유형 분석<span class="zh">Attachment Style</span></span><span class="fc-desc">나의 관계 패턴 12문항 심리 분석 · 4 attachment types</span></button>
+        <button class="feature-card ll-highlight" data-go="lovelang"><span class="fc-emoji">💬</span><span class="fc-title">사랑의 언어<span class="zh">Love Language</span></span><span class="fc-desc">5가지 사랑 표현 유형 · 5 Love Languages test</span></button>
       </div>
     </div>
 
@@ -644,6 +646,36 @@
       <div id="tarotResult" class="hidden"></div>
     </section>
 
+    <!-- 19. 사랑의 언어 -->
+    <section class="page hidden" id="page-lovelang">
+      <div id="lovelangIntro">
+        <div class="card ll-intro-card">
+          <div class="ll-intro-icon">💬</div>
+          <h3 class="ll-intro-title">사랑의 언어 테스트</h3>
+          <p class="ll-intro-desc">나는 어떤 방식으로 사랑을 주고받을까요?<br>10문항 A/B 선택으로 나의 사랑 언어를 알아보세요.</p>
+          <div class="ll-lang-chips">
+            <span class="ll-lang-chip">💬 긍정의 말</span>
+            <span class="ll-lang-chip">🤝 봉사</span>
+            <span class="ll-lang-chip">🎁 선물</span>
+            <span class="ll-lang-chip">⏰ 함께하는 시간</span>
+            <span class="ll-lang-chip">🤗 스킨십</span>
+          </div>
+          <button class="btn-primary" id="lovelangStartBtn">💕 테스트 시작하기</button>
+        </div>
+      </div>
+
+      <div id="lovelangQuiz" class="hidden">
+        <div class="ll-progress">
+          <div class="ll-progress-bar"><div class="ll-progress-fill" id="llProgressFill"></div></div>
+          <div class="ll-progress-label" id="llProgressLabel">1 / 10</div>
+        </div>
+        <div class="ll-q-num" id="llQNum">Q1</div>
+        <div class="ll-choice-area" id="llChoiceArea"></div>
+      </div>
+
+      <div id="lovelangResult" class="hidden"></div>
+    </section>
+
     <!-- 18. 애착 유형 분석 -->
     <section class="page hidden" id="page-attachment">
       <!-- 인트로 -->
@@ -835,6 +867,7 @@
 <script src="./js/nvc-engine.js"></script>
 <script src="./js/bankbook.js"></script>
 <script src="./js/attachment.js"></script>
+<script src="./js/lovelang.js"></script>
 <script src="./js/zodiac.js"></script>
 <script src="./js/saju.js"></script>
 <script src="./js/tarot.js"></script>
@@ -850,5 +883,6 @@
 <script src="./js/saju-ui.js"></script>
 <script src="./js/zodiac-ui.js"></script>
 <script src="./js/attachment-ui.js"></script>
+<script src="./js/lovelang-ui.js"></script>
 </body>
 </html>
