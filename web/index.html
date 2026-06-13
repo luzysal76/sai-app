@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="./css/styles-timemachine.css"/>
   <link rel="stylesheet" href="./css/styles-mbti.css"/>
   <link rel="stylesheet" href="./css/styles-tarot.css"/>
+  <link rel="stylesheet" href="./css/styles-saju.css"/>
 </head>
 <body>
 <div class="app">
@@ -77,6 +78,7 @@
         <button class="feature-card sm tm-highlight" data-go="timemachine"><span class="fc-emoji">⏳</span><span class="fc-title">관계 타임머신</span></button>
         <button class="feature-card sm tarot-highlight" data-go="tarot"><span class="fc-emoji">🔮</span><span class="fc-title">관계 타로</span></button>
         <button class="feature-card sm mbti-highlight" data-go="mbti"><span class="fc-emoji">🧬</span><span class="fc-title">MBTI 궁합</span></button>
+        <button class="feature-card sm saju-highlight" data-go="saju"><span class="fc-emoji">🏮</span><span class="fc-title">사주 궁합</span></button>
       </div>
     </div>
 
@@ -113,6 +115,7 @@
         <button class="feature-card tm-highlight" data-go="timemachine"><span class="fc-emoji">⏳</span><span class="fc-title">관계 타임머신<span class="zh">Time Machine</span></span><span class="fc-desc">6개월 관계 패턴 분석 · Pattern analysis</span></button>
         <button class="feature-card mbti-highlight" data-go="mbti"><span class="fc-emoji">🧬</span><span class="fc-title">MBTI 궁합<span class="zh">Compatibility</span></span><span class="fc-desc">16가지 유형 궁합 분석 · Type compatibility</span></button>
         <button class="feature-card tarot-highlight" data-go="tarot"><span class="fc-emoji">🔮</span><span class="fc-title">관계 타로<span class="zh">Love Tarot</span></span><span class="fc-desc">오늘의 타로 카드 · Today's card reading</span></button>
+        <button class="feature-card saju-highlight" data-go="saju"><span class="fc-emoji">🏮</span><span class="fc-title">사주 궁합<span class="zh">Saju Compat.</span></span><span class="fc-desc">생년월일 오행 궁합 · Five Elements compatibility</span></button>
       </div>
     </div>
 
@@ -636,6 +639,52 @@
       <div id="tarotResult" class="hidden"></div>
     </section>
 
+    <!-- 16. 사주 궁합 -->
+    <section class="page hidden" id="page-saju">
+      <!-- 나 -->
+      <div class="saju-input-card">
+        <div class="saju-input-title">🙋 나</div>
+        <div class="saju-chips-row" id="sajuChips1"></div>
+        <input class="saju-name-input" id="sajuName1" placeholder="이름 (선택)" autocomplete="off"/>
+        <div class="saju-date-row">
+          <input type="number" class="saju-year-input" id="sajuYear1" placeholder="출생년도 예) 1995" min="1930" max="2010"/>
+          <select class="saju-month-select" id="sajuMonth1">
+            <option value="">월</option>
+            <option value="1">1월</option><option value="2">2월</option>
+            <option value="3">3월</option><option value="4">4월</option>
+            <option value="5">5월</option><option value="6">6월</option>
+            <option value="7">7월</option><option value="8">8월</option>
+            <option value="9">9월</option><option value="10">10월</option>
+            <option value="11">11월</option><option value="12">12월</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 상대방 -->
+      <div class="saju-input-card">
+        <div class="saju-input-title">💕 상대방</div>
+        <div class="saju-chips-row" id="sajuChips2"></div>
+        <input class="saju-name-input" id="sajuName2" placeholder="이름 (선택)" autocomplete="off"/>
+        <div class="saju-date-row">
+          <input type="number" class="saju-year-input" id="sajuYear2" placeholder="출생년도 예) 1993" min="1930" max="2010"/>
+          <select class="saju-month-select" id="sajuMonth2">
+            <option value="">월</option>
+            <option value="1">1월</option><option value="2">2월</option>
+            <option value="3">3월</option><option value="4">4월</option>
+            <option value="5">5월</option><option value="6">6월</option>
+            <option value="7">7월</option><option value="8">8월</option>
+            <option value="9">9월</option><option value="10">10월</option>
+            <option value="11">11월</option><option value="12">12월</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="sajuCalcBtn">🏮 사주 궁합 보기</button>
+
+      <!-- 결과 -->
+      <div id="sajuResult" class="hidden"></div>
+    </section>
+
     <!-- 관계 추가/편집 (relmap sub) -->
     <section class="page hidden" id="page-relmap-add">
       <div class="card">
@@ -692,6 +741,7 @@
 <script src="./js/scenario.js"></script>
 <script src="./js/nvc-engine.js"></script>
 <script src="./js/bankbook.js"></script>
+<script src="./js/saju.js"></script>
 <script src="./js/tarot.js"></script>
 <script src="./js/mbti.js"></script>
 <script src="./js/app.js"></script>
@@ -702,5 +752,6 @@
 <script src="./js/timemachine-ui.js"></script>
 <script src="./js/mbti-ui.js"></script>
 <script src="./js/tarot-ui.js"></script>
+<script src="./js/saju-ui.js"></script>
 </body>
 </html>

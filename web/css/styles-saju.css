@@ -1,0 +1,308 @@
+/* ============================
+   사이(Sai) — 사주 궁합 스타일 (동양 붉은 금빛)
+   ============================ */
+
+/* ── 입력 섹션 ── */
+.saju-section-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #b45309;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.saju-person-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.saju-input-card {
+  background: linear-gradient(145deg, #fffbf0, #fff7e6);
+  border: 1.5px solid rgba(180,83,9,.2);
+  border-radius: 18px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.saju-input-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #b45309;
+  margin-bottom: 2px;
+}
+
+.saju-chips-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  min-height: 16px;
+}
+
+.saju-name-input {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(180,83,9,.2);
+  background: rgba(255,255,255,.8);
+  font-size: 14px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.saju-date-row {
+  display: flex;
+  gap: 8px;
+}
+
+.saju-year-input {
+  flex: 2;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(180,83,9,.2);
+  background: rgba(255,255,255,.8);
+  font-size: 14px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.saju-month-select {
+  flex: 1;
+  padding: 9px 6px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(180,83,9,.2);
+  background: rgba(255,255,255,.8);
+  font-size: 14px;
+  font-family: inherit;
+}
+
+/* ── 계산 버튼 ── */
+#sajuCalcBtn {
+  background: linear-gradient(135deg, #7c2d12 0%, #b45309 50%, #d97706 100%);
+  box-shadow: 0 6px 20px rgba(180,83,9,.4);
+}
+
+/* ── 결과: 두 사람 연주/월주 카드 ── */
+.saju-result-pillars {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.saju-pcard {
+  flex: 1;
+  background: linear-gradient(145deg, #fffbf0, #fff7e6);
+  border: 1.5px solid rgba(180,83,9,.25);
+  border-radius: 18px;
+  padding: 14px 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.saju-pcard-name {
+  font-size: 13px;
+  font-weight: 800;
+  color: #7c2d12;
+}
+
+.saju-pcard-elem {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid transparent;
+}
+
+.saju-pcard-cols {
+  display: flex;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.saju-pcol {
+  background: rgba(255,255,255,.7);
+  border: 1px solid rgba(180,83,9,.15);
+  border-radius: 10px;
+  padding: 8px 6px;
+  text-align: center;
+}
+
+.saju-pcol-hanzi {
+  font-size: 20px;
+  font-weight: 900;
+  color: #7c2d12;
+  letter-spacing: 1px;
+}
+
+.saju-pcol-kor {
+  font-size: 11px;
+  color: #b45309;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.saju-pcol-tag {
+  font-size: 9px;
+  color: #aaa;
+  margin-top: 3px;
+}
+
+.saju-pcard-animal {
+  font-size: 12px;
+  color: #92400e;
+  font-weight: 600;
+}
+
+.saju-pillars-vs {
+  font-size: 18px;
+  font-weight: 900;
+  color: #b45309;
+  text-align: center;
+  flex-shrink: 0;
+  line-height: 1.2;
+}
+
+.saju-pillars-vs span {
+  font-size: 13px;
+  display: block;
+}
+
+/* ── 궁합 점수 카드 ── */
+.saju-score-card {
+  text-align: center;
+  background: linear-gradient(145deg, #fffbf0, #fff7e6) !important;
+  border: 1.5px solid rgba(180,83,9,.2) !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.saju-sc-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #b45309;
+  letter-spacing: 0.5px;
+}
+
+.saju-sc-ring {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.saju-sc-num {
+  position: absolute;
+  font-size: 26px;
+  font-weight: 900;
+}
+
+.saju-sc-grade {
+  font-size: 18px;
+  font-weight: 800;
+  color: #7c2d12;
+}
+
+.saju-sc-rel {
+  font-size: 13px;
+  font-weight: 700;
+  color: #b45309;
+  background: rgba(180,83,9,.1);
+  padding: 4px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(180,83,9,.2);
+}
+
+.saju-sc-summary {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+  padding: 0 4px;
+}
+
+/* ── 주의사항 카드 ── */
+.saju-caution-card {
+  background: linear-gradient(135deg, #fff5f5, #fff) !important;
+  border: 1px solid rgba(220,38,38,.15) !important;
+}
+
+.saju-caution-head {
+  font-size: 15px;
+  font-weight: 700;
+  color: #dc2626;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.saju-caution-head span { font-size: 14px; }
+
+.saju-caution-card p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── 오행 카드 행 ── */
+.saju-elem-row {
+  display: flex;
+  gap: 10px;
+}
+
+.saju-ecard {
+  flex: 1;
+  border-radius: 16px;
+  border: 1.5px solid transparent;
+  padding: 14px 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.saju-ecard-em { font-size: 28px; }
+
+.saju-ecard-name {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.saju-ecard-who {
+  font-size: 11px;
+  color: #888;
+  font-weight: 600;
+}
+
+.saju-ecard-meaning {
+  font-size: 11px;
+  color: #666;
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+/* ── 다시 계산 버튼 ── */
+.saju-retry-btn {
+  background: linear-gradient(135deg, #7c2d12 0%, #b45309 100%) !important;
+  box-shadow: 0 4px 14px rgba(124,45,18,.3) !important;
+  margin-top: 4px;
+}
+
+/* ── 도구탭 사주 하이라이트 ── */
+.saju-highlight {
+  background: linear-gradient(135deg, #7c2d12 0%, #b45309 60%, #d97706 100%) !important;
+  border: none !important;
+  box-shadow: 0 4px 16px rgba(180,83,9,.4) !important;
+}
+.saju-highlight .fc-emoji { filter: drop-shadow(0 0 6px rgba(255,200,0,.5)); }
+.saju-highlight .fc-title,
+.saju-highlight .fc-desc { color: #fff !important; -webkit-text-fill-color: #fff !important; }
