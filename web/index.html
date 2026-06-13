@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="./css/styles-lovelang.css"/>
   <link rel="stylesheet" href="./css/styles-enneagram.css"/>
   <link rel="stylesheet" href="./css/styles-disc.css"/>
+  <link rel="stylesheet" href="./css/styles-relcheck.css"/>
 </head>
 <body>
 <div class="app">
@@ -127,6 +128,7 @@
         <button class="feature-card ll-highlight" data-go="lovelang"><span class="fc-emoji">💬</span><span class="fc-title">사랑의 언어<span class="zh">Love Language</span></span><span class="fc-desc">5가지 사랑 표현 유형 · 5 Love Languages test</span></button>
         <button class="feature-card enn-highlight" data-go="enneagram"><span class="fc-emoji">🔢</span><span class="fc-title">에니어그램 궁합<span class="zh">Enneagram</span></span><span class="fc-desc">9가지 성격 유형 궁합 분석 · 9-type personality</span></button>
         <button class="feature-card disc-highlight" data-go="disc"><span class="fc-emoji">🎯</span><span class="fc-title">DISC 소통 유형<span class="zh">DISC Profile</span></span><span class="fc-desc">4가지 소통 스타일 분석 · Communication style</span></button>
+        <button class="feature-card rc-highlight" data-go="relcheck"><span class="fc-emoji">🌡️</span><span class="fc-title">관계 건강 체크<span class="zh">Rel. Health</span></span><span class="fc-desc">5차원 레이더로 보는 관계 건강 · 5D radar check</span></button>
       </div>
     </div>
 
@@ -715,6 +717,17 @@
     </section>
 
     <!-- 21. DISC 소통 유형 -->
+    <!-- 22. 관계 건강 체크 -->
+    <section class="page hidden" id="page-relcheck">
+      <div class="card" style="background:linear-gradient(145deg,#f5f3ff,#fdf4ff);border:1.5px solid rgba(99,102,241,.2);text-align:center">
+        <div style="font-size:44px;margin-bottom:6px">🌡️</div>
+        <h3 style="font-size:20px;font-weight:900;background:linear-gradient(135deg,#4338ca,#a855f7,#ec4899);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin:0 0 8px">관계 건강 체크</h3>
+        <p style="font-size:13px;color:#666;margin:0;line-height:1.65">소통·신뢰·친밀감·배려·설렘<br>5가지 차원으로 지금 우리 관계를 점검해보세요</p>
+      </div>
+      <div id="relcheckForm"></div>
+      <div id="relcheckResult" class="hidden"></div>
+    </section>
+
     <section class="page hidden" id="page-disc">
       <div id="discIntro">
         <div class="card disc-intro-card">
@@ -937,6 +950,7 @@
 <script src="./js/lovelang.js"></script>
 <script src="./js/enneagram.js"></script>
 <script src="./js/disc.js"></script>
+<script src="./js/relcheck.js"></script>
 <script src="./js/zodiac.js"></script>
 <script src="./js/saju.js"></script>
 <script src="./js/tarot.js"></script>
@@ -955,5 +969,6 @@
 <script src="./js/lovelang-ui.js"></script>
 <script src="./js/enneagram-ui.js"></script>
 <script src="./js/disc-ui.js"></script>
+<script src="./js/relcheck-ui.js"></script>
 </body>
 </html>
