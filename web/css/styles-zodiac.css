@@ -1,0 +1,327 @@
+/* ============================
+   사이(Sai) — 별자리 궁합 스타일 (Cosmic Blue·Gold)
+   ============================ */
+
+/* ── 입력 카드 ── */
+.zodiac-input-card {
+  background: linear-gradient(145deg, #0d1b3e, #1a0f3e);
+  border: 1.5px solid rgba(226,179,61,.3);
+  border-radius: 18px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.4), 0 0 16px rgba(124,58,237,.1);
+}
+
+.zodiac-input-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #e2b33d;
+  letter-spacing: 0.5px;
+}
+
+.zodiac-chips-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.zodiac-name-input {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(226,179,61,.25);
+  background: rgba(255,255,255,.05);
+  color: #fff;
+  font-size: 14px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.zodiac-name-input::placeholder { color: rgba(255,255,255,.3); }
+
+.zodiac-date-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.zodiac-month-select,
+.zodiac-day-input {
+  padding: 9px 8px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(226,179,61,.25);
+  background: rgba(255,255,255,.05);
+  color: #fff;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.zodiac-month-select { flex: 2; }
+.zodiac-day-input    { flex: 1; }
+
+.zodiac-sign-preview {
+  font-size: 18px;
+  font-weight: 800;
+  color: #e2b33d;
+  text-align: right;
+  min-width: 80px;
+  opacity: 0;
+  transition: opacity .3s;
+  flex-shrink: 0;
+}
+
+/* select & option dark mode 호환 */
+.zodiac-month-select option { background: #1a0f3e; color: #fff; }
+
+/* ── 계산 버튼 ── */
+#zodiacCalcBtn {
+  background: linear-gradient(135deg, #3b1f8c 0%, #7c3aed 50%, #e2b33d 100%);
+  box-shadow: 0 6px 20px rgba(124,58,237,.4);
+}
+
+/* ── 결과: 두 별자리 ── */
+.zodiac-signs-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.zodiac-sign-card {
+  flex: 1;
+  background: linear-gradient(145deg, #0d1b3e, #1a0f3e);
+  border: 1.5px solid rgba(226,179,61,.3);
+  border-radius: 18px;
+  padding: 14px 10px;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,.4), 0 0 12px rgba(124,58,237,.08);
+}
+
+.zodiac-sign-symbol {
+  font-size: 34px;
+  line-height: 1;
+  margin-bottom: 4px;
+  filter: drop-shadow(0 0 8px rgba(226,179,61,.6));
+}
+
+.zodiac-sign-name {
+  font-size: 15px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #f0c040, #e2b33d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.zodiac-sign-dates {
+  font-size: 10px;
+  color: rgba(226,179,61,.5);
+  margin-top: 2px;
+}
+
+.zodiac-sign-who {
+  font-size: 11px;
+  color: rgba(255,255,255,.5);
+  margin-top: 4px;
+}
+
+.zodiac-sign-kws {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+.zodiac-kw {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 20px;
+  background: rgba(226,179,61,.12);
+  border: 1px solid rgba(226,179,61,.2);
+  color: rgba(226,179,61,.85);
+}
+
+.zodiac-signs-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.zodiac-aspect {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(226,179,61,.7);
+  text-align: center;
+}
+
+.zodiac-stars {
+  font-size: 14px;
+  color: rgba(226,179,61,.5);
+  letter-spacing: 2px;
+  animation: zodiac-twinkle 2s ease-in-out infinite alternate;
+}
+
+@keyframes zodiac-twinkle {
+  from { opacity: 0.4; transform: scale(0.95); }
+  to   { opacity: 1;   transform: scale(1.05); }
+}
+
+/* ── 점수 카드 ── */
+.zodiac-score-card {
+  text-align: center;
+  background: linear-gradient(145deg, #0d1b3e, #1a0f3e) !important;
+  border: 1.5px solid rgba(226,179,61,.3) !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,.5), 0 0 16px rgba(124,58,237,.08) !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.zodiac-sc-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(226,179,61,.7);
+  letter-spacing: 0.5px;
+}
+
+.zodiac-sc-ring {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zodiac-sc-num {
+  position: absolute;
+  font-size: 26px;
+  font-weight: 900;
+}
+
+.zodiac-sc-grade {
+  font-size: 18px;
+  font-weight: 800;
+  color: #e2b33d;
+}
+
+.zodiac-elem-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.zodiac-elem-badge {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(226,179,61,.85);
+  background: rgba(226,179,61,.1);
+  border: 1px solid rgba(226,179,61,.2);
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.zodiac-aspect-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: #7c3aed;
+  background: rgba(124,58,237,.12);
+  border: 1px solid rgba(124,58,237,.3);
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.zodiac-sc-summary {
+  font-size: 13px;
+  color: rgba(255,240,200,.8);
+  line-height: 1.6;
+  padding: 0 4px;
+}
+
+/* ── 주의사항 카드 ── */
+.zodiac-caution-card {
+  background: linear-gradient(135deg, #1a0f1f, #0d0a1e) !important;
+  border: 1px solid rgba(220,38,38,.2) !important;
+}
+
+.zodiac-caution-head {
+  font-size: 15px;
+  font-weight: 700;
+  color: #f87171;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.zodiac-caution-head span { font-size: 14px; }
+
+.zodiac-caution-card p {
+  font-size: 14px;
+  color: rgba(255,220,220,.8);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── 특성 카드 행 ── */
+.zodiac-traits-row {
+  display: flex;
+  gap: 10px;
+}
+
+.zodiac-trait-card {
+  flex: 1;
+  background: linear-gradient(145deg, #0d1b3e, #1a0f3e);
+  border: 1.5px solid rgba(226,179,61,.2);
+  border-radius: 16px;
+  padding: 14px 10px;
+  text-align: center;
+}
+
+.zodiac-trait-sym {
+  font-size: 28px;
+  filter: drop-shadow(0 0 8px rgba(226,179,61,.5));
+}
+
+.zodiac-trait-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(226,179,61,.8);
+  margin-top: 4px;
+}
+
+.zodiac-trait-desc {
+  font-size: 11px;
+  color: rgba(255,255,255,.5);
+  line-height: 1.5;
+  margin-top: 4px;
+}
+
+/* ── 다시하기 버튼 ── */
+.zodiac-retry-btn {
+  background: linear-gradient(135deg, #1a0f3e 0%, #3b1f8c 100%) !important;
+  border: 1.5px solid rgba(226,179,61,.4) !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,.4) !important;
+  margin-top: 4px;
+}
+
+/* ── 도구탭 별자리 하이라이트 ── */
+.zodiac-highlight {
+  background: linear-gradient(135deg, #0d1b3e 0%, #1a0f3e 50%, #3b1f8c 100%) !important;
+  border: 1.5px solid rgba(226,179,61,.45) !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,.5), 0 0 12px rgba(124,58,237,.2) !important;
+}
+.zodiac-highlight .fc-emoji { filter: drop-shadow(0 0 6px rgba(226,179,61,.7)); }
+.zodiac-highlight .fc-title {
+  background: linear-gradient(135deg, #f0c040, #e2b33d) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+.zodiac-highlight .fc-desc { color: rgba(226,179,61,.6) !important; -webkit-text-fill-color: rgba(226,179,61,.6) !important; }

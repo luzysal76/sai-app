@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="./css/styles-mbti.css"/>
   <link rel="stylesheet" href="./css/styles-tarot.css"/>
   <link rel="stylesheet" href="./css/styles-saju.css"/>
+  <link rel="stylesheet" href="./css/styles-zodiac.css"/>
 </head>
 <body>
 <div class="app">
@@ -79,6 +80,7 @@
         <button class="feature-card sm tarot-highlight" data-go="tarot"><span class="fc-emoji">🔮</span><span class="fc-title">관계 타로</span></button>
         <button class="feature-card sm mbti-highlight" data-go="mbti"><span class="fc-emoji">🧬</span><span class="fc-title">MBTI 궁합</span></button>
         <button class="feature-card sm saju-highlight" data-go="saju"><span class="fc-emoji">🏮</span><span class="fc-title">사주 궁합</span></button>
+        <button class="feature-card sm zodiac-highlight" data-go="zodiac"><span class="fc-emoji">⭐</span><span class="fc-title">별자리 궁합</span></button>
       </div>
     </div>
 
@@ -116,6 +118,7 @@
         <button class="feature-card mbti-highlight" data-go="mbti"><span class="fc-emoji">🧬</span><span class="fc-title">MBTI 궁합<span class="zh">Compatibility</span></span><span class="fc-desc">16가지 유형 궁합 분석 · Type compatibility</span></button>
         <button class="feature-card tarot-highlight" data-go="tarot"><span class="fc-emoji">🔮</span><span class="fc-title">관계 타로<span class="zh">Love Tarot</span></span><span class="fc-desc">오늘의 타로 카드 · Today's card reading</span></button>
         <button class="feature-card saju-highlight" data-go="saju"><span class="fc-emoji">🏮</span><span class="fc-title">사주 궁합<span class="zh">Saju Compat.</span></span><span class="fc-desc">생년월일 오행 궁합 · Five Elements compatibility</span></button>
+        <button class="feature-card zodiac-highlight" data-go="zodiac"><span class="fc-emoji">⭐</span><span class="fc-title">별자리 궁합<span class="zh">Zodiac Compat.</span></span><span class="fc-desc">12별자리 원소 에너지 궁합 · Zodiac compatibility</span></button>
       </div>
     </div>
 
@@ -639,6 +642,54 @@
       <div id="tarotResult" class="hidden"></div>
     </section>
 
+    <!-- 17. 별자리 궁합 -->
+    <section class="page hidden" id="page-zodiac">
+      <!-- 나 -->
+      <div class="zodiac-input-card">
+        <div class="zodiac-input-title">🙋 나</div>
+        <div class="zodiac-chips-row" id="zodiacChips1"></div>
+        <input class="zodiac-name-input" id="zodiacName1" placeholder="이름 (선택)" autocomplete="off"/>
+        <div class="zodiac-date-row">
+          <select class="zodiac-month-select" id="zodiacMonth1">
+            <option value="">월</option>
+            <option value="1">1월</option><option value="2">2월</option>
+            <option value="3">3월</option><option value="4">4월</option>
+            <option value="5">5월</option><option value="6">6월</option>
+            <option value="7">7월</option><option value="8">8월</option>
+            <option value="9">9월</option><option value="10">10월</option>
+            <option value="11">11월</option><option value="12">12월</option>
+          </select>
+          <input type="number" class="zodiac-day-input" id="zodiacDay1" placeholder="일" min="1" max="31"/>
+          <div class="zodiac-sign-preview" id="zodiacPreview1"></div>
+        </div>
+      </div>
+
+      <!-- 상대방 -->
+      <div class="zodiac-input-card">
+        <div class="zodiac-input-title">💕 상대방</div>
+        <div class="zodiac-chips-row" id="zodiacChips2"></div>
+        <input class="zodiac-name-input" id="zodiacName2" placeholder="이름 (선택)" autocomplete="off"/>
+        <div class="zodiac-date-row">
+          <select class="zodiac-month-select" id="zodiacMonth2">
+            <option value="">월</option>
+            <option value="1">1월</option><option value="2">2월</option>
+            <option value="3">3월</option><option value="4">4월</option>
+            <option value="5">5월</option><option value="6">6월</option>
+            <option value="7">7월</option><option value="8">8월</option>
+            <option value="9">9월</option><option value="10">10월</option>
+            <option value="11">11월</option><option value="12">12월</option>
+          </select>
+          <input type="number" class="zodiac-day-input" id="zodiacDay2" placeholder="일" min="1" max="31"/>
+          <div class="zodiac-sign-preview" id="zodiacPreview2"></div>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="zodiacCalcBtn">⭐ 별자리 궁합 보기</button>
+
+      <!-- 결과 -->
+      <div id="zodiacResult" class="hidden"></div>
+    </section>
+
     <!-- 16. 사주 궁합 -->
     <section class="page hidden" id="page-saju">
       <!-- 나 -->
@@ -741,6 +792,7 @@
 <script src="./js/scenario.js"></script>
 <script src="./js/nvc-engine.js"></script>
 <script src="./js/bankbook.js"></script>
+<script src="./js/zodiac.js"></script>
 <script src="./js/saju.js"></script>
 <script src="./js/tarot.js"></script>
 <script src="./js/mbti.js"></script>
@@ -753,5 +805,6 @@
 <script src="./js/mbti-ui.js"></script>
 <script src="./js/tarot-ui.js"></script>
 <script src="./js/saju-ui.js"></script>
+<script src="./js/zodiac-ui.js"></script>
 </body>
 </html>
