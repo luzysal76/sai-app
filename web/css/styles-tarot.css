@@ -1,5 +1,5 @@
 /* ============================
-   사이(Sai) — 관계 타로 스타일
+   사이(Sai) — 관계 타로 스타일 (Gold·Black 동양풍)
    ============================ */
 
 /* ── 카드 플립 3D 애니메이션 ── */
@@ -34,13 +34,16 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  box-shadow: 0 8px 32px rgba(107,78,170,.25), 0 2px 8px rgba(0,0,0,.12);
 }
 
-/* 카드 뒷면 (뽑기 전) */
+/* ── 카드 뒷면 (뽑기 전) — 블랙·골드 ── */
 .tarot-card-back {
-  background: linear-gradient(135deg, #2d1b6e 0%, #4a1b8c 50%, #1b0d3e 100%);
-  border: 2px solid rgba(200,160,255,.3);
+  background: linear-gradient(145deg, #0a0208 0%, #1a0a2e 50%, #0d060f 100%);
+  border: 2px solid rgba(212,175,55,.55);
+  box-shadow:
+    0 0 18px rgba(212,175,55,.22),
+    0 8px 32px rgba(0,0,0,.7),
+    inset 0 0 30px rgba(212,175,55,.06);
 }
 
 .tarot-back-inner {
@@ -52,15 +55,15 @@
 
 .tarot-back-star {
   font-size: 42px;
-  filter: drop-shadow(0 0 12px rgba(200,160,255,.6));
+  filter: drop-shadow(0 0 14px rgba(212,175,55,.8));
   animation: tarot-pulse 2.5s ease-in-out infinite;
 }
 
 .tarot-back-text {
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 700;
-  color: rgba(200,160,255,.7);
-  letter-spacing: 2px;
+  color: rgba(212,175,55,.75);
+  letter-spacing: 3px;
 }
 
 @keyframes tarot-pulse {
@@ -68,30 +71,34 @@
   50% { transform: scale(1.08); opacity: 1; }
 }
 
-/* 카드 앞면 (결과) */
+/* ── 카드 앞면 (결과) — 블랙·골드 ── */
 .tarot-card-front {
   transform: rotateY(180deg);
-  background: linear-gradient(145deg, #fff9fc 0%, #f3eeff 100%);
-  border: 2px solid rgba(255,107,157,.2);
+  background: linear-gradient(145deg, #110808 0%, #1a0f00 60%, #0a0208 100%);
+  border: 2px solid rgba(212,175,55,.6);
+  box-shadow:
+    0 0 20px rgba(212,175,55,.25),
+    0 8px 32px rgba(0,0,0,.7),
+    inset 0 0 24px rgba(212,175,55,.05);
   gap: 6px;
 }
 
 .tarot-front-arcana {
   font-size: 9px;
   font-weight: 600;
-  color: #bbb;
-  letter-spacing: 0.5px;
+  color: rgba(212,175,55,.55);
+  letter-spacing: 0.8px;
 }
 
 .tarot-front-symbol {
   font-size: 48px;
-  filter: drop-shadow(0 2px 8px rgba(107,78,170,.3));
+  filter: drop-shadow(0 2px 10px rgba(212,175,55,.6));
 }
 
 .tarot-front-name {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 800;
-  background: linear-gradient(135deg, #ff6b9d, #6b4eaa);
+  background: linear-gradient(135deg, #f0c040, #d4af37, #f5e090);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -99,7 +106,7 @@
 
 .tarot-front-kws {
   font-size: 11px;
-  color: #aaa;
+  color: rgba(212,175,55,.65);
   font-weight: 500;
 }
 
@@ -116,8 +123,8 @@
   min-width: 70px;
   padding: 8px 6px;
   border-radius: 12px;
-  border: 1.5px solid rgba(107,78,170,.2);
-  background: rgba(255,255,255,.6);
+  border: 1.5px solid rgba(212,175,55,.25);
+  background: rgba(20,12,0,.4);
   font-size: 13px;
   font-weight: 600;
   color: #888;
@@ -128,10 +135,11 @@
 }
 
 .tarot-ctx-btn.active {
-  background: linear-gradient(135deg, #ff6b9d 0%, #6b4eaa 100%);
-  border-color: transparent;
-  color: #fff;
-  box-shadow: 0 3px 10px rgba(107,78,170,.3);
+  background: linear-gradient(135deg, #8b6914 0%, #d4af37 50%, #b8960c 100%);
+  border-color: rgba(212,175,55,.8);
+  color: #1a0d00;
+  box-shadow: 0 3px 12px rgba(212,175,55,.35);
+  font-weight: 700;
 }
 
 /* ── 인물 선택 ── */
@@ -151,35 +159,51 @@
   flex: 1;
 }
 
-/* 오늘의 타로 버튼 */
+/* 오늘의 타로 버튼 — 골드 */
 #tarotTodayBtn {
-  background: linear-gradient(135deg, #f59e0b 0%, #ec4899 100%);
-  box-shadow: 0 6px 18px rgba(245,158,11,.3);
+  background: linear-gradient(135deg, #8b6914 0%, #d4af37 50%, #f0c040 100%);
+  color: #1a0d00 !important;
+  -webkit-text-fill-color: #1a0d00 !important;
+  box-shadow: 0 6px 20px rgba(212,175,55,.4);
 }
 
-/* ── 결과 카드 ── */
+/* 랜덤 버튼 — 블랙·골드 아웃라인 */
+#tarotRandomBtn {
+  background: linear-gradient(135deg, #1a0d00 0%, #2a1800 100%);
+  border: 1.5px solid rgba(212,175,55,.6) !important;
+  color: #d4af37 !important;
+  -webkit-text-fill-color: #d4af37 !important;
+  box-shadow: 0 4px 14px rgba(0,0,0,.4);
+}
+
+/* ── 결과 헤더 카드 ── */
 .tarot-result-header {
   text-align: center;
-  --tc: #ff6b9d;
+  background: linear-gradient(145deg, #0d0608 0%, #1a0f00 100%) !important;
+  border: 1.5px solid rgba(212,175,55,.35) !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,.5), 0 0 16px rgba(212,175,55,.1) !important;
 }
 
 .tarot-arcana-num {
   font-size: 11px;
-  color: #bbb;
+  color: rgba(212,175,55,.55);
   font-weight: 600;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
 }
 
 .tarot-big-symbol {
   font-size: 54px;
   margin: 8px 0 4px;
-  filter: drop-shadow(0 2px 10px rgba(107,78,170,.3));
+  filter: drop-shadow(0 2px 14px rgba(212,175,55,.7));
 }
 
 .tarot-result-name {
   font-size: 22px;
   font-weight: 800;
-  color: var(--tc);
+  background: linear-gradient(135deg, #f0c040, #d4af37, #f5e090);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -190,8 +214,10 @@
 .tarot-rev-badge {
   font-size: 11px;
   font-weight: 700;
-  background: #8b5cf6;
-  color: #fff;
+  background: linear-gradient(135deg, #5b3a00, #8b6014);
+  border: 1px solid rgba(212,175,55,.5);
+  color: #f0c040;
+  -webkit-text-fill-color: #f0c040;
   padding: 3px 8px;
   border-radius: 999px;
   letter-spacing: 0.5px;
@@ -199,10 +225,11 @@
 
 .tarot-for-whom {
   font-size: 13px;
-  color: #888;
+  color: rgba(212,175,55,.7);
   margin-bottom: 10px;
 }
 
+/* ── 키워드 뱃지 — 골드 ── */
 .tarot-kw-row {
   display: flex;
   gap: 6px;
@@ -215,25 +242,62 @@
   font-weight: 600;
   padding: 4px 10px;
   border-radius: 20px;
-  background: linear-gradient(120deg, rgba(255,107,157,.12), rgba(107,78,170,.1));
-  color: #6b4eaa;
+  background: rgba(212,175,55,.12);
+  border: 1px solid rgba(212,175,55,.3);
+  color: #d4af37;
 }
 
+/* ── 메시지·조언 카드 — 다크 골드 ── */
 .tarot-section-label {
   font-size: 14px;
   font-weight: 700;
-  color: #444;
+  color: #d4af37;
   margin-bottom: 10px;
 }
 
 .tarot-main-msg {
   font-size: 15px;
-  color: #444;
+  color: rgba(255,240,200,.85);
   line-height: 1.75;
   margin: 0;
 }
 
-/* ── 버튼 행 ── */
+/* 메시지 카드 배경 */
+#tarotResult .card:not(.tarot-result-header):not(.action-card):not(.tip-card) {
+  background: linear-gradient(145deg, #100a04 0%, #1a1208 100%);
+  border: 1px solid rgba(212,175,55,.18);
+}
+
+/* action-card (조언) — 골드 */
+#tarotResult .action-card {
+  background: linear-gradient(135deg, #1a1000 0%, #241800 100%) !important;
+  border: 1.5px solid rgba(212,175,55,.35) !important;
+}
+
+#tarotResult .action-card .action-label,
+#tarotResult .action-card p {
+  color: rgba(255,240,200,.85) !important;
+}
+
+#tarotResult .action-card .action-emoji {
+  filter: drop-shadow(0 0 8px rgba(212,175,55,.6));
+}
+
+/* tip-card (인물 팁) — 골드 라이트 */
+#tarotResult .tip-card {
+  background: linear-gradient(135deg, #150e00 0%, #1e1500 100%) !important;
+  border: 1.5px solid rgba(212,175,55,.25) !important;
+}
+
+#tarotResult .tip-card p {
+  color: rgba(255,240,200,.8) !important;
+}
+
+#tarotResult .tip-card .tip-emoji {
+  filter: drop-shadow(0 0 8px rgba(212,175,55,.5));
+}
+
+/* ── 액션 버튼 행 ── */
 .tarot-action-row {
   display: flex;
   gap: 10px;
@@ -243,9 +307,9 @@
 .tarot-redraw-btn {
   padding: 14px 16px;
   border-radius: 14px;
-  border: 1.5px solid rgba(107,78,170,.3);
-  background: rgba(107,78,170,.07);
-  color: #6b4eaa;
+  border: 1.5px solid rgba(212,175,55,.4);
+  background: rgba(212,175,55,.08);
+  color: #d4af37;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
@@ -255,7 +319,7 @@
 }
 
 .tarot-redraw-btn:active {
-  background: rgba(107,78,170,.15);
+  background: rgba(212,175,55,.18);
   transform: scale(.97);
 }
 
@@ -266,9 +330,12 @@
   justify-content: space-between;
   padding: 16px 18px;
   border-radius: 20px;
-  background: linear-gradient(135deg, #1e0a4e 0%, #3b1f8c 60%, #5b1fad 100%);
-  border: 1px solid rgba(180,130,255,.2);
-  box-shadow: 0 6px 24px rgba(90,30,160,.3);
+  background: linear-gradient(135deg, #0a0208 0%, #1a0d00 40%, #2a1800 80%, #1a0a00 100%);
+  border: 1.5px solid rgba(212,175,55,.4);
+  box-shadow:
+    0 6px 24px rgba(0,0,0,.6),
+    0 0 20px rgba(212,175,55,.12),
+    inset 0 0 30px rgba(212,175,55,.04);
   margin-bottom: 14px;
   transition: transform .15s, box-shadow .15s;
   user-select: none;
@@ -276,7 +343,7 @@
 
 .home-tarot-widget:active {
   transform: scale(.98);
-  box-shadow: 0 3px 12px rgba(90,30,160,.2);
+  box-shadow: 0 3px 12px rgba(0,0,0,.5), 0 0 12px rgba(212,175,55,.1);
 }
 
 .htw-left {
@@ -289,19 +356,22 @@
 .htw-label {
   font-size: 11px;
   font-weight: 600;
-  color: rgba(200,160,255,.7);
-  letter-spacing: 0.5px;
+  color: rgba(212,175,55,.65);
+  letter-spacing: 0.8px;
 }
 
 .htw-card-name {
   font-size: 18px;
   font-weight: 800;
-  color: #fff;
+  background: linear-gradient(135deg, #f0c040, #d4af37);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .htw-msg {
   font-size: 12px;
-  color: rgba(220,200,255,.75);
+  color: rgba(255,235,180,.7);
   line-height: 1.5;
   margin-top: 2px;
 }
@@ -318,14 +388,15 @@
   font-weight: 600;
   padding: 2px 8px;
   border-radius: 20px;
-  background: rgba(255,255,255,.12);
-  color: rgba(220,200,255,.9);
+  background: rgba(212,175,55,.15);
+  border: 1px solid rgba(212,175,55,.25);
+  color: rgba(212,175,55,.9);
 }
 
 .htw-right {
   font-size: 46px;
   margin-left: 12px;
-  filter: drop-shadow(0 0 12px rgba(200,160,255,.5));
+  filter: drop-shadow(0 0 14px rgba(212,175,55,.7));
   animation: tarot-pulse 3s ease-in-out infinite;
   flex-shrink: 0;
 }
