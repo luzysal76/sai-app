@@ -10,7 +10,7 @@
   const META = {
     home:     { title:'사이', sub:'AI 관계 운영체제 · Relationship OS' },
     relmap:   { title:'관계 지도', sub:'내 주변 사람들을 RPG처럼 관리' },
-    tools:    { title:'도구', sub:'19가지 관계 분석 도구' },
+    tools:    { title:'도구', sub:'20가지 관계 분석 도구' },
     diary:    { title:'감정 일기', sub:'오늘의 관계 감정 기록' },
     translator:  { title:'대화 번역기 · 对话解析器', sub:'상대 말의 진짜 속뜻 · 言下之意' },
     kakao:       { title:'카톡 분석기 · 聊天分析器', sub:'관심도·답장 추천 · 关注度分析' },
@@ -31,6 +31,7 @@
     zodiac:      { title:'별자리 궁합 ⭐', sub:'12별자리 원소 에너지로 보는 우주적 궁합' },
     attachment:  { title:'애착 유형 분석 🧠', sub:'12문항으로 알아보는 나의 관계 패턴' },
     lovelang:    { title:'사랑의 언어 💬', sub:'5가지 사랑 표현 유형 · 5 Love Languages test' },
+    enneagram:   { title:'에니어그램 궁합 🔢', sub:'9가지 성격 유형 궁합 분석 · 9-type personality' },
     'relmap-add':{ title:'관계 추가·편집 · 添加/编辑', sub:'' },
     'timeline':  { title:'관계 타임라인 · 关系时间线', sub:'우리 관계의 변화 흐름 · 关系变化历程' },
   };
@@ -104,6 +105,7 @@
     if (page === 'zodiac')      { setTimeout(() => window.HU._initZodiac?.(), 0); }
     if (page === 'attachment')  { setTimeout(() => window.HU._initAttachment?.(), 0); }
     if (page === 'lovelang')    { setTimeout(() => window.HU._initLoveLang?.(), 0); }
+    if (page === 'enneagram')   { setTimeout(() => window.HU._initEnneagram?.(), 0); }
   }
   function goBack() { NAV={...NAV, page:null}; updateUI(); if(NAV.tab==='relmap') window.HU._renderRelmap?.(); }
 

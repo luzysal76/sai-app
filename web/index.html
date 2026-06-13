@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="./css/styles-zodiac.css"/>
   <link rel="stylesheet" href="./css/styles-attachment.css"/>
   <link rel="stylesheet" href="./css/styles-lovelang.css"/>
+  <link rel="stylesheet" href="./css/styles-enneagram.css"/>
 </head>
 <body>
 <div class="app">
@@ -123,6 +124,7 @@
         <button class="feature-card zodiac-highlight" data-go="zodiac"><span class="fc-emoji">⭐</span><span class="fc-title">별자리 궁합<span class="zh">Zodiac Compat.</span></span><span class="fc-desc">12별자리 원소 에너지 궁합 · Zodiac compatibility</span></button>
         <button class="feature-card att-highlight" data-go="attachment"><span class="fc-emoji">🧠</span><span class="fc-title">애착 유형 분석<span class="zh">Attachment Style</span></span><span class="fc-desc">나의 관계 패턴 12문항 심리 분석 · 4 attachment types</span></button>
         <button class="feature-card ll-highlight" data-go="lovelang"><span class="fc-emoji">💬</span><span class="fc-title">사랑의 언어<span class="zh">Love Language</span></span><span class="fc-desc">5가지 사랑 표현 유형 · 5 Love Languages test</span></button>
+        <button class="feature-card enn-highlight" data-go="enneagram"><span class="fc-emoji">🔢</span><span class="fc-title">에니어그램 궁합<span class="zh">Enneagram</span></span><span class="fc-desc">9가지 성격 유형 궁합 분석 · 9-type personality</span></button>
       </div>
     </div>
 
@@ -676,6 +678,40 @@
       <div id="lovelangResult" class="hidden"></div>
     </section>
 
+    <!-- 20. 에니어그램 궁합 -->
+    <section class="page hidden" id="page-enneagram">
+      <div class="card" style="background:linear-gradient(145deg,#fffbf0,#fff7e6);border:1.5px solid rgba(217,119,6,.2)">
+        <div style="text-align:center;margin-bottom:12px">
+          <div style="font-size:44px;margin-bottom:6px">🔢</div>
+          <h3 style="font-size:20px;font-weight:900;background:linear-gradient(135deg,#92400e,#d97706);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin:0">에니어그램 궁합</h3>
+          <p style="font-size:13px;color:#666;margin:8px 0 0;line-height:1.6">9가지 성격 유형으로 보는<br>두 사람의 관계 에너지</p>
+        </div>
+        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+          <span style="font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(220,38,38,.1);color:#dc2626">본능형 1·8·9</span>
+          <span style="font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(236,72,153,.1);color:#ec4899">감정형 2·3·4</span>
+          <span style="font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(59,130,246,.1);color:#3b82f6">사고형 5·6·7</span>
+        </div>
+      </div>
+
+      <!-- 첫 번째 선택 -->
+      <div class="card">
+        <div class="enn-picker-label">🙋 나의 에니어그램 유형</div>
+        <div class="enn-num-grid" id="ennPicker1"></div>
+        <div class="enn-preview hidden" id="ennPreview1"></div>
+      </div>
+
+      <!-- 두 번째 선택 -->
+      <div class="card">
+        <div class="enn-picker-label">🙋 상대방의 에니어그램 유형</div>
+        <div class="enn-num-grid" id="ennPicker2"></div>
+        <div class="enn-preview hidden" id="ennPreview2"></div>
+      </div>
+
+      <button class="btn-primary" id="ennCalcBtn" disabled style="opacity:.5">🔢 궁합 분석하기</button>
+
+      <div id="ennResultArea" class="hidden"></div>
+    </section>
+
     <!-- 18. 애착 유형 분석 -->
     <section class="page hidden" id="page-attachment">
       <!-- 인트로 -->
@@ -868,6 +904,7 @@
 <script src="./js/bankbook.js"></script>
 <script src="./js/attachment.js"></script>
 <script src="./js/lovelang.js"></script>
+<script src="./js/enneagram.js"></script>
 <script src="./js/zodiac.js"></script>
 <script src="./js/saju.js"></script>
 <script src="./js/tarot.js"></script>
@@ -884,5 +921,6 @@
 <script src="./js/zodiac-ui.js"></script>
 <script src="./js/attachment-ui.js"></script>
 <script src="./js/lovelang-ui.js"></script>
+<script src="./js/enneagram-ui.js"></script>
 </body>
 </html>

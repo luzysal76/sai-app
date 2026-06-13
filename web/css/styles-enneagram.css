@@ -1,0 +1,253 @@
+/* ============================
+   사이(Sai) — 에니어그램 궁합 스타일 (Deep Amber)
+   ============================ */
+
+/* ── 번호 선택 피커 ── */
+.enn-picker-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #92400e;
+  margin-bottom: 10px;
+}
+
+.enn-num-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.enn-num-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 6px;
+  border-radius: 14px;
+  border: 2px solid rgba(0,0,0,.08);
+  background: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all .18s;
+  gap: 3px;
+}
+
+.enn-num-btn:active { transform: scale(.95); }
+
+.enn-num-btn.active {
+  background: linear-gradient(135deg, var(--center-color), color-mix(in srgb, var(--center-color) 70%, #000));
+  border-color: transparent;
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--center-color) 40%, transparent);
+}
+
+.enn-num {
+  font-size: 20px;
+  font-weight: 900;
+  color: #333;
+  line-height: 1;
+}
+
+.enn-num-btn.active .enn-num { color: #fff; }
+
+.enn-num-name {
+  font-size: 10px;
+  font-weight: 600;
+  color: #666;
+  letter-spacing: -0.2px;
+}
+
+.enn-num-btn.active .enn-num-name { color: rgba(255,255,255,.85); }
+
+/* ── 유형 프리뷰 ── */
+.enn-preview {
+  margin-top: 10px;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: opacity .25s;
+}
+
+.enn-preview.hidden { display: none; }
+
+.enn-preview-inner {
+  background: linear-gradient(145deg, #fffbf0, #fff7e6);
+  border: 1.5px solid rgba(217,119,6,.2);
+  border-radius: 16px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+
+.enn-preview-em { font-size: 32px; }
+
+.enn-preview-name {
+  font-size: 15px;
+  font-weight: 800;
+  color: #78350f;
+}
+
+.enn-center-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1.5px solid;
+}
+
+.enn-preview-desc {
+  font-size: 12px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.enn-kw-row {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.enn-kw {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+
+/* ── 계산 버튼 ── */
+#ennCalcBtn {
+  background: linear-gradient(135deg, #92400e 0%, #d97706 50%, #f59e0b 100%);
+  box-shadow: 0 6px 20px rgba(217,119,6,.4);
+  width: 100%;
+  margin-top: 4px;
+  transition: opacity .2s;
+}
+
+#ennCalcBtn:disabled { cursor: not-allowed; }
+
+/* ── 결과 헤더 ── */
+.enn-result-header {
+  background: linear-gradient(145deg, #fffbf0, #fff7e6) !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.enn-ring-wrap {
+  position: relative;
+  width: 110px;
+  height: 110px;
+}
+
+.enn-ring-score {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.enn-result-pair {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 800;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.enn-heart { font-size: 18px; }
+
+.enn-level-badge {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 6px 18px;
+  border-radius: 99px;
+  border: 1.5px solid;
+}
+
+/* ── 분석 카드 ── */
+.enn-note-card {
+  background: linear-gradient(145deg, #fffbf0, #fff7e6) !important;
+  border: 1.5px solid rgba(217,119,6,.2) !important;
+}
+
+.enn-note-head {
+  font-size: 13px;
+  font-weight: 700;
+  color: #92400e;
+  margin-bottom: 6px;
+}
+
+.enn-note-body {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.enn-same-center {
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #d97706;
+  background: rgba(217,119,6,.1);
+  border-radius: 10px;
+  padding: 7px 12px;
+}
+
+/* ── 두 유형 미니 카드 ── */
+.enn-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.enn-type-mini {
+  text-align: center;
+  padding: 14px 10px !important;
+  border: 1.5px solid !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.enn-tm-num {
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.enn-tm-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #333;
+}
+
+.enn-tm-growth {
+  font-size: 11px;
+  color: #10b981;
+  font-weight: 600;
+}
+
+/* ── 다시 하기 버튼 ── */
+.enn-retry-btn {
+  background: linear-gradient(135deg, #92400e 0%, #d97706 100%) !important;
+  box-shadow: 0 4px 14px rgba(217,119,6,.3) !important;
+  margin-top: 4px;
+}
+
+/* ── 도구탭 에니어그램 하이라이트 ── */
+.enn-highlight {
+  background: linear-gradient(135deg, #78350f 0%, #b45309 50%, #d97706 100%) !important;
+  border: none !important;
+  box-shadow: 0 4px 16px rgba(217,119,6,.45) !important;
+}
+.enn-highlight .fc-emoji { filter: drop-shadow(0 0 6px rgba(245,158,11,.7)); }
+.enn-highlight .fc-title,
+.enn-highlight .fc-desc { color: #fff !important; -webkit-text-fill-color: #fff !important; }
