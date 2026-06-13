@@ -1,0 +1,283 @@
+/* ============================
+   사이(Sai) — 애착 유형 분석 스타일 (Soft Lavender)
+   ============================ */
+
+/* ── 인트로 카드 ── */
+.att-intro-card {
+  text-align: center;
+  background: linear-gradient(145deg, #f5f3ff, #ede9fe);
+  border: 1.5px solid rgba(139,92,246,.2) !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.att-intro-icon { font-size: 52px; }
+
+.att-intro-title {
+  font-size: 22px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #6d28d9, #a78bfa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+}
+
+.att-intro-desc {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.att-type-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.att-type-chip {
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(139,92,246,.1);
+  color: #6d28d9;
+  border: 1.5px solid rgba(139,92,246,.2);
+}
+
+#attachmentStartBtn {
+  background: linear-gradient(135deg, #6d28d9 0%, #a78bfa 100%);
+  box-shadow: 0 6px 20px rgba(109,40,217,.35);
+  width: 100%;
+  margin-top: 4px;
+}
+
+/* ── 진행바 ── */
+.att-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.att-progress-bar {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(139,92,246,.15);
+  overflow: hidden;
+}
+
+.att-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #6d28d9, #a78bfa);
+  width: 0%;
+  transition: width .4s ease;
+}
+
+.att-progress-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #a78bfa;
+  white-space: nowrap;
+}
+
+/* ── 질문 카드 ── */
+.att-question-card {
+  background: linear-gradient(145deg, #f5f3ff, #ede9fe) !important;
+  border: 1.5px solid rgba(139,92,246,.2) !important;
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.att-q-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: #a78bfa;
+  letter-spacing: 0.5px;
+}
+
+.att-q-text {
+  font-size: 17px;
+  font-weight: 700;
+  color: #3b0764;
+  line-height: 1.55;
+}
+
+/* ── 선택지 버튼 ── */
+.att-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.att-choice-btn {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1.5px solid rgba(139,92,246,.2);
+  background: rgba(255,255,255,.9);
+  font-size: 15px;
+  font-weight: 600;
+  color: #4c1d95;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: all .18s;
+}
+
+.att-choice-btn:active {
+  transform: scale(.98);
+  background: rgba(139,92,246,.08);
+}
+
+.att-choice-btn.selected {
+  background: linear-gradient(135deg, #6d28d9 0%, #a78bfa 100%);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(109,40,217,.35);
+}
+
+/* ── 결과 헤더 ── */
+.att-result-header {
+  text-align: center;
+  background: linear-gradient(145deg, #f5f3ff, #ede9fe) !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.att-result-emoji { font-size: 54px; }
+
+.att-result-type {
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.att-result-sub {
+  font-size: 14px;
+  color: #888;
+  font-weight: 500;
+}
+
+/* ── 유형 바 차트 ── */
+.att-bars-card {
+  background: linear-gradient(145deg, #f5f3ff, #ede9fe) !important;
+  border: 1.5px solid rgba(139,92,246,.15) !important;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.att-bars-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #6d28d9;
+  margin-bottom: 2px;
+}
+
+.att-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.att-bar-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  width: 68px;
+  flex-shrink: 0;
+}
+
+.att-bar-track {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.06);
+  overflow: hidden;
+}
+
+.att-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  width: 0;
+}
+
+.att-bar-pct {
+  font-size: 12px;
+  font-weight: 700;
+  width: 34px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.att-secondary-note {
+  font-size: 12px;
+  color: #888;
+  margin-top: 4px;
+}
+
+/* ── 강점 카드 ── */
+.att-strength-card {
+  border-radius: 18px !important;
+}
+
+.att-str-head {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.att-strength-card p {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── 성장 카드 ── */
+.att-growth-card {
+  background: linear-gradient(135deg, #f5f3ff, #fff) !important;
+  border: 1px solid rgba(139,92,246,.15) !important;
+}
+
+.att-gr-head {
+  font-size: 15px;
+  font-weight: 700;
+  color: #6d28d9;
+  margin-bottom: 8px;
+}
+
+.att-growth-card p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── 다시하기 ── */
+.att-retry-row { margin-top: 4px; }
+
+.att-retry-btn {
+  background: linear-gradient(135deg, #6d28d9 0%, #a78bfa 100%) !important;
+  box-shadow: 0 4px 14px rgba(109,40,217,.3) !important;
+}
+
+/* ── 도구탭 애착 하이라이트 ── */
+.att-highlight {
+  background: linear-gradient(135deg, #4c1d95 0%, #6d28d9 50%, #a78bfa 100%) !important;
+  border: none !important;
+  box-shadow: 0 4px 16px rgba(109,40,217,.4) !important;
+}
+.att-highlight .fc-emoji { filter: drop-shadow(0 0 6px rgba(167,139,250,.6)); }
+.att-highlight .fc-title,
+.att-highlight .fc-desc { color: #fff !important; -webkit-text-fill-color: #fff !important; }

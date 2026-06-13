@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="./css/styles-tarot.css"/>
   <link rel="stylesheet" href="./css/styles-saju.css"/>
   <link rel="stylesheet" href="./css/styles-zodiac.css"/>
+  <link rel="stylesheet" href="./css/styles-attachment.css"/>
 </head>
 <body>
 <div class="app">
@@ -119,6 +120,7 @@
         <button class="feature-card tarot-highlight" data-go="tarot"><span class="fc-emoji">🔮</span><span class="fc-title">관계 타로<span class="zh">Love Tarot</span></span><span class="fc-desc">오늘의 타로 카드 · Today's card reading</span></button>
         <button class="feature-card saju-highlight" data-go="saju"><span class="fc-emoji">🏮</span><span class="fc-title">사주 궁합<span class="zh">Saju Compat.</span></span><span class="fc-desc">생년월일 오행 궁합 · Five Elements compatibility</span></button>
         <button class="feature-card zodiac-highlight" data-go="zodiac"><span class="fc-emoji">⭐</span><span class="fc-title">별자리 궁합<span class="zh">Zodiac Compat.</span></span><span class="fc-desc">12별자리 원소 에너지 궁합 · Zodiac compatibility</span></button>
+        <button class="feature-card att-highlight" data-go="attachment"><span class="fc-emoji">🧠</span><span class="fc-title">애착 유형 분석<span class="zh">Attachment Style</span></span><span class="fc-desc">나의 관계 패턴 12문항 심리 분석 · 4 attachment types</span></button>
       </div>
     </div>
 
@@ -642,6 +644,46 @@
       <div id="tarotResult" class="hidden"></div>
     </section>
 
+    <!-- 18. 애착 유형 분석 -->
+    <section class="page hidden" id="page-attachment">
+      <!-- 인트로 -->
+      <div id="attachmentIntro">
+        <div class="card att-intro-card">
+          <div class="att-intro-icon">🧠</div>
+          <h3 class="att-intro-title">애착 유형 분석</h3>
+          <p class="att-intro-desc">관계에서 나는 어떤 패턴으로 사람을 사랑할까요?<br>12가지 질문으로 나의 애착 유형을 알아보세요.</p>
+          <div class="att-type-chips">
+            <span class="att-type-chip">🌿 안정형</span>
+            <span class="att-type-chip">💕 불안형</span>
+            <span class="att-type-chip">🌊 회피형</span>
+            <span class="att-type-chip">🌀 혼란형</span>
+          </div>
+          <button class="btn-primary" id="attachmentStartBtn">✨ 테스트 시작하기</button>
+        </div>
+      </div>
+
+      <!-- 퀴즈 -->
+      <div id="attachmentQuiz" class="hidden">
+        <div class="att-progress">
+          <div class="att-progress-bar"><div class="att-progress-fill" id="attProgressFill"></div></div>
+          <div class="att-progress-label" id="attProgressLabel">1 / 12</div>
+        </div>
+        <div class="card att-question-card">
+          <div class="att-q-num" id="attQNum">Q1</div>
+          <div class="att-q-text" id="attQText"></div>
+        </div>
+        <div class="att-choices" id="attChoices">
+          <button class="att-choice-btn" data-val="1">😶 전혀 아니다</button>
+          <button class="att-choice-btn" data-val="2">🙁 별로 아니다</button>
+          <button class="att-choice-btn" data-val="3">🙂 조금 그렇다</button>
+          <button class="att-choice-btn" data-val="4">😊 매우 그렇다</button>
+        </div>
+      </div>
+
+      <!-- 결과 -->
+      <div id="attachmentResult" class="hidden"></div>
+    </section>
+
     <!-- 17. 별자리 궁합 -->
     <section class="page hidden" id="page-zodiac">
       <!-- 나 -->
@@ -792,6 +834,7 @@
 <script src="./js/scenario.js"></script>
 <script src="./js/nvc-engine.js"></script>
 <script src="./js/bankbook.js"></script>
+<script src="./js/attachment.js"></script>
 <script src="./js/zodiac.js"></script>
 <script src="./js/saju.js"></script>
 <script src="./js/tarot.js"></script>
@@ -806,5 +849,6 @@
 <script src="./js/tarot-ui.js"></script>
 <script src="./js/saju-ui.js"></script>
 <script src="./js/zodiac-ui.js"></script>
+<script src="./js/attachment-ui.js"></script>
 </body>
 </html>
