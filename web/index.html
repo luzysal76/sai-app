@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="./css/styles-attachment.css"/>
   <link rel="stylesheet" href="./css/styles-lovelang.css"/>
   <link rel="stylesheet" href="./css/styles-enneagram.css"/>
+  <link rel="stylesheet" href="./css/styles-disc.css"/>
 </head>
 <body>
 <div class="app">
@@ -125,6 +126,7 @@
         <button class="feature-card att-highlight" data-go="attachment"><span class="fc-emoji">🧠</span><span class="fc-title">애착 유형 분석<span class="zh">Attachment Style</span></span><span class="fc-desc">나의 관계 패턴 12문항 심리 분석 · 4 attachment types</span></button>
         <button class="feature-card ll-highlight" data-go="lovelang"><span class="fc-emoji">💬</span><span class="fc-title">사랑의 언어<span class="zh">Love Language</span></span><span class="fc-desc">5가지 사랑 표현 유형 · 5 Love Languages test</span></button>
         <button class="feature-card enn-highlight" data-go="enneagram"><span class="fc-emoji">🔢</span><span class="fc-title">에니어그램 궁합<span class="zh">Enneagram</span></span><span class="fc-desc">9가지 성격 유형 궁합 분석 · 9-type personality</span></button>
+        <button class="feature-card disc-highlight" data-go="disc"><span class="fc-emoji">🎯</span><span class="fc-title">DISC 소통 유형<span class="zh">DISC Profile</span></span><span class="fc-desc">4가지 소통 스타일 분석 · Communication style</span></button>
       </div>
     </div>
 
@@ -712,6 +714,35 @@
       <div id="ennResultArea" class="hidden"></div>
     </section>
 
+    <!-- 21. DISC 소통 유형 -->
+    <section class="page hidden" id="page-disc">
+      <div id="discIntro">
+        <div class="card disc-intro-card">
+          <div class="disc-intro-icon">🎯</div>
+          <h3 class="disc-intro-title">DISC 소통 유형</h3>
+          <p class="disc-intro-desc">10문항으로 알아보는 나의 소통 스타일.<br>연애에서 어떻게 표현하고 갈등을 다루는지 분석해요.</p>
+          <div class="disc-type-chips">
+            <span class="disc-type-chip" style="background:rgba(220,38,38,.1);color:#dc2626">🦁 D · 지배형 — 결단·직설</span>
+            <span class="disc-type-chip" style="background:rgba(245,158,11,.1);color:#b45309">🌟 I · 사교형 — 열정·영향</span>
+            <span class="disc-type-chip" style="background:rgba(16,185,129,.1);color:#065f46">🌿 S · 안정형 — 배려·신뢰</span>
+            <span class="disc-type-chip" style="background:rgba(99,102,241,.1);color:#4338ca">🔬 C · 신중형 — 분석·완벽</span>
+          </div>
+          <button class="btn-primary" id="discStartBtn">🎯 테스트 시작하기</button>
+        </div>
+      </div>
+
+      <div id="discQuiz" class="hidden">
+        <div class="disc-progress">
+          <div class="disc-progress-bar"><div class="disc-progress-fill" id="discProgressFill"></div></div>
+          <div class="disc-progress-label" id="discProgressLabel">1 / 10</div>
+        </div>
+        <div class="disc-q-num" id="discQNum">Q1</div>
+        <div id="discChoiceArea"></div>
+      </div>
+
+      <div id="discResult" class="hidden"></div>
+    </section>
+
     <!-- 18. 애착 유형 분석 -->
     <section class="page hidden" id="page-attachment">
       <!-- 인트로 -->
@@ -905,6 +936,7 @@
 <script src="./js/attachment.js"></script>
 <script src="./js/lovelang.js"></script>
 <script src="./js/enneagram.js"></script>
+<script src="./js/disc.js"></script>
 <script src="./js/zodiac.js"></script>
 <script src="./js/saju.js"></script>
 <script src="./js/tarot.js"></script>
@@ -922,5 +954,6 @@
 <script src="./js/attachment-ui.js"></script>
 <script src="./js/lovelang-ui.js"></script>
 <script src="./js/enneagram-ui.js"></script>
+<script src="./js/disc-ui.js"></script>
 </body>
 </html>
