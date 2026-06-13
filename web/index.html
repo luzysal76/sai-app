@@ -73,7 +73,7 @@
         <span class="rmc-left"><span class="rmc-emoji">💫</span><div><b>관계 지도 <span class="zh-inline">Relation Map</span></b><p>내 주변 사람들을 RPG처럼 관리 · Manage like RPG</p></div></span>
         <span class="rmc-arrow">›</span>
       </button>
-      <p class="section-label">빠른 기능 · Quick Tools</p>
+      <p class="section-label">Quick Tools</p>
       <div class="feature-grid grid3" id="homeGrid">
         <button class="feature-card sm bb-highlight" data-go="bankbook"><span class="fc-emoji">🏦</span><span class="fc-title">관계 통장</span></button>
         <button class="feature-card sm" data-go="translator"><span class="fc-emoji">💬</span><span class="fc-title">대화 번역기</span></button>
@@ -161,20 +161,20 @@
 
     <!-- 1. 대화 번역기 -->
     <section class="page hidden" id="page-translator">
-      <div class="card"><label class="field-label">누구와의 대화인가요? <span class="zh-inline">Who said this?</span></label><div class="chip-group relation-group"></div></div>
+      <div class="card"><label class="field-label">Who said this?</label><div class="chip-group relation-group"></div></div>
       <div class="card">
-        <label class="field-label" for="trInput">상대가 한 말을 그대로 적어주세요 <span class="zh-inline">Enter what they said</span></label>
-        <textarea id="trInput" placeholder="예) 괜찮아. / 알아서 해 / 다음에 보자 · e.g. I'm fine / Do as you want / Let's meet next time"></textarea>
+        <label class="field-label" for="trInput">Enter what they said</label>
+        <textarea id="trInput" placeholder="e.g. I'm fine / Do as you want / Let's meet next time"></textarea>
         <div class="examples" data-target="trInput">
-          <span class="examples-label">예시 · Examples</span>
+          <span class="examples-label">Examples</span>
           <button class="ex" data-ex="괜찮아.">괜찮아</button>
           <button class="ex" data-ex="알아서 해">알아서 해</button>
           <button class="ex" data-ex="다음에 보자">다음에 보자</button>
           <button class="ex" data-ex="화 안 났어">화 안 났어</button>
         </div>
         <div class="tr-btn-row">
-          <button class="btn-primary" id="trBtn">속뜻 번역하기 · Translate Subtext</button>
-          <button class="mic-btn" id="trMicBtn" title="음성 입력 · Voice Input">🎤</button>
+          <button class="btn-primary" id="trBtn">Translate Subtext</button>
+          <button class="mic-btn" id="trMicBtn" title="Voice Input">🎤</button>
         </div>
         <div class="mic-waveform" id="micWaveform">
           <div class="wf-bar"></div><div class="wf-bar"></div><div class="wf-bar"></div>
@@ -184,10 +184,10 @@
       </div>
       <div class="result hidden" id="trResult">
         <div class="card result-card">
-          <div class="two-col"><div class="mini"><span class="mini-label">표면 의미 <span class="zh-inline">Surface</span></span><p class="mini-val" id="trSurface"></p></div><div class="mini"><span class="mini-label">숨은 감정 <span class="zh-inline">Hidden Emotion</span></span><p class="mini-val" id="trHidden"></p></div></div>
+          <div class="two-col"><div class="mini"><span class="mini-label">Surface</span><p class="mini-val" id="trSurface"></p></div><div class="mini"><span class="mini-label">Hidden Emotion</span><p class="mini-val" id="trHidden"></p></div></div>
           <div class="emotion-tags" id="trEmotions"></div>
           <div class="poss-block" id="trPoss"></div>
-          <div class="confidence"><span class="confidence-label">신뢰도 <span class="zh-inline">Confidence</span></span><div class="confidence-track"><div class="confidence-fill" id="trConf"></div></div><span class="confidence-val" id="trConfVal"></span></div>
+          <div class="confidence"><span class="confidence-label">Confidence</span><div class="confidence-track"><div class="confidence-fill" id="trConf"></div></div><span class="confidence-val" id="trConfVal"></span></div>
         </div>
         <div class="redflag-card hidden" id="trRedFlag">
           <div class="rf-head">
@@ -201,11 +201,11 @@
           </div>
           <div class="rf-guide-text hidden" id="rfGuideText"></div>
         </div>
-        <div class="card action-card"><span class="action-emoji">🎯</span><div><span class="action-label">추천 행동 <span class="zh-inline">Suggested Action</span></span><p id="trAction"></p></div></div>
+        <div class="card action-card"><span class="action-emoji">🎯</span><div><span class="action-label">Suggested Action</span><p id="trAction"></p></div></div>
         <div class="card tip-card"><span class="tip-emoji">💡</span><p id="trTip"></p></div>
         <div class="result-actions">
-          <button class="share-btn" id="trShareBtn">🔗 공유 · Share</button>
-          <button class="bookmark-btn" id="trBookmarkBtn">🔖 저장 · Save</button>
+          <button class="share-btn" id="trShareBtn">🔗 Share</button>
+          <button class="bookmark-btn" id="trBookmarkBtn">🔖 Save</button>
         </div>
       </div>
     </section>
@@ -213,49 +213,49 @@
     <!-- 2. 카톡 분석기 -->
     <section class="page hidden" id="page-kakao">
       <div class="card">
-        <label class="field-label" for="kkInput">카톡 대화 내용을 붙여넣으세요 <span class="zh-inline">Paste chat here</span></label>
+        <label class="field-label" for="kkInput">Paste chat here</label>
         <textarea id="kkInput" class="tall" placeholder="상대: ㅋㅋ 집에서 쉬었지~ 너는?&#10;나: 나도! 다음에 같이 영화 볼래?&#10;상대: 오 좋아좋아 😍 언제 갈까?"></textarea>
-        <button class="btn-primary" id="kkBtn">관심도 분석하기 · Analyze Interest</button>
+        <button class="btn-primary" id="kkBtn">Analyze Interest</button>
       </div>
       <div class="result hidden" id="kkResult">
         <div class="card result-card center">
-          <span class="score-label">상대 관심도 <span class="zh-inline">Interest Level</span></span>
+          <span class="score-label">Interest Level</span>
           <div class="big-score" id="kkScore">0점</div>
           <div class="hearts" id="kkHearts"></div>
           <div class="thermo" id="kkThermo"></div>
           <div class="emotion-tags center-tags" id="kkEmotions"></div>
         </div>
-        <div class="card"><label class="field-label">💬 추천 답장 3종 · Recommended Replies</label><div class="reply-list" id="kkReplies"></div></div>
+        <div class="card"><label class="field-label">💬 Recommended Replies</label><div class="reply-list" id="kkReplies"></div></div>
         <div class="card tip-card"><span class="tip-emoji">💡</span><p id="kkTip"></p></div>
       </div>
     </section>
 
     <!-- 3. 관계 진단 -->
     <section class="page hidden" id="page-diagnosis">
-      <div class="card"><label class="field-label">관계를 선택하세요 <span class="zh-inline">Choose relationship</span></label><div class="chip-group relation-group"></div></div>
+      <div class="card"><label class="field-label">Choose relationship</label><div class="chip-group relation-group"></div></div>
       <div class="card">
-        <div class="q-block"><span class="q-label">상대의 답장 속도는? <span class="zh-inline">Reply speed?</span></span><div class="seg" data-q="reply"><button data-v="0">느림 / Slow</button><button data-v="1" class="active">보통 / Normal</button><button data-v="2">빠름 / Fast</button></div></div>
-        <div class="q-block"><span class="q-label">만남/통화 빈도는? <span class="zh-inline">Meeting frequency?</span></span><div class="seg" data-q="meet"><button data-v="0">드묾 / Rare</button><button data-v="1" class="active">보통 / Normal</button><button data-v="2">잦음 / Often</button></div></div>
-        <div class="q-block"><span class="q-label">먼저 연락하는 쪽은? <span class="zh-inline">Who texts first?</span></span><div class="seg" data-q="first"><button data-v="0">주로 나 / Me</button><button data-v="1" class="active">반반 / Half</button><button data-v="2">주로 상대 / Them</button></div></div>
-        <button class="btn-primary" id="dgBtn">관계 진단하기 · Diagnose</button>
+        <div class="q-block"><span class="q-label">Reply speed?</span><div class="seg" data-q="reply"><button data-v="0">Slow</button><button data-v="1" class="active">Normal</button><button data-v="2">Fast</button></div></div>
+        <div class="q-block"><span class="q-label">Meeting frequency?</span><div class="seg" data-q="meet"><button data-v="0">Rare</button><button data-v="1" class="active">Normal</button><button data-v="2">Often</button></div></div>
+        <div class="q-block"><span class="q-label">Who texts first?</span><div class="seg" data-q="first"><button data-v="0">Me</button><button data-v="1" class="active">Half</button><button data-v="2">Them</button></div></div>
+        <button class="btn-primary" id="dgBtn">Diagnose</button>
       </div>
       <div class="result hidden" id="dgResult">
-        <div class="card result-card center"><span class="result-badge" id="dgStage"></span><div class="thermo" id="dgThermo"></div><div class="two-col mt"><div class="mini"><span class="mini-label">관심도 <span class="zh-inline">Interest</span></span><p class="mini-val big" id="dgScore"></p></div><div class="mini"><span class="mini-label">발전 가능성 <span class="zh-inline">Potential</span></span><p class="mini-val big" id="dgPotential"></p></div></div></div>
-        <div class="card action-card"><span class="action-emoji">🎯</span><div><span class="action-label">추천 <span class="zh-inline">Advice</span></span><p id="dgAdvice"></p></div></div>
+        <div class="card result-card center"><span class="result-badge" id="dgStage"></span><div class="thermo" id="dgThermo"></div><div class="two-col mt"><div class="mini"><span class="mini-label">Interest</span><p class="mini-val big" id="dgScore"></p></div><div class="mini"><span class="mini-label">Potential</span><p class="mini-val big" id="dgPotential"></p></div></div></div>
+        <div class="card action-card"><span class="action-emoji">🎯</span><div><span class="action-label">Advice</span><p id="dgAdvice"></p></div></div>
       </div>
     </section>
 
     <!-- 4. 읽씹 분석 -->
     <section class="page hidden" id="page-readcheck">
-      <div class="card"><label class="field-label">관계를 선택하세요 <span class="zh-inline">Choose relationship</span></label><div class="chip-group relation-group"></div></div>
+      <div class="card"><label class="field-label">Choose relationship</label><div class="chip-group relation-group"></div></div>
       <div class="card">
-        <label class="field-label">답장 없이 지난 시간 <span class="zh-inline">Time since last reply</span></label>
-        <div class="num-row"><input type="number" id="rcInput" min="0" max="168" value="8"/><span class="num-unit">시간 / Hours</span></div>
+        <label class="field-label">Time since last reply</label>
+        <div class="num-row"><input type="number" id="rcInput" min="0" max="168" value="8"/><span class="num-unit">Hours</span></div>
         <div class="examples quick-hours">
-          <button class="ex" data-h="1">1시간</button><button class="ex" data-h="8">8시간</button>
-          <button class="ex" data-h="24">하루 / 1 Day</button><button class="ex" data-h="72">3일 / 3 Days</button>
+          <button class="ex" data-h="1">1h</button><button class="ex" data-h="8">8h</button>
+          <button class="ex" data-h="24">1 Day</button><button class="ex" data-h="72">3 Days</button>
         </div>
-        <button class="btn-primary" id="rcBtn">가능성 분석하기 · Analyze</button>
+        <button class="btn-primary" id="rcBtn">Analyze</button>
       </div>
       <div class="result hidden" id="rcResult">
         <div class="card result-card"><div class="rc-head"><span class="result-badge" id="rcHours"></span><span class="worry" id="rcWorry"></span></div><div class="poss-block" id="rcPoss"></div></div>
@@ -266,67 +266,67 @@
 
     <!-- 5. 답장 생성기 -->
     <section class="page hidden" id="page-reply">
-      <div class="card"><label class="field-label">관계를 선택하세요 <span class="zh-inline">Choose relationship</span></label><div class="chip-group relation-group"></div></div>
+      <div class="card"><label class="field-label">Choose relationship</label><div class="chip-group relation-group"></div></div>
       <div class="card">
-        <label class="field-label" for="rpInput">상대가 보낸 말 <span class="zh-inline">What they sent</span></label>
-        <textarea id="rpInput" placeholder="예) 오늘 너무 힘들다 · e.g. Today was so tough"></textarea>
-        <button class="btn-primary" id="rpBtn">답장 생성하기 · Generate Reply</button>
+        <label class="field-label" for="rpInput">What they sent</label>
+        <textarea id="rpInput" placeholder="e.g. Today was so tough"></textarea>
+        <button class="btn-primary" id="rpBtn">Generate Reply</button>
       </div>
       <div class="result hidden" id="rpResult">
-        <div class="card"><label class="field-label">✍️ 톤별 추천 답장 · Tone-based Replies (탭하면 복사)</label><div class="reply-list" id="rpReplies"></div></div>
+        <div class="card"><label class="field-label">✍️ Tone-based Replies (tap to copy)</label><div class="reply-list" id="rpReplies"></div></div>
         <div class="card tip-card"><span class="tip-emoji">💡</span><p id="rpNote"></p></div>
       </div>
     </section>
 
     <!-- 6. 성장 코치 -->
     <section class="page hidden" id="page-coach">
-      <div class="card"><label class="field-label">관계를 선택하세요 <span class="zh-inline">Choose relationship</span></label><div class="chip-group relation-group"></div></div>
+      <div class="card"><label class="field-label">Choose relationship</label><div class="chip-group relation-group"></div></div>
       <div class="card coach-card">
-        <div class="coach-head"><span class="coach-emoji">🌱</span><div><span class="action-label">오늘의 미션 · Today's Mission</span><p class="coach-sub">작은 행동이 관계를 키워요 · Small acts, big impact</p></div></div>
+        <div class="coach-head"><span class="coach-emoji">🌱</span><div><span class="action-label">Today's Mission</span><p class="coach-sub">Small acts, big impact</p></div></div>
         <div class="mission-list" id="missionList"></div>
         <div class="coach-progress"><div class="coach-bar"><div class="coach-fill" id="coachFill"></div></div><span id="coachCount">0/3</span></div>
-        <button class="btn-ghost" id="coachRefresh">미션 새로고침 · Refresh 🔄</button>
+        <button class="btn-ghost" id="coachRefresh">Refresh 🔄</button>
       </div>
     </section>
 
     <!-- 7. AI 관계 진단 (NEW) -->
     <section class="page hidden" id="page-aidiag">
-      <div class="card"><label class="field-label">누구와의 관계인가요? <span class="zh-inline">Which relationship?</span></label><div class="chip-group relation-group"></div></div>
+      <div class="card"><label class="field-label">Which relationship?</label><div class="chip-group relation-group"></div></div>
       <div class="card">
-        <label class="field-label" for="adChat">최근 대화 내용 (요약 OK) <span class="zh-inline">Recent chat (summary OK)</span></label>
-        <textarea id="adChat" placeholder="예) 요즘 연락이 뜸해졌고, 만나도 대화가 짧아졌어 · e.g. We talk less, even in person"></textarea>
-        <label class="field-label" for="adConcern">고민 또는 느끼는 점 <span class="zh-inline">Your concern or feeling</span></label>
-        <textarea id="adConcern" placeholder="예) 예전보다 서먹해진 것 같아 · e.g. Feels more distant than before"></textarea>
-        <button class="btn-primary" id="adBtn">AI 관계 진단하기 · AI Diagnose</button>
+        <label class="field-label" for="adChat">Recent chat (summary OK)</label>
+        <textarea id="adChat" placeholder="e.g. We talk less, even in person"></textarea>
+        <label class="field-label" for="adConcern">Your concern or feeling</label>
+        <textarea id="adConcern" placeholder="e.g. Feels more distant than before"></textarea>
+        <button class="btn-primary" id="adBtn">AI Diagnose</button>
       </div>
       <div class="result hidden" id="adResult">
         <div class="card result-card">
-          <span class="result-badge">AI 분석 결과 · AI Analysis</span>
+          <span class="result-badge">AI Analysis</span>
           <div class="ai-diag-grid" id="adGrid"></div>
         </div>
-        <div class="card tip-card"><span class="tip-emoji">🤖</span><p id="adNote">텍스트 분석 기반 결과예요 · Text-based analysis. More accurate with AI connection.</p></div>
+        <div class="card tip-card"><span class="tip-emoji">🤖</span><p id="adNote">Text-based analysis. More accurate with AI connection.</p></div>
       </div>
     </section>
 
     <!-- 8. 대화 캡처 분석 (NEW) -->
     <section class="page hidden" id="page-capture">
       <div class="card">
-        <label class="field-label">카톡 캡처를 업로드하세요 <span class="zh-inline">Upload chat screenshot</span></label>
+        <label class="field-label">Upload chat screenshot</label>
         <label class="capture-zone" id="captureZone" for="captureFile">
           <span class="capture-icon">📸</span>
-          <span class="capture-hint">탭하여 이미지 선택 · Tap to select image</span>
+          <span class="capture-hint">Tap to select image</span>
           <img id="capturePreview" class="hidden" alt="preview"/>
         </label>
         <input type="file" id="captureFile" accept="image/*" class="hidden"/>
-        <button class="btn-primary hidden" id="captureBtn">감정 분석하기 · Analyze Emotions</button>
+        <button class="btn-primary hidden" id="captureBtn">Analyze Emotions</button>
       </div>
       <div class="result hidden" id="captureResult">
         <div class="card result-card">
-          <span class="result-badge">감정 분석 · Emotion Analysis</span>
+          <span class="result-badge">Emotion Analysis</span>
           <div class="poss-block" id="capturePoss"></div>
         </div>
         <div class="card hidden" id="captureRiskCard">
-          <label class="field-label">⚠️ 위험 신호 · Risk Signals</label>
+          <label class="field-label">⚠️ Risk Signals</label>
           <div id="captureRisks"></div>
         </div>
         <div class="card tip-card"><span class="tip-emoji">🤖</span><p id="captureTip"></p></div>
@@ -338,30 +338,30 @@
       <div class="tl-person-header" id="tlPersonHeader"></div>
       <div class="card tl-summary-card hidden" id="tlSummaryCard"></div>
       <div class="card tl-insight hidden" id="tlInsight"></div>
-      <button class="btn-ghost" id="tlAddToggle">+ 이벤트 직접 추가 · Add Event</button>
+      <button class="btn-ghost" id="tlAddToggle">+ Add Event</button>
       <div class="card hidden" id="tlAddForm">
-        <label class="field-label">날짜 · Date</label>
+        <label class="field-label">Date</label>
         <input type="date" id="tlDate" class="text-input"/>
-        <label class="field-label mt">어떤 일이 있었나요? <span class="zh-inline">What happened?</span></label>
+        <label class="field-label mt">What happened?</label>
         <div class="tl-type-row" id="tlTypeRow">
-          <button class="tl-type-btn active" data-type="positive">😊 좋은 일 · Good</button>
-          <button class="tl-type-btn" data-type="neutral">😐 일상 · Daily</button>
-          <button class="tl-type-btn" data-type="negative">😢 힘든 일 · Tough</button>
-          <button class="tl-type-btn" data-type="milestone">⭐ 특별한 날 · Special</button>
-          <button class="tl-type-btn" data-type="recovery">🌈 회복 · Recovery</button>
+          <button class="tl-type-btn active" data-type="positive">😊 Good</button>
+          <button class="tl-type-btn" data-type="neutral">😐 Daily</button>
+          <button class="tl-type-btn" data-type="negative">😢 Tough</button>
+          <button class="tl-type-btn" data-type="milestone">⭐ Special</button>
+          <button class="tl-type-btn" data-type="recovery">🌈 Recovery</button>
         </div>
-        <label class="field-label mt">제목 · Title</label>
-        <input type="text" id="tlTitle" class="text-input" placeholder="예) 오래 통화함 · e.g. Long call"/>
-        <label class="field-label mt">메모 (선택) · Note (optional)</label>
-        <textarea id="tlNote" placeholder="간단히 기록해두세요 · Jot it down" style="min-height:72px"></textarea>
-        <button class="btn-primary mt" id="tlSaveEventBtn">기록하기 · Record</button>
-        <button class="btn-ghost" id="tlCancelBtn" style="margin-top:8px">취소 · Cancel</button>
+        <label class="field-label mt">Title</label>
+        <input type="text" id="tlTitle" class="text-input" placeholder="e.g. Long call"/>
+        <label class="field-label mt">Note (optional)</label>
+        <textarea id="tlNote" placeholder="Jot it down" style="min-height:72px"></textarea>
+        <button class="btn-primary mt" id="tlSaveEventBtn">Record</button>
+        <button class="btn-ghost" id="tlCancelBtn" style="margin-top:8px">Cancel</button>
       </div>
       <div class="tl-events-wrap">
         <div id="tlEvents"></div>
         <div class="tl-empty hidden" id="tlEmpty">
           <span>🗓️</span>
-          <p>아직 기록이 없어요<span class="zh">No records yet</span>일기를 쓰거나 위에서 직접 추가해보세요 💗<span class="zh">Write a diary or add an event above</span></p>
+          <p>No records yet. Write a diary or add an event above 💗</p>
         </div>
       </div>
     </section>
@@ -370,7 +370,7 @@
     <section class="page hidden" id="page-dictionary">
       <div class="dict-search-wrap">
         <span class="dict-search-icon">🔍</span>
-        <input type="search" id="dictSearch" class="dict-search" placeholder="표현 검색 · Search expressions (예: 괜찮아, 알아서 해)"/>
+        <input type="search" id="dictSearch" class="dict-search" placeholder="Search expressions (e.g. 괜찮아, 알아서 해)"/>
       </div>
       <div class="dict-index-bar" id="dictIndex"></div>
       <div class="dict-count" id="dictCount"></div>
@@ -379,7 +379,7 @@
 
     <!-- ===== 대화 시나리오 ===== -->
     <section class="page hidden" id="page-scenario">
-      <p class="section-label">상황을 선택하세요 · Choose a scenario</p>
+      <p class="section-label">Choose a scenario</p>
       <div class="sc-grid" id="scenarioGrid"></div>
       <div class="sc-detail hidden" id="scenarioDetail"></div>
     </section>
@@ -388,7 +388,7 @@
     <section class="page hidden" id="page-bankbook">
       <!-- 인물 선택 -->
       <div class="card">
-        <label class="field-label">누구의 통장을 볼까요? · Whose bankbook?</label>
+        <label class="field-label">Whose bankbook?</label>
         <div class="bb-person-scroll" id="bbPersonScroll">
           <div class="bb-empty" style="padding:12px 0;width:100%">
             <p class="bb-empty-text">관계 지도에서 먼저 사람을 등록해주세요</p>
@@ -401,7 +401,7 @@
         <!-- 통장 카드 -->
         <div class="bb-book-card">
           <div class="bb-book-header">
-            <span class="bb-book-title">관계 통장 · RELATIONSHIP BANK</span>
+            <span class="bb-book-title">RELATIONSHIP BANK</span>
             <span class="bb-book-person" id="bbPersonName">—</span>
           </div>
           <div class="bb-total-score">
@@ -436,16 +436,16 @@
 
         <!-- 행동 기록 -->
         <div class="bb-action-head">
-          <span class="bb-action-title">오늘 있었던 일 기록 · Log Today</span>
+          <span class="bb-action-title">Log Today</span>
         </div>
         <div class="bb-action-tabs">
-          <button class="bb-action-tab active-pos" id="bbTabPos">😊 좋은 일 · Good</button>
-          <button class="bb-action-tab" id="bbTabNeg">😔 아쉬운 일 · Tough</button>
+          <button class="bb-action-tab active-pos" id="bbTabPos">😊 Good</button>
+          <button class="bb-action-tab" id="bbTabNeg">😔 Tough</button>
         </div>
         <div class="bb-action-grid" id="bbActionGrid"></div>
 
         <!-- 거래 내역 -->
-        <div class="bb-history-head">📋 최근 내역 · Recent History</div>
+        <div class="bb-history-head">📋 Recent History</div>
         <div id="bbHistory"></div>
       </div>
     </section>
@@ -556,7 +556,7 @@
     <section class="page hidden" id="page-mbti">
       <!-- 내 MBTI -->
       <div class="card">
-        <label class="field-label">내 MBTI <span class="zh-inline">My Type</span></label>
+        <label class="field-label">My MBTI Type</label>
         <div id="mbtiMine"></div>
         <div class="mbti-type-display">
           <span class="mbti-selected-tag" id="mbtiMineTag">ENTJ</span>
@@ -566,7 +566,7 @@
 
       <!-- 상대 MBTI -->
       <div class="card">
-        <label class="field-label">상대방 MBTI <span class="zh-inline">Their Type</span></label>
+        <label class="field-label">Their MBTI Type</label>
         <div id="mbtiTheirs"></div>
         <div class="mbti-type-display">
           <span class="mbti-selected-tag" id="mbtiTheirsTag">ENFP</span>
@@ -576,7 +576,7 @@
 
       <!-- 유명 커플 예시 -->
       <div class="card">
-        <label class="field-label" style="margin-bottom:8px">유명한 조합 예시</label>
+        <label class="field-label" style="margin-bottom:8px">Famous Pairings</label>
         <div>
           <button class="mbti-ex-chip" data-pair="INTJ-ENFP">INTJ ♥ ENFP</button>
           <button class="mbti-ex-chip" data-pair="INFJ-ENTP">INFJ ♥ ENTP</button>
@@ -586,7 +586,7 @@
         </div>
       </div>
 
-      <button class="btn-primary" id="mbtiAnalyzeBtn">🧬 궁합 분석하기 · Analyze Compatibility</button>
+      <button class="btn-primary" id="mbtiAnalyzeBtn">🧬 Analyze Compatibility</button>
 
       <!-- 결과 -->
       <div id="mbtiResult" class="hidden" style="margin-top:16px"></div>
@@ -596,16 +596,16 @@
     <section class="page hidden" id="page-timemachine">
       <!-- 인물 선택 -->
       <div class="card">
-        <label class="field-label">누구에 대해 알아볼까요? <span class="zh-inline">Who?</span></label>
+        <label class="field-label">Who?</label>
         <div id="tmPersonChips" class="chip-group" style="margin-bottom:10px"></div>
-        <input type="text" id="tmPersonInput" class="text-input" placeholder="이름 직접 입력 · Or type a name"/>
+        <input type="text" id="tmPersonInput" class="text-input" placeholder="Or type a name"/>
       </div>
 
       <!-- 질문 입력 -->
       <div class="card">
-        <label class="field-label">어떤 게 궁금해요? <span class="zh-inline">What's on your mind?</span></label>
-        <textarea id="tmQuestion" placeholder="예) 왜 요즘 이 친구랑 어색할까? / 우리 관계 발전하고 있을까? · e.g. Why does it feel awkward lately?"></textarea>
-        <div style="margin:10px 0 4px;font-size:12px;color:#999">예시 질문 · Examples</div>
+        <label class="field-label">What's on your mind?</label>
+        <textarea id="tmQuestion" placeholder="e.g. Why does it feel awkward lately?"></textarea>
+        <div style="margin:10px 0 4px;font-size:12px;color:#999">Examples</div>
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
           <button class="tm-q-chip" data-q="왜 요즘 어색할까?">왜 어색할까?</button>
           <button class="tm-q-chip" data-q="우리 관계 발전하고 있을까?">발전 가능성은?</button>
@@ -613,7 +613,7 @@
           <button class="tm-q-chip" data-q="연락이 왜 줄었을까?">연락이 줄었어</button>
           <button class="tm-q-chip" data-q="언제 가장 친밀했나요?">가장 친밀했던 때는?</button>
         </div>
-        <button class="btn-primary" id="tmAnalyzeBtn">⏳ 6개월 돌아보기 · Analyze 6 Months</button>
+        <button class="btn-primary" id="tmAnalyzeBtn">⏳ Analyze 6 Months</button>
       </div>
 
       <!-- 결과 -->
@@ -624,24 +624,24 @@
     <section class="page hidden" id="page-tarot">
       <!-- 인물 선택 -->
       <div class="card">
-        <label class="field-label">누구에 대한 리딩인가요? <span class="zh-inline">Who?</span></label>
+        <label class="field-label">Who?</label>
         <div id="tarotPersonChips" class="chip-group" style="margin-bottom:4px"></div>
-        <label class="field-label" style="margin-top:12px">관계 유형 · Relationship</label>
+        <label class="field-label" style="margin-top:12px">Relationship</label>
         <div class="tarot-ctx-row">
-          <button class="tarot-ctx-btn" data-ctx="lover">💕 연인</button>
-          <button class="tarot-ctx-btn" data-ctx="friend">🤝 친구</button>
-          <button class="tarot-ctx-btn" data-ctx="family">👨‍👩‍👧 가족</button>
-          <button class="tarot-ctx-btn" data-ctx="work">💼 직장</button>
+          <button class="tarot-ctx-btn" data-ctx="lover">💕 Lover</button>
+          <button class="tarot-ctx-btn" data-ctx="friend">🤝 Friend</button>
+          <button class="tarot-ctx-btn" data-ctx="family">👨‍👩‍👧 Family</button>
+          <button class="tarot-ctx-btn" data-ctx="work">💼 Work</button>
         </div>
       </div>
 
       <!-- 카드 뽑기 -->
       <div class="card">
-        <label class="field-label">카드를 뽑아보세요 · Draw Your Card</label>
-        <p style="font-size:13px;color:#aaa;margin:0 0 14px">오늘의 타로는 매일 자정에 바뀌어요</p>
+        <label class="field-label">Draw Your Card</label>
+        <p style="font-size:13px;color:#aaa;margin:0 0 14px">Today's tarot refreshes at midnight</p>
         <div class="tarot-draw-row">
-          <button class="btn-primary" id="tarotTodayBtn">🌟 오늘의 타로</button>
-          <button class="btn-primary" id="tarotRandomBtn" style="background:linear-gradient(135deg,#6b4eaa,#4a1b8c)">🎴 랜덤 뽑기</button>
+          <button class="btn-primary" id="tarotTodayBtn">🌟 Today's Tarot</button>
+          <button class="btn-primary" id="tarotRandomBtn" style="background:linear-gradient(135deg,#6b4eaa,#4a1b8c)">🎴 Random Draw</button>
         </div>
       </div>
 
