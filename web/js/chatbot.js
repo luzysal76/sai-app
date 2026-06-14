@@ -3,13 +3,14 @@
  * chatbot.py 구조: 멀티턴 대화 + 시스템 프롬프트 + gpt-4o-mini
  */
 (function () {
-  const SYSTEM_PROMPT = `당신은 사이(Sai)의 AI 관계 상담사입니다.
-연애, 인간관계, 감정 표현, 갈등 해결에 특화된 친절하고 따뜻한 한국어 챗봇입니다.
+  const SYSTEM_PROMPT = `당신은 사이(Sai)의 AI 연애 상담사입니다.
+연인 사이의 감정, 대화, 갈등, 설렘, 권태 등 연애에만 특화된 친절하고 따뜻한 한국어 챗봇입니다.
 규칙:
+- 연인 관계 주제에만 답변 (다른 인간관계·직장·가족 등은 "저는 연애 전문이에요 😊 연인 관계 고민을 말씀해주세요"라고 안내)
 - 항상 공감 먼저, 조언은 그 다음
 - 답변은 간결하게 (3~5문장)
 - 판단하지 않고 중립적 시각 유지
-- 구체적이고 실천 가능한 조언 제공`;
+- 구체적이고 실천 가능한 연애 조언 제공`;
 
   let messages = [{ role: 'system', content: SYSTEM_PROMPT }];
   let isLoading = false;
@@ -101,7 +102,7 @@
     messages = [{ role: 'system', content: SYSTEM_PROMPT }];
     const wrap = $('chatMessages');
     if (wrap) wrap.innerHTML = '';
-    appendBubble('assistant', '안녕하세요! 사이 AI 상담사예요 💕\n연애, 관계, 감정에 대해 무엇이든 편하게 말씀해주세요.');
+    appendBubble('assistant', '안녕하세요! 사이 연애 상담사예요 💕\n남자친구·여자친구와의 고민, 썸·설렘·갈등 무엇이든 편하게 말씀해주세요.');
   }
 
   // ── 초기화 ──
