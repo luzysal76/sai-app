@@ -13,7 +13,6 @@
   function init() {
     renderPersonChips();
     setupContextBtns();
-    $('#tarotTodayBtn')?.addEventListener('click', drawTodayCard);
     $('#tarotRandomBtn')?.addEventListener('click', drawRandomCard);
   }
 
