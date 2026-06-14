@@ -10,7 +10,7 @@
   const META = {
     home:     { title:'사이', sub:'AI 관계 운영체제 · Relationship OS' },
     relmap:   { title:'관계 지도', sub:'내 주변 사람들을 RPG처럼 관리' },
-    tools:    { title:'도구', sub:'18가지 관계 분석 도구' },
+    tools:    { title:'도구', sub:'17가지 관계 분석 도구' },
     diary:    { title:'감정 일기', sub:'오늘의 관계 감정 기록' },
     translator:  { title:'대화 번역기 · 对话解析器', sub:'상대 말의 진짜 속뜻 · 言下之意' },
     kakao:       { title:'카톡 분석기 · 聊天分析器', sub:'관심도·답장 추천 · 关注度分析' },
@@ -24,7 +24,6 @@
     scenario:    { title:'대화 시나리오 · 对话场景', sub:'상황별 대화 가이드 · 场景对话指南' },
     nvc:         { title:'NVC 번역기', sub:'갈등 문장을 사랑의 언어로' },
     bankbook:    { title:'관계 통장', sub:'신뢰·호감·관심 잔액 관리' },
-    saju:        { title:'사주 궁합 🏮', sub:'생년월일 오행으로 보는 관계 에너지' },
     attachment:  { title:'애착 유형 분석 🧠', sub:'12문항으로 알아보는 나의 관계 패턴' },
     lovelang:    { title:'사랑의 언어 💬', sub:'5가지 사랑 표현 유형 · 5 Love Languages test' },
     enneagram:   { title:'에니어그램 궁합 🔢', sub:'9가지 성격 유형 궁합 분석 · 9-type personality' },
@@ -96,7 +95,6 @@
     if (page === 'scenario')   { setTimeout(() => window.HU._initScenario?.(), 0); }
     if (page === 'nvc')        { setTimeout(() => window.HU._initNVC?.(), 0); }
     if (page === 'bankbook')     { setTimeout(() => window.HU._initBankbook?.(), 0); }
-    if (page === 'saju')        { setTimeout(() => window.HU._initSaju?.(), 0); }
     if (page === 'attachment')  { setTimeout(() => window.HU._initAttachment?.(), 0); }
     if (page === 'lovelang')    { setTimeout(() => window.HU._initLoveLang?.(), 0); }
     if (page === 'enneagram')   { setTimeout(() => window.HU._initEnneagram?.(), 0); }
