@@ -6,28 +6,49 @@ const path = require('path');
 const ROOT = __dirname;
 const PORT = process.env.PORT || 4321;
 
-// ── Anthropic API 키 (functions/.env 또는 환경변수에서 로드) ──────────
-function loadApiKey() {
-  if (process.env.ANTHROPIC_API_KEY && !process.env.ANTHROPIC_API_KEY.includes('여기에')) {
-    return process.env.ANTHROPIC_API_KEY;
-  }
+// ── .env 파서 (functions/.env) ────────────────────────────────────────
+function loadEnvVars() {
   try {
     const envPath = path.join(__dirname, '..', 'functions', '.env');
     const lines = fs.readFileSync(envPath, 'utf8').split('\n');
     for (const line of lines) {
-      const m = line.match(/^ANTHROPIC_API_KEY=(.+)/);
-      if (m && !m[1].includes('여기에') && !m[1].includes('실제')) return m[1].trim();
+      const m = line.match(/^([A-Z_]+)=(.+)/);
+      if (m) {
+        const key = m[1].trim();
+        const val = m[2].trim().replace(/^['"]|['"]$/g, '');
+        if (!process.env[key]) process.env[key] = val;
+      }
     }
   } catch (_) {}
-  return null;
+}
+loadEnvVars();
+
+// ── Anthropic API 키 ──────────────────────────────────────────────────
+function loadApiKey() {
+  const key = process.env.ANTHROPIC_API_KEY || '';
+  return (!key || key.includes('여기에') || key.includes('실제')) ? null : key;
 }
 
-// ── Anthropic SDK (functions/node_modules에서 공유) ──────────────────
+// ── OpenAI API 키 ─────────────────────────────────────────────────────
+function loadOpenAIKey() {
+  const key = process.env.OPENAI_API_KEY || '';
+  return (!key || key.includes('여기에')) ? null : key;
+}
+
+// ── Anthropic SDK ─────────────────────────────────────────────────────
 let Anthropic;
 try {
   Anthropic = require(path.join(__dirname, '..', 'functions', 'node_modules', '@anthropic-ai', 'sdk'));
 } catch (_) {
   try { Anthropic = require('@anthropic-ai/sdk'); } catch (__) {}
+}
+
+// ── OpenAI SDK ────────────────────────────────────────────────────────
+let OpenAI;
+try {
+  OpenAI = require(path.join(__dirname, '..', 'functions', 'node_modules', 'openai'));
+} catch (_) {
+  try { OpenAI = require('openai'); } catch (__) {}
 }
 
 // ── MIME 타입 ─────────────────────────────────────────────────────────
@@ -136,6 +157,44 @@ http.createServer(async (req, res) => {
       console.error('[capture] 오류:', err.message);
       res.writeHead(500, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ error: 'AI 이미지 분석 오류: ' + err.message }));
+    }
+    return;
+  }
+
+  // ── POST /api/chat — OpenAI GPT 챗봇 (chatbot.py 포팅) ─────────────
+  if (req.method === 'POST' && url === '/api/chat') {
+    const apiKey = loadOpenAIKey();
+    if (!apiKey || !OpenAI) {
+      res.writeHead(503, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ error: 'OPENAI_API_KEY가 설정되지 않았습니다.' }));
+    }
+
+    let body;
+    try { body = await readBody(req); }
+    catch (e) { res.writeHead(400, { 'Content-Type': 'application/json' }); return res.end(JSON.stringify({ error: '잘못된 요청 형식입니다.' })); }
+
+    const { messages } = body;
+    if (!Array.isArray(messages) || !messages.length) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ error: 'messages 배열이 필요합니다.' }));
+    }
+
+    try {
+      const model = process.env.OPENAI_MODEL || 'gpt-4o-mini';
+      const OpenAIClient = OpenAI.default || OpenAI;
+      const client = new OpenAIClient({ apiKey });
+      const response = await client.chat.completions.create({
+        model,
+        messages,
+        temperature: 0.7,
+      });
+      const content = response.choices[0].message.content || '';
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ content: content.trim() }));
+    } catch (err) {
+      console.error('[chat] 오류:', err.message);
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'AI 오류: ' + err.message }));
     }
     return;
   }

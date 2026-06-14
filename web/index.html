@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="./css/styles-attachment.css"/>
   <link rel="stylesheet" href="./css/styles-lovelang.css"/>
   <link rel="stylesheet" href="./css/styles-relcheck.css"/>
+  <link rel="stylesheet" href="./css/styles-chatbot.css"/>
 </head>
 <body>
 <div class="app">
@@ -103,6 +104,7 @@
         <button class="feature-card att-highlight" data-go="attachment"><span class="fc-emoji">🧠</span><span class="fc-title">Attachment Style</span><span class="fc-desc">4 attachment types</span></button>
         <button class="feature-card ll-highlight" data-go="lovelang"><span class="fc-emoji">💬</span><span class="fc-title">Love Language</span><span class="fc-desc">5 Love Languages test</span></button>
         <button class="feature-card rc-highlight" data-go="relcheck"><span class="fc-emoji">🌡️</span><span class="fc-title">Rel. Health</span><span class="fc-desc">5D radar check</span></button>
+        <button class="feature-card" style="background:linear-gradient(135deg,rgba(255,107,157,.08),rgba(107,78,170,.08));border-color:rgba(107,78,170,.2)" data-go="chatbot"><span class="fc-emoji">💬</span><span class="fc-title">AI Chat</span><span class="fc-desc">Relationship AI counselor</span></button>
       </div>
     </div>
 
@@ -560,6 +562,40 @@
     </section>
 
 
+    <!-- AI 챗봇 -->
+    <section class="page hidden" id="page-chatbot">
+      <div class="card" style="background:linear-gradient(145deg,#fff0f6,#f5f0ff);border:1.5px solid rgba(107,78,170,.2);text-align:center">
+        <div style="font-size:44px;margin-bottom:6px">💬</div>
+        <h3 style="font-size:20px;font-weight:900;background:linear-gradient(135deg,#ff6b9d,#6b4eaa);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin:0 0 6px">AI 관계 상담사</h3>
+        <p style="font-size:13px;color:#666;margin:0;line-height:1.65">연애·관계·감정 고민을<br>AI와 자유롭게 대화해보세요</p>
+      </div>
+
+      <div class="card" style="padding:12px">
+        <p style="font-size:12px;color:#888;margin:0 0 10px;font-weight:600">💡 이런 걸 물어보세요</p>
+        <div class="chat-examples">
+          <button class="chat-ex-chip" data-chat-ex="카톡을 읽었는데 답장을 안 해요. 어떻게 해야 할까요?">읽씹 대처법</button>
+          <button class="chat-ex-chip" data-chat-ex="고백하고 싶은데 너무 긴장돼요">고백 조언</button>
+          <button class="chat-ex-chip" data-chat-ex="자꾸 같은 이유로 싸워요. 어떻게 대화하면 좋을까요?">반복 갈등</button>
+          <button class="chat-ex-chip" data-chat-ex="상대방이 요즘 차가운 것 같아요">거리감 느낄 때</button>
+          <button class="chat-ex-chip" data-chat-ex="연락 주기는 어떻게 맞추는 게 좋을까요?">연락 빈도</button>
+        </div>
+      </div>
+
+      <div class="card" style="padding:0;overflow:hidden">
+        <div class="chat-window">
+          <div id="chatMessages"></div>
+          <div class="chat-input-row">
+            <textarea id="chatInput" rows="1" placeholder="메시지를 입력하세요... (Enter 전송)"></textarea>
+            <button id="chatSendBtn">➤</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:right;margin-top:4px">
+        <button id="chatResetBtn">🔄 대화 초기화</button>
+      </div>
+    </section>
+
     <!-- 21. DISC 소통 유형 -->
     <!-- 22. 관계 건강 체크 -->
     <section class="page hidden" id="page-relcheck">
@@ -681,5 +717,6 @@
 <script src="./js/attachment-ui.js"></script>
 <script src="./js/lovelang-ui.js"></script>
 <script src="./js/relcheck-ui.js"></script>
+<script src="./js/chatbot.js"></script>
 </body>
 </html>
