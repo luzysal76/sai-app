@@ -10,7 +10,7 @@
   const META = {
     home:     { title:'사이', sub:'AI 관계 운영체제 · Relationship OS' },
     relmap:   { title:'관계 지도', sub:'내 주변 사람들을 RPG처럼 관리' },
-    tools:    { title:'도구', sub:'22가지 관계 분석 도구' },
+    tools:    { title:'도구', sub:'21가지 관계 분석 도구' },
     diary:    { title:'감정 일기', sub:'오늘의 관계 감정 기록' },
     translator:  { title:'대화 번역기 · 对话解析器', sub:'상대 말의 진짜 속뜻 · 言下之意' },
     kakao:       { title:'카톡 분석기 · 聊天分析器', sub:'관심도·답장 추천 · 关注度分析' },
@@ -26,7 +26,6 @@
     bankbook:    { title:'관계 통장', sub:'신뢰·호감·관심 잔액 관리' },
     timemachine: { title:'관계 타임머신 ⏳', sub:'6개월 관계 패턴 분석 · Pattern analysis' },
     mbti:        { title:'MBTI 궁합 분석 🧬', sub:'16가지 유형 궁합 분석 · Type compatibility' },
-    tarot:       { title:'관계 타로 🔮', sub:'오늘의 카드가 전하는 관계 인사이트' },
     saju:        { title:'사주 궁합 🏮', sub:'생년월일 오행으로 보는 관계 에너지' },
     zodiac:      { title:'별자리 궁합 ⭐', sub:'12별자리 원소 에너지로 보는 우주적 궁합' },
     attachment:  { title:'애착 유형 분석 🧠', sub:'12문항으로 알아보는 나의 관계 패턴' },
@@ -102,7 +101,6 @@
     if (page === 'bankbook')     { setTimeout(() => window.HU._initBankbook?.(), 0); }
     if (page === 'timemachine') { setTimeout(() => window.HU._initTimemachine?.(), 0); }
     if (page === 'mbti')        { setTimeout(() => window.HU._initMBTI?.(), 0); }
-    if (page === 'tarot')       { setTimeout(() => window.HU._initTarot?.(), 0); }
     if (page === 'saju')        { setTimeout(() => window.HU._initSaju?.(), 0); }
     if (page === 'zodiac')      { setTimeout(() => window.HU._initZodiac?.(), 0); }
     if (page === 'attachment')  { setTimeout(() => window.HU._initAttachment?.(), 0); }
@@ -173,22 +171,6 @@
     refreshHome();
     window.HU._refreshHome = refreshHome;
 
-    // 오늘의 타로 위젯 (tarot.js는 app.js 앞에 로드됨)
-    initHomeTarot();
-  }
-
-  function initHomeTarot() {
-    const widget = $('#homeTarotWidget');
-    if (!widget || !window.SaiTarot) return;
-    const card = window.SaiTarot.getTodayCard();
-    const nameEl = $('#htCardName'), msgEl = $('#htCardMsg');
-    const kwsEl = $('#htCardKws'), symEl = $('#htCardSymbol');
-    if (nameEl) nameEl.textContent = card.name;
-    if (symEl)  symEl.textContent = card.symbol;
-    if (msgEl)  msgEl.textContent = card.meaning.slice(0, 42) + '…';
-    if (kwsEl)  kwsEl.innerHTML = card.keyword.slice(0, 3).map(k => `<span class="htw-kw">${k}</span>`).join('');
-    widget.style.cursor = 'pointer';
-    widget.addEventListener('click', () => { NAV.tab = 'tools'; showPage('tarot'); });
   }
 
   // ---------- 관계 그룹 초기화 ----------
