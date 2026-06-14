@@ -10,7 +10,7 @@
   const META = {
     home:     { title:'사이', sub:'AI 관계 운영체제 · Relationship OS' },
     relmap:   { title:'관계 지도', sub:'내 주변 사람들을 RPG처럼 관리' },
-    tools:    { title:'도구', sub:'16가지 관계 분석 도구' },
+    tools:    { title:'도구', sub:'15가지 관계 분석 도구' },
     diary:    { title:'감정 일기', sub:'오늘의 관계 감정 기록' },
     translator:  { title:'대화 번역기 · 对话解析器', sub:'상대 말의 진짜 속뜻 · 言下之意' },
     kakao:       { title:'카톡 분석기 · 聊天分析器', sub:'관심도·답장 추천 · 关注度分析' },
@@ -26,7 +26,6 @@
     bankbook:    { title:'관계 통장', sub:'신뢰·호감·관심 잔액 관리' },
     attachment:  { title:'애착 유형 분석 🧠', sub:'12문항으로 알아보는 나의 관계 패턴' },
     lovelang:    { title:'사랑의 언어 💬', sub:'5가지 사랑 표현 유형 · 5 Love Languages test' },
-    disc:        { title:'DISC 소통 유형 🎯', sub:'4가지 소통 스타일 분석 · Communication style' },
     relcheck:    { title:'관계 건강 체크 🌡️', sub:'5차원 레이더로 보는 관계 건강 · 5D radar' },
     'relmap-add':{ title:'관계 추가·편집 · 添加/编辑', sub:'' },
     'timeline':  { title:'관계 타임라인 · 关系时间线', sub:'우리 관계의 변화 흐름 · 关系变化历程' },
@@ -96,7 +95,6 @@
     if (page === 'bankbook')     { setTimeout(() => window.HU._initBankbook?.(), 0); }
     if (page === 'attachment')  { setTimeout(() => window.HU._initAttachment?.(), 0); }
     if (page === 'lovelang')    { setTimeout(() => window.HU._initLoveLang?.(), 0); }
-    if (page === 'disc')        { setTimeout(() => window.HU._initDisc?.(), 0); }
     if (page === 'relcheck')    { setTimeout(() => window.HU._initRelCheck?.(), 0); }
   }
   function goBack() { NAV={...NAV, page:null}; updateUI(); if(NAV.tab==='relmap') window.HU._renderRelmap?.(); }
