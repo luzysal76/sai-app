@@ -10,7 +10,7 @@
   const META = {
     home:     { title:'사이', sub:'AI 관계 운영체제 · Relationship OS' },
     relmap:   { title:'관계 지도', sub:'내 주변 사람들을 RPG처럼 관리' },
-    tools:    { title:'도구', sub:'21가지 관계 분석 도구' },
+    tools:    { title:'도구', sub:'20가지 관계 분석 도구' },
     diary:    { title:'감정 일기', sub:'오늘의 관계 감정 기록' },
     translator:  { title:'대화 번역기 · 对话解析器', sub:'상대 말의 진짜 속뜻 · 言下之意' },
     kakao:       { title:'카톡 분석기 · 聊天分析器', sub:'관심도·답장 추천 · 关注度分析' },
@@ -24,7 +24,6 @@
     scenario:    { title:'대화 시나리오 · 对话场景', sub:'상황별 대화 가이드 · 场景对话指南' },
     nvc:         { title:'NVC 번역기', sub:'갈등 문장을 사랑의 언어로' },
     bankbook:    { title:'관계 통장', sub:'신뢰·호감·관심 잔액 관리' },
-    timemachine: { title:'관계 타임머신 ⏳', sub:'6개월 관계 패턴 분석 · Pattern analysis' },
     mbti:        { title:'MBTI 궁합 분석 🧬', sub:'16가지 유형 궁합 분석 · Type compatibility' },
     saju:        { title:'사주 궁합 🏮', sub:'생년월일 오행으로 보는 관계 에너지' },
     zodiac:      { title:'별자리 궁합 ⭐', sub:'12별자리 원소 에너지로 보는 우주적 궁합' },
@@ -99,7 +98,6 @@
     if (page === 'scenario')   { setTimeout(() => window.HU._initScenario?.(), 0); }
     if (page === 'nvc')        { setTimeout(() => window.HU._initNVC?.(), 0); }
     if (page === 'bankbook')     { setTimeout(() => window.HU._initBankbook?.(), 0); }
-    if (page === 'timemachine') { setTimeout(() => window.HU._initTimemachine?.(), 0); }
     if (page === 'mbti')        { setTimeout(() => window.HU._initMBTI?.(), 0); }
     if (page === 'saju')        { setTimeout(() => window.HU._initSaju?.(), 0); }
     if (page === 'zodiac')      { setTimeout(() => window.HU._initZodiac?.(), 0); }
