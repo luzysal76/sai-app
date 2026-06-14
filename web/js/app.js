@@ -22,7 +22,7 @@
     capture:     { title:'대화 캡처 분석 · 截图分析', sub:'감정·위험 신호 탐지 · 情感检测' },
     dictionary:  { title:'표현 사전 · 表达词典', sub:'68종 속뜻 & 감정 DB · 68种言下之意' },
     scenario:    { title:'대화 시나리오 · 对话场景', sub:'상황별 대화 가이드 · 场景对话指南' },
-    nvc:         { title:'NVC 번역기', sub:'갈등 문장을 사랑의 언어로' },
+    nvc:         { title:'사랑의 대화 💗', sub:'갈등 문장을 사랑의 말로' },
     bankbook:    { title:'관계 통장', sub:'신뢰·호감·관심 잔액 관리' },
     attachment:  { title:'애착 유형 분석 🧠', sub:'12문항으로 알아보는 나의 관계 패턴' },
     lovelang:    { title:'사랑의 언어 💬', sub:'5가지 사랑 표현 유형 · 5 Love Languages test' },
