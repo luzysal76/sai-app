@@ -17,7 +17,7 @@
         <div class="nvc-msg-head">
           <span class="nvc-msg-tone">${esc(m.tone)}</span>
           ${m.desc ? `<span class="nvc-msg-desc">${esc(m.desc)}</span>` : ''}
-          <span class="nvc-msg-copy">눌러서 복사</span>
+          <span class="nvc-msg-copy">꾹 눌러서 복사</span>
         </div>
         <p class="nvc-msg-text">${esc(m.text)}</p>
         <div class="nvc-msg-copied hidden">✓ 복사됨</div>
