@@ -1,5 +1,18 @@
 /* ===== 헤아림 신규 기능 스타일 ===== */
 
+/* ── 홈 히어로 GIF ── */
+.home-hero-gif {
+  width: calc(100% + 32px);
+  margin: -16px -16px 16px;
+  overflow: hidden;
+  line-height: 0;
+}
+.home-hero-img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
 /* 앱 마진 (바텀탭 공간) */
 .app-main { padding-bottom: 72px; }
 .app-footer { display: none; }
