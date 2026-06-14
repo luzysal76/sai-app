@@ -40,10 +40,6 @@
         <img src="./메인.gif" alt="사이 메인" class="home-hero-img"/>
       </div>
 
-      <button class="relmap-cta" id="relmapCta">
-        <span class="rmc-left"><span class="rmc-emoji">💫</span><div><b>관계 지도 <span class="zh-inline">Relation Map</span></b><p>내 주변 사람들을 RPG처럼 관리 · Manage like RPG</p></div></span>
-        <span class="rmc-arrow">›</span>
-      </button>
       <p class="section-label">Quick Tools</p>
       <div class="feature-grid grid3" id="homeGrid">
         <button class="feature-card sm" data-go="translator"><span class="fc-emoji">💬</span><span class="fc-title">대화 번역기</span></button>
@@ -55,20 +51,6 @@
       </div>
     </div>
 
-    <!-- ===== TAB: 관계 지도 ===== -->
-    <div class="page hidden" id="tab-relmap">
-      <div class="relmap-topbar">
-        <span class="section-label">내 관계 지도 · My Relation Map</span>
-        <button class="btn-add-sm" id="addRelBtn">+ 추가 / Add</button>
-      </div>
-      <div class="relmap-summary hidden" id="relmapSummary"></div>
-      <div class="relmap-empty" id="relmapEmpty">
-        <span>🗺️</span>
-        <p>주변 사람들을 등록해보세요<span class="zh">Add people around you</span>관계를 RPG처럼 시각화해드려요<span class="zh">Visualize your relationships like RPG</span></p>
-        <button class="btn-primary" id="addRelBtnEmpty">첫 번째 사람 추가하기 · Add First Person</button>
-      </div>
-      <div class="rel-cards" id="relCards"></div>
-    </div>
 
     <!-- ===== TAB: 도구 ===== -->
     <div class="page hidden" id="tab-tools">
@@ -635,32 +617,6 @@
 
 
 
-    <!-- 관계 추가/편집 (relmap sub) -->
-    <section class="page hidden" id="page-relmap-add">
-      <div class="card">
-        <label class="field-label">관계 · Relation Type</label>
-        <div class="chip-group relation-group rel-type-group"></div>
-      </div>
-      <div class="card">
-        <label class="field-label">이름 · Name</label>
-        <input type="text" id="relName" class="text-input" placeholder="예) 여자친구, 친구 철수 · e.g. Girlfriend, Friend"/>
-        <label class="field-label mt">이모지 · Emoji</label>
-        <div class="emoji-pick" id="emojiPick">
-          <button class="epick" data-e="👩">👩</button><button class="epick" data-e="👨">👨</button>
-          <button class="epick" data-e="💑">💑</button><button class="epick" data-e="👫">👫</button>
-          <button class="epick" data-e="🧑">🧑</button><button class="epick" data-e="👩‍💼">👩‍💼</button>
-          <button class="epick" data-e="👨‍💼">👨‍💼</button><button class="epick" data-e="👨‍👩‍👧">👨‍👩‍👧</button>
-        </div>
-        <label class="field-label mt">친밀도 · Intimacy <span id="affinityVal" class="slider-val">50%</span></label>
-        <input type="range" id="relAffinity" min="0" max="100" value="50" class="slider"/>
-        <label class="field-label mt">대화 빈도 · Chat Frequency</label>
-        <div class="seg" data-q="freq"><button data-v="0">낮음 / Low</button><button data-v="1" class="active">보통 / Normal</button><button data-v="2">높음 / High</button></div>
-        <label class="field-label mt">갈등 수준 · Conflict Level</label>
-        <div class="seg" data-q="conf"><button data-v="0" class="active">낮음 / Low</button><button data-v="1">보통 / Normal</button><button data-v="2">높음 / High</button></div>
-        <input type="hidden" id="relEditId"/>
-        <button class="btn-primary mt" id="relSaveBtn">저장하기 · Save</button>
-      </div>
-    </section>
 
     <div class="loading hidden" id="loading"><div class="spinner"></div><p>마음을 읽는 중... · Analyzing...</p></div>
   </main>
@@ -671,7 +627,6 @@
 
   <nav class="bottom-nav">
     <button class="tab-btn active" data-tab="home"><span class="tab-icon">🏠</span><span class="tab-label">홈<span class="tab-zh">Home</span></span></button>
-    <button class="tab-btn" data-tab="relmap"><span class="tab-icon">💫</span><span class="tab-label">관계도<span class="tab-zh">Map</span></span></button>
     <button class="tab-btn" data-tab="tools"><span class="tab-icon">🛠</span><span class="tab-label">도구<span class="tab-zh">Tools</span></span></button>
     <button class="tab-btn" data-tab="diary"><span class="tab-icon">📔</span><span class="tab-label">일기<span class="tab-zh">Diary</span></span></button>
   </nav>
