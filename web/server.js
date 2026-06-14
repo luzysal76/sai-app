@@ -1,27 +1,152 @@
-// 헤아림 정적 파일 개발 서버 (의존성 없음)
+// 사이(Sai) 개발 서버 — 정적 파일 + Claude 비전 API 프록시
 const http = require('http');
-const fs = require('fs');
+const fs   = require('fs');
 const path = require('path');
 
 const ROOT = __dirname;
 const PORT = process.env.PORT || 4321;
+
+// ── Anthropic API 키 (functions/.env 또는 환경변수에서 로드) ──────────
+function loadApiKey() {
+  if (process.env.ANTHROPIC_API_KEY && !process.env.ANTHROPIC_API_KEY.includes('여기에')) {
+    return process.env.ANTHROPIC_API_KEY;
+  }
+  try {
+    const envPath = path.join(__dirname, '..', 'functions', '.env');
+    const lines = fs.readFileSync(envPath, 'utf8').split('\n');
+    for (const line of lines) {
+      const m = line.match(/^ANTHROPIC_API_KEY=(.+)/);
+      if (m && !m[1].includes('여기에') && !m[1].includes('실제')) return m[1].trim();
+    }
+  } catch (_) {}
+  return null;
+}
+
+// ── Anthropic SDK (functions/node_modules에서 공유) ──────────────────
+let Anthropic;
+try {
+  Anthropic = require(path.join(__dirname, '..', 'functions', 'node_modules', '@anthropic-ai', 'sdk'));
+} catch (_) {
+  try { Anthropic = require('@anthropic-ai/sdk'); } catch (__) {}
+}
+
+// ── MIME 타입 ─────────────────────────────────────────────────────────
 const MIME = {
   '.html': 'text/html; charset=utf-8',
-  '.css': 'text/css; charset=utf-8',
-  '.js': 'application/javascript; charset=utf-8',
+  '.css':  'text/css; charset=utf-8',
+  '.js':   'application/javascript; charset=utf-8',
   '.json': 'application/json; charset=utf-8',
-  '.svg': 'image/svg+xml',
-  '.png': 'image/png',
+  '.svg':  'image/svg+xml',
+  '.png':  'image/png',
+  '.jpg':  'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp',
 };
 
-http.createServer((req, res) => {
-  let urlPath = decodeURIComponent(req.url.split('?')[0]);
-  if (urlPath === '/') urlPath = '/index.html';
-  const filePath = path.join(ROOT, urlPath);
+// ── JSON body 파서 ────────────────────────────────────────────────────
+function readBody(req) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    req.on('data', c => chunks.push(c));
+    req.on('end', () => {
+      try { resolve(JSON.parse(Buffer.concat(chunks).toString())); }
+      catch (e) { reject(e); }
+    });
+    req.on('error', reject);
+  });
+}
+
+// ── Claude 비전 분석 프롬프트 ─────────────────────────────────────────
+const CAPTURE_PROMPT = `이 이미지는 카카오톡 또는 문자 대화 캡처입니다.
+대화 내용을 읽고 감정 패턴과 관계 신호를 분석해주세요.
+
+반드시 아래 JSON 형식으로만 응답하세요. 다른 텍스트는 절대 포함하지 마세요.
+
+{
+  "emotions": [
+    {"label": "설렘", "pct": 35},
+    {"label": "불안", "pct": 28},
+    {"label": "친밀감", "pct": 22},
+    {"label": "기대", "pct": 15}
+  ],
+  "risks": ["읽씹 가능성", "일방적 연락 패턴"],
+  "note": "이 대화에서 읽어야 할 핵심 포인트 (1~2문장, 따뜻하고 통찰력 있게)"
+}
+
+규칙:
+- emotions: 대화에서 감지되는 감정 2~4개, pct 합계 반드시 100
+- risks: 관계 위험 신호 1~3개, 없으면 빈 배열 []
+- 대화 내용이 보이지 않거나 카톡이 아닌 이미지라면 emotions에 [{"label":"이미지 인식 불가","pct":100}] 반환
+- 한국어로 작성`;
+
+// ── 서버 ─────────────────────────────────────────────────────────────
+http.createServer(async (req, res) => {
+  const url = decodeURIComponent(req.url.split('?')[0]);
+
+  // CORS (API 요청용)
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') { res.writeHead(204); return res.end(); }
+
+  // ── POST /api/capture — Claude 비전 이미지 분석 ──────────────────
+  if (req.method === 'POST' && url === '/api/capture') {
+    const apiKey = loadApiKey();
+    if (!apiKey) {
+      res.writeHead(503, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ error: 'ANTHROPIC_API_KEY가 설정되지 않았습니다. functions/.env 파일에 API 키를 입력해주세요.' }));
+    }
+    if (!Anthropic) {
+      res.writeHead(503, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ error: 'Anthropic SDK를 불러올 수 없습니다.' }));
+    }
+
+    let body;
+    try { body = await readBody(req); }
+    catch (e) { res.writeHead(400, { 'Content-Type': 'application/json' }); return res.end(JSON.stringify({ error: '잘못된 요청 형식입니다.' })); }
+
+    const { imageData, mediaType = 'image/jpeg' } = body;
+    if (!imageData) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ error: '이미지 데이터가 없습니다.' }));
+    }
+
+    try {
+      const client = new Anthropic({ apiKey });
+      const msg = await client.messages.create({
+        model: 'claude-3-5-haiku-20241022',
+        max_tokens: 800,
+        messages: [{
+          role: 'user',
+          content: [
+            { type: 'image', source: { type: 'base64', media_type: mediaType, data: imageData } },
+            { type: 'text', text: CAPTURE_PROMPT },
+          ],
+        }],
+      });
+
+      const raw = msg.content[0].text;
+      const jsonMatch = raw.match(/\{[\s\S]*\}/);
+      if (!jsonMatch) throw new Error('JSON 파싱 실패');
+      const result = JSON.parse(jsonMatch[0]);
+
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ source: 'claude', ...result }));
+    } catch (err) {
+      console.error('[capture] 오류:', err.message);
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'AI 이미지 분석 오류: ' + err.message }));
+    }
+    return;
+  }
+
+  // ── GET — 정적 파일 서빙 ─────────────────────────────────────────
+  let filePath = path.join(ROOT, url === '/' ? '/index.html' : url);
   if (!filePath.startsWith(ROOT)) { res.writeHead(403); return res.end('Forbidden'); }
   fs.readFile(filePath, (err, data) => {
     if (err) { res.writeHead(404); return res.end('Not found'); }
     res.writeHead(200, { 'Content-Type': MIME[path.extname(filePath)] || 'text/plain' });
     res.end(data);
   });
-}).listen(PORT, () => console.log(`헤아림 dev server: http://localhost:${PORT}`));
+
+}).listen(PORT, () => console.log(`사이(Sai) dev server: http://localhost:${PORT}`));

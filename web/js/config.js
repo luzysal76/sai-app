@@ -14,11 +14,15 @@ window.HEARIM_CONFIG = (function () {
     ? `http://127.0.0.1:5001/${PROJECT_ID}/${REGION}`
     : `https://${REGION}-${PROJECT_ID}.cloudfunctions.net`;
 
+  // 이미지 캡처 분석은 항상 로컬 dev server (Claude 비전 프록시)
+  const captureUrl = 'http://localhost:4321/api/capture';
+
   return {
     api: {
       translate:    base + '/translate',
       analyzeKakao: base + '/analyzeKakao',
       diagRelation: base + '/diagRelation',
+      capture:      captureUrl,
     },
     useAI: true,   // false로 바꾸면 DB 전용 모드
   };

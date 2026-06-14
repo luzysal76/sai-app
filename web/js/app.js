@@ -449,27 +449,72 @@
     });
   }
 
-  // ---------- 도구: 대화 캡처 분석 ----------
+  // ---------- 도구: 대화 캡처 분석 (Claude 비전 AI) ----------
   function initCapture() {
     const fileInput=$('#captureFile'), zone=$('#captureZone'), btn=$('#captureBtn'), preview=$('#capturePreview');
+    let currentFile = null, currentB64 = null, currentType = null;
+
     zone.addEventListener('click',()=>fileInput.click());
     fileInput.addEventListener('change',()=>{
       const file=fileInput.files[0]; if(!file)return;
+      currentFile = file;
+      currentType = file.type || 'image/jpeg';
       const reader=new FileReader();
-      reader.onload=e=>{ preview.src=e.target.result; preview.classList.remove('hidden'); $('.capture-icon',zone).style.display='none'; $('.capture-hint',zone).style.display='none'; btn.classList.remove('hidden'); };
+      reader.onload=e=>{
+        const dataUrl = e.target.result;
+        preview.src=dataUrl;
+        preview.classList.remove('hidden');
+        $('.capture-icon',zone).style.display='none';
+        $('.capture-hint',zone).style.display='none';
+        btn.classList.remove('hidden');
+        // base64 부분만 추출 (data:image/xxx;base64, 제거)
+        currentB64 = dataUrl.split(',')[1];
+      };
       reader.readAsDataURL(file);
     });
-    btn.addEventListener('click',()=>{
-      const file=fileInput.files[0];
-      const seed=(file?.name?.length||0)+(file?.size||0);
-      withLoading('captureResult',()=>{
+
+    btn.addEventListener('click', async ()=>{
+      if(!currentB64){ return; }
+      const resultEl=$('#captureResult');
+      resultEl.classList.add('hidden');
+      btn.disabled=true;
+      btn.textContent='🤖 AI analyzing...';
+
+      try {
+        const res = await fetch(window.HEARIM_CONFIG.api.capture, {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ imageData: currentB64, mediaType: currentType }),
+        });
+        const r = await res.json();
+        if(!res.ok || r.error) throw new Error(r.error||'분석 실패');
+
+        renderPoss($('#capturePoss'), r.emotions);
+        const rc=$('#captureRiskCard'), risks=$('#captureRisks');
+        if(r.risks&&r.risks.length){
+          rc.classList.remove('hidden');
+          risks.innerHTML=r.risks.map(x=>`<div class="risk-item">⚠️ ${esc(x)}</div>`).join('');
+        } else {
+          rc.classList.add('hidden');
+        }
+        $('#captureTip').textContent = r.note || '';
+        resultEl.classList.remove('hidden');
+        resultEl.scrollIntoView({ behavior:'smooth', block:'start' });
+      } catch(err) {
+        // API 키 미설정 시 시뮬레이션 폴백
+        console.warn('[capture] AI 오류, 시뮬레이션 폴백:', err.message);
+        const seed=(currentFile?.name?.length||0)+(currentFile?.size||0);
         const r=A.analyzeCaptureSimulated(seed);
         renderPoss($('#capturePoss'),r.emotions);
         const rc=$('#captureRiskCard'), risks=$('#captureRisks');
         if(r.risks&&r.risks.length){ rc.classList.remove('hidden'); risks.innerHTML=r.risks.map(x=>`<div class="risk-item">⚠️ ${esc(x)}</div>`).join(''); }
         else rc.classList.add('hidden');
-        $('#captureTip').textContent=r.note;
-      });
+        $('#captureTip').textContent='(시뮬레이션 결과 — API 키 설정 후 실제 AI 분석 가능) ' + r.note;
+        resultEl.classList.remove('hidden');
+      } finally {
+        btn.disabled=false;
+        btn.textContent='Analyze Emotions';
+      }
     });
   }
 
