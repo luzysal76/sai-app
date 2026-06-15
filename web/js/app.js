@@ -104,14 +104,44 @@
   backBtn.addEventListener('click', goBack);
   $$('.tab-btn').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
 
-  // ---------- 홈: 도구 그리드 클릭 ----------
+  // ---------- 홈: AI 입력창 → 챗봇 이동 ----------
+  function initHomeAiInput() {
+    const input  = $('#homeAiInput');
+    const btn    = $('#homeAiBtn');
+    if (!input || !btn) return;
+
+    function goChat() {
+      const text = input.value.trim();
+      if (!text) { input.focus(); return; }
+      input.value = '';
+      showPage('chatbot');
+      // 챗봇 초기화 후 메시지 전송
+      setTimeout(() => { window.HU._sendToChatbot?.(text); }, 150);
+    }
+
+    btn.addEventListener('click', goChat);
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); goChat(); }
+    });
+
+    // 예시 칩 클릭
+    $$('.home-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const text = chip.dataset.homeChip;
+        showPage('chatbot');
+        setTimeout(() => { window.HU._sendToChatbot?.(text); }, 150);
+      });
+    });
+  }
+  initHomeAiInput();
+
+  // ---------- 도구탭 그리드 클릭 ----------
   function bindToolGrid(gridEl) {
     gridEl?.addEventListener('click', e=>{
       const c=e.target.closest('[data-go]'); if(!c) return;
       NAV.tab='tools'; showPage(c.dataset.go);
     });
   }
-  bindToolGrid($('#homeGrid'));
   bindToolGrid($('#tab-tools'));
 
 

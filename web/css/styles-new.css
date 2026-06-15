@@ -16,6 +16,78 @@
   object-fit: contain;
 }
 
+/* ── 홈 AI 입력창 ── */
+.home-ai-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 4px 0 8px;
+}
+.home-ai-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2b2230;
+  text-align: center;
+}
+.home-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+#homeAiInput {
+  flex: 1;
+  border: 2px solid rgba(107,78,170,.3);
+  border-radius: 24px;
+  padding: 13px 18px;
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  background: #fff;
+  color: #2b2230;
+  transition: border-color .2s, box-shadow .2s;
+}
+#homeAiInput:focus {
+  border-color: #6b4eaa;
+  box-shadow: 0 0 0 3px rgba(107,78,170,.12);
+}
+#homeAiBtn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff6b9d, #6b4eaa);
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(107,78,170,.35);
+  transition: transform .15s, opacity .15s;
+}
+#homeAiBtn:hover { opacity: .9; transform: scale(1.06); }
+#homeAiBtn:active { transform: scale(.96); }
+
+.home-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.home-chip {
+  font-size: 13px;
+  padding: 7px 14px;
+  border-radius: 20px;
+  background: rgba(107,78,170,.07);
+  border: 1px solid rgba(107,78,170,.2);
+  color: #6b4eaa;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  transition: background .2s;
+}
+.home-chip:hover { background: rgba(107,78,170,.15); }
+
 /* 앱 마진 (바텀탭 공간) */
 .app-main { padding-bottom: 72px; }
 .app-footer { display: none; }

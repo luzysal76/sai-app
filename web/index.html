@@ -40,14 +40,19 @@
         <img src="./여자.png" alt="사이 메인" class="home-hero-img"/>
       </div>
 
-      <p class="section-label">빠른 도구</p>
-      <div class="feature-grid grid3" id="homeGrid">
-        <button class="feature-card sm" data-go="translator"><span class="fc-emoji">💬</span><span class="fc-title">대화 번역기</span></button>
-        <button class="feature-card sm bb-highlight" data-go="bankbook"><span class="fc-emoji">🏦</span><span class="fc-title">관계 통장</span></button>
-        <button class="feature-card sm" data-go="kakao"><span class="fc-emoji">💕</span><span class="fc-title">카톡 분석기</span></button>
-        <button class="feature-card sm" data-go="readcheck"><span class="fc-emoji">📵</span><span class="fc-title">읽씹 분석</span></button>
-        <button class="feature-card sm nvc-highlight" data-go="nvc"><span class="fc-emoji">💗</span><span class="fc-title">사랑의 대화</span></button>
-        <button class="feature-card sm" data-go="reply"><span class="fc-emoji">✍️</span><span class="fc-title">답장 생성기</span></button>
+      <div class="home-ai-section">
+        <p class="home-ai-label">오늘 어떤 고민이 있어요? 💬</p>
+        <div class="home-input-row">
+          <input type="text" id="homeAiInput" placeholder="남자친구가 읽씹해요..." maxlength="200"/>
+          <button id="homeAiBtn" aria-label="전송">→</button>
+        </div>
+        <div class="home-chips">
+          <button class="home-chip" data-home-chip="남자친구가 읽씹해요. 어떻게 해야 할까요?">읽씹 대처</button>
+          <button class="home-chip" data-home-chip="좋아하는 사람한테 고백하고 싶은데 어떻게 해야 할까요?">고백 타이밍</button>
+          <button class="home-chip" data-home-chip="여자친구랑 자꾸 같은 이유로 싸워요. 어떻게 대화하면 좋을까요?">반복 다툼</button>
+          <button class="home-chip" data-home-chip="남자친구가 요즘 차가워진 것 같아요. 권태기일까요?">권태기 신호</button>
+          <button class="home-chip" data-home-chip="썸 타는 사람한테 먼저 연락해도 괜찮을까요?">썸 연락</button>
+        </div>
       </div>
     </div>
 

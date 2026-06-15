@@ -137,6 +137,15 @@
     });
   }
 
+  // ── 외부에서 메시지 전달 (홈 입력창 → 챗봇 연동) ──
+  function sendExternal(text) {
+    if (!text?.trim()) return;
+    const wrap = $('chatMessages');
+    if (!wrap || wrap.children.length === 0) resetChat();
+    sendMessage(text.trim());
+  }
+
   window.HU = window.HU || {};
   window.HU._initChatbot = init;
+  window.HU._sendToChatbot = sendExternal;
 })();
