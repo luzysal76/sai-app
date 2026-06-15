@@ -11,23 +11,23 @@
     home:     { title:'사이', sub:'AI 관계 운영체제 · Relationship OS' },
     tools:    { title:'도구', sub:'16가지 관계 분석 도구' },
     diary:    { title:'감정 일기', sub:'오늘의 관계 감정 기록' },
-    translator:  { title:'대화 번역기 · 对话解析器', sub:'상대 말의 진짜 속뜻 · 言下之意' },
-    kakao:       { title:'카톡 분석기 · 聊天分析器', sub:'관심도·답장 추천 · 关注度分析' },
-    diagnosis:   { title:'관계 진단 · 关系诊断', sub:'현재 상태·발전 가능성 · 现状分析' },
-    readcheck:   { title:'읽씹 분석 · 不回消息分析', sub:'무응답 가능성 해석' },
-    reply:       { title:'답장 생성기 · 回复生成器', sub:'톤별 답장 추천 · 风格化回复' },
-    coach:       { title:'성장 코치 · 关系成长', sub:'오늘의 관계 미션 · 今日任务' },
-    aidiag:      { title:'AI 관계 진단 · AI关系诊断', sub:'친밀도·신뢰도 분석' },
-    capture:     { title:'대화 캡처 분석 · 截图分析', sub:'감정·위험 신호 탐지 · 情感检测' },
-    dictionary:  { title:'표현 사전 · 表达词典', sub:'68종 속뜻 & 감정 DB · 68种言下之意' },
-    scenario:    { title:'대화 시나리오 · 对话场景', sub:'상황별 대화 가이드 · 场景对话指南' },
+    translator:  { title:'대화 번역기 · Talk Translator', sub:'상대 말의 진짜 속뜻 · Hidden Meaning' },
+    kakao:       { title:'카톡 분석기 · Chat Analyzer', sub:'관심도·답장 추천 · Interest Analysis' },
+    diagnosis:   { title:'관계 진단 · Relationship Diagnosis', sub:'현재 상태·발전 가능성 · Status Analysis' },
+    readcheck:   { title:'읽씹 분석 · No-Reply Analysis', sub:'무응답 가능성 해석' },
+    reply:       { title:'답장 생성기 · Reply Generator', sub:'톤별 답장 추천 · Tone-Based Replies' },
+    coach:       { title:'성장 코치 · Growth Coach', sub:'오늘의 관계 미션 · Today\'s Mission' },
+    aidiag:      { title:'AI 관계 진단 · AI Diagnosis', sub:'친밀도·신뢰도 분석' },
+    capture:     { title:'대화 캡처 분석 · Screenshot Analysis', sub:'감정·위험 신호 탐지 · Emotion Detection' },
+    dictionary:  { title:'표현 사전 · Expression Dictionary', sub:'68종 속뜻 & 감정 DB · 68 Expressions' },
+    scenario:    { title:'대화 시나리오 · Dialogue Scenario', sub:'상황별 대화 가이드 · Situation Guide' },
     nvc:         { title:'사랑의 대화 💗', sub:'갈등 문장을 사랑의 말로' },
     bankbook:    { title:'관계 통장', sub:'신뢰·호감·관심 잔액 관리' },
     attachment:  { title:'애착 유형 분석 🧠', sub:'12문항으로 알아보는 나의 관계 패턴' },
     lovelang:    { title:'사랑의 언어 💬', sub:'5가지 사랑 표현 유형 · 5 Love Languages test' },
     relcheck:    { title:'관계 건강 체크 🌡️', sub:'5차원 레이더로 보는 관계 건강 · 5D radar' },
     chatbot:     { title:'AI 관계 상담사 💬', sub:'연애·관계 고민을 AI와 자유롭게 대화' },
-    'timeline':  { title:'관계 타임라인 · 关系时间线', sub:'우리 관계의 변화 흐름 · 关系变化历程' },
+    'timeline':  { title:'관계 타임라인 · Relationship Timeline', sub:'우리 관계의 변화 흐름 · Our Journey' },
   };
 
   let NAV = { tab: 'home', page: null };
@@ -293,7 +293,7 @@
             } else {
               fbCopy(shareText, () => {
                 shareBtn.textContent = '✓ 복사됨';
-                setTimeout(() => { shareBtn.textContent = '🔗 공유 · 分享'; }, 2000);
+                setTimeout(() => { shareBtn.textContent = '🔗 공유 · Share'; }, 2000);
               });
             }
           };
@@ -305,14 +305,14 @@
           const key = 'hearim_bookmarks';
           const bookmarks = JSON.parse(localStorage.getItem(key) || '[]');
           const isBookmarked = bookmarks.some(b => b.text === text);
-          bookmarkBtn.textContent = isBookmarked ? '🔖 저장됨 ✓' : '🔖 저장 · 收藏';
+          bookmarkBtn.textContent = isBookmarked ? '🔖 저장됨 ✓' : '🔖 저장 · Save';
           bookmarkBtn.classList.toggle('saved', isBookmarked);
           bookmarkBtn.onclick = () => {
             const stored = JSON.parse(localStorage.getItem(key) || '[]');
             const idx = stored.findIndex(b => b.text === text);
             if (idx >= 0) {
               stored.splice(idx, 1);
-              bookmarkBtn.textContent = '🔖 저장 · 收藏';
+              bookmarkBtn.textContent = '🔖 저장 · Save';
               bookmarkBtn.classList.remove('saved');
             } else {
               stored.unshift({ text, surface: r.surface, hidden: r.hidden, action: r.action, date: new Date().toLocaleDateString('ko-KR') });
@@ -424,10 +424,10 @@
         let r = await E.translateDiag(chat, concern, relOf('#page-aidiag'));
         if (!r) r = A.analyzeAiDiag(chat, concern, relOf('#page-aidiag'));
         const metrics=[
-          {icon:'💗',label:'친밀도 / 亲密度',val:r.affinity,color:'#ff6b9d'},
-          {icon:'🤝',label:'신뢰도 / 信任度',val:r.trust,color:'#6b4eaa'},
-          {icon:'💙',label:'감정 안정성 / 稳定性',val:r.stability,color:'#4a9eff'},
-          {icon:'💬',label:'소통 만족도 / 沟通满意度',val:r.satisfaction,color:'#41c46e'},
+          {icon:'💗',label:'친밀도 / Affinity',val:r.affinity,color:'#ff6b9d'},
+          {icon:'🤝',label:'신뢰도 / Trust',val:r.trust,color:'#6b4eaa'},
+          {icon:'💙',label:'감정 안정성 / Stability',val:r.stability,color:'#4a9eff'},
+          {icon:'💬',label:'소통 만족도 / Communication',val:r.satisfaction,color:'#41c46e'},
         ];
         const grid=$('#adGrid');
         grid.innerHTML=metrics.map(m=>`
@@ -442,7 +442,7 @@
         });
         // AI 인사이트 표시
         if(r.insight) { $('#adNote').textContent=r.insight; }
-        else if(r.source==='claude') { $('#adNote').textContent='Claude AI 분석 결과예요. 数据来自AI分析。'; }
+        else if(r.source==='claude') { $('#adNote').textContent='Claude AI 분석 결과예요.'; }
       });
     });
   }

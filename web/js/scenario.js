@@ -166,7 +166,7 @@
     detail.classList.remove('hidden');
 
     detail.innerHTML = `
-      <button class="btn-ghost" id="scBackBtn" style="margin-bottom:14px">← 목록으로 · 返回列表</button>
+      <button class="btn-ghost" id="scBackBtn" style="margin-bottom:14px">← 목록으로 · Back to List</button>
       <div class="sc-detail-head" style="border-color:${sc.color};background:${sc.bg}">
         <span class="sc-d-emoji">${sc.emoji}</span>
         <div>
@@ -179,10 +179,10 @@
         <div class="card sc-situation">
           <div class="sc-phrase">"${esc(sit.phrase)}"</div>
           <div class="sc-meaning"><span class="sc-meaning-icon">💡</span>${esc(sit.meaning)}</div>
-          <div class="sc-reply-label">추천 답장 · 推荐回复</div>
+          <div class="sc-reply-label">추천 답장 · Recommended Reply</div>
           <div class="sc-reply-text">${esc(sit.reply)}</div>
           <button class="sc-copy-btn" data-text="${esc(sit.reply)}">
-            복사 · 复制
+            복사 · Copy
           </button>
         </div>
       `).join('')}
@@ -196,7 +196,7 @@
     $$('.sc-copy-btn', detail).forEach(btn => {
       btn.addEventListener('click', () => {
         const text = btn.closest('.sc-situation').querySelector('.sc-reply-text').textContent;
-        const cb = () => { btn.textContent = '복사됨 ✓'; setTimeout(() => { btn.textContent = '복사 · 复制'; }, 1500); };
+        const cb = () => { btn.textContent = '복사됨 ✓'; setTimeout(() => { btn.textContent = '복사 · Copy'; }, 1500); };
         if (navigator.clipboard) navigator.clipboard.writeText(text).then(cb).catch(() => fbCopy(text, cb));
         else fbCopy(text, cb);
       });

@@ -64,7 +64,7 @@
     }
 
     if (!entries.length) {
-      list.innerHTML = '<div class="dict-empty">검색 결과가 없어요 · 没有结果</div>';
+      list.innerHTML = '<div class="dict-empty">검색 결과가 없어요 · No results</div>';
       return;
     }
 
@@ -99,7 +99,7 @@
     const modal = $('#dictModal');
     if (!modal) return;
     const replyHtml = entry.replies.length
-      ? `<div class="dict-ms-label" style="margin-top:14px">추천 답장 · 推荐回复</div>
+      ? `<div class="dict-ms-label" style="margin-top:14px">추천 답장 · Recommended Reply</div>
          ${entry.replies.map(r => `
           <div class="dict-reply-row" data-text="${esc(r.text)}">
             <span class="dict-reply-style">${esc(r.style)}</span>
@@ -114,19 +114,19 @@
         <div class="dict-modal-kw">"${esc(entry.keyword)}"</div>
         ${entry.allKeys !== entry.keyword ? `<div class="dict-modal-keys">관련 표현: ${esc(entry.allKeys)}</div>` : ''}
         <div class="dict-modal-section">
-          <div class="dict-ms-label">표면 의미 · 表面意思</div>
+          <div class="dict-ms-label">표면 의미 · Surface Meaning</div>
           <p>${esc(entry.surface)}</p>
         </div>
         <div class="dict-modal-section">
-          <div class="dict-ms-label">숨은 감정 · 隐藏情感</div>
+          <div class="dict-ms-label">숨은 감정 · Hidden Emotion</div>
           <p>${esc(entry.hidden)}</p>
         </div>
         <div class="dict-modal-emotions">${entry.emotions.map(t=>`<span class="emotion-tag">${esc(t)}</span>`).join('')}</div>
-        ${entry.action ? `<div class="dict-modal-section"><div class="dict-ms-label">추천 행동 · 推荐行动</div><p>${esc(entry.action)}</p></div>` : ''}
+        ${entry.action ? `<div class="dict-modal-section"><div class="dict-ms-label">추천 행동 · Recommended Action</div><p>${esc(entry.action)}</p></div>` : ''}
         ${replyHtml}
         ${entry.tip ? `<div class="dict-modal-tip">💡 ${esc(entry.tip)}</div>` : ''}
         <div class="dict-modal-conf">
-          <span>신뢰도 · 可信度</span>
+          <span>신뢰도 · Confidence</span>
           <div class="dict-conf-bar"><div class="dict-conf-fill" style="width:${entry.confidence}%;background:${confColor(entry.confidence)}"></div></div>
           <span>${entry.confidence}%</span>
         </div>
