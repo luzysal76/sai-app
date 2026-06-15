@@ -2,15 +2,18 @@
 
 /* ── 홈 히어로 GIF ── */
 .home-hero-gif {
-  width: calc(100% + 32px);
-  margin: -16px -16px 16px;
+  width: 100%;
+  margin: 0 auto 16px;
   overflow: hidden;
   line-height: 0;
+  display: flex;
+  justify-content: center;
 }
 .home-hero-img {
-  width: 100%;
+  width: 160px;
+  height: 160px;
   display: block;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 /* 앱 마진 (바텀탭 공간) */
