@@ -64,6 +64,43 @@ const MIME = {
   '.webp': 'image/webp',
 };
 
+// ── API 요청 카운터 (IP 기반 Rate Limiting) ───────────────────────────
+const rateLimits = {};          // { ip: { chat: { count, date }, capture: { count, month } } }
+
+function getIp(req) {
+  return req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress || 'unknown';
+}
+
+function checkLimit(req, type) {
+  const ip = getIp(req);
+  const now = new Date();
+  const today = now.toISOString().slice(0, 10);          // YYYY-MM-DD
+  const month = now.toISOString().slice(0, 7);           // YYYY-MM
+
+  if (!rateLimits[ip]) rateLimits[ip] = {};
+  const limits = rateLimits[ip];
+
+  if (type === 'chat') {
+    if (!limits.chat || limits.chat.date !== today) {
+      limits.chat = { count: 0, date: today };
+    }
+    if (limits.chat.count >= 5) return false;
+    limits.chat.count++;
+    return true;
+  }
+
+  if (type === 'capture') {
+    if (!limits.capture || limits.capture.month !== month) {
+      limits.capture = { count: 0, month };
+    }
+    if (limits.capture.count >= 3) return false;
+    limits.capture.count++;
+    return true;
+  }
+
+  return true;
+}
+
 // ── JSON body 파서 ────────────────────────────────────────────────────
 function readBody(req) {
   return new Promise((resolve, reject) => {
@@ -112,6 +149,10 @@ http.createServer(async (req, res) => {
 
   // ── POST /api/capture — Claude 비전 이미지 분석 ──────────────────
   if (req.method === 'POST' && url === '/api/capture') {
+    if (!checkLimit(req, 'capture')) {
+      res.writeHead(429, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ error: '이번 달 무료 캡처 분석(3회)을 모두 사용했어요. 다음 달에 다시 시도해주세요.' }));
+    }
     const apiKey = loadApiKey();
     if (!apiKey) {
       res.writeHead(503, { 'Content-Type': 'application/json' });
@@ -163,6 +204,10 @@ http.createServer(async (req, res) => {
 
   // ── POST /api/chat — OpenAI GPT 챗봇 (chatbot.py 포팅) ─────────────
   if (req.method === 'POST' && url === '/api/chat') {
+    if (!checkLimit(req, 'chat')) {
+      res.writeHead(429, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ error: '오늘 무료 AI 상담(5회)을 모두 사용했어요. 내일 다시 대화해요 💕' }));
+    }
     const apiKey = loadOpenAIKey();
     if (!apiKey || !OpenAI) {
       res.writeHead(503, { 'Content-Type': 'application/json' });

@@ -159,6 +159,7 @@
 
     <!-- 2. 카톡 분석기 -->
     <section class="page hidden" id="page-kakao">
+      <div class="pipa-banner">🔒 입력한 대화 내용은 분석 후 즉시 삭제되며 저장되지 않아요. <a href="./privacy.html" target="_blank">개인정보처리방침</a></div>
       <div class="card">
         <label class="field-label" for="kkInput">Paste chat here</label>
         <textarea id="kkInput" class="tall" placeholder="상대: ㅋㅋ 집에서 쉬었지~ 너는?&#10;나: 나도! 다음에 같이 영화 볼래?&#10;상대: 오 좋아좋아 😍 언제 갈까?"></textarea>
@@ -194,6 +195,7 @@
 
     <!-- 4. 읽씹 분석 -->
     <section class="page hidden" id="page-readcheck">
+      <div class="pipa-banner">🔒 입력한 내용은 분석 후 즉시 삭제되며 저장되지 않아요. <a href="./privacy.html" target="_blank">개인정보처리방침</a></div>
       <div class="card"><label class="field-label">Choose relationship</label><div class="chip-group relation-group"></div></div>
       <div class="card">
         <label class="field-label">Time since last reply</label>
@@ -257,6 +259,7 @@
 
     <!-- 8. 대화 캡처 분석 (NEW) -->
     <section class="page hidden" id="page-capture">
+      <div class="pipa-banner">🔒 업로드한 이미지는 AI 분석 후 즉시 삭제되며 저장되지 않아요. <a href="./privacy.html" target="_blank">개인정보처리방침</a></div>
       <div class="card">
         <label class="field-label">Upload chat screenshot</label>
         <label class="capture-zone" id="captureZone" for="captureFile">
@@ -662,5 +665,31 @@
 <script src="./js/lovelang-ui.js"></script>
 <script src="./js/relcheck-ui.js"></script>
 <script src="./js/chatbot.js"></script>
+
+<!-- ===== 약관 동의 팝업 ===== -->
+<div id="termsOverlay" class="terms-overlay hidden">
+  <div class="terms-modal">
+    <div class="terms-logo">💫 사이(Sai)</div>
+    <h2 class="terms-title">서비스 이용 전 안내</h2>
+    <ul class="terms-list">
+      <li>🔒 입력하신 대화 내용은 AI 분석 후 <b>즉시 삭제</b>되며 저장되지 않아요.</li>
+      <li>💬 AI 상담은 참고용이며, 전문 심리 상담을 대체하지 않아요.</li>
+      <li>📋 서비스 이용 시 <a href="./privacy.html" target="_blank">개인정보처리방침</a>에 동의하는 것으로 간주돼요.</li>
+    </ul>
+    <button id="termsAgreeBtn" class="btn-primary" style="margin-top:8px">동의하고 시작하기</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  if (!localStorage.getItem('sai_terms_agreed')) {
+    document.getElementById('termsOverlay').classList.remove('hidden');
+  }
+  document.getElementById('termsAgreeBtn').addEventListener('click', function(){
+    localStorage.setItem('sai_terms_agreed', '1');
+    document.getElementById('termsOverlay').classList.add('hidden');
+  });
+})();
+</script>
 </body>
 </html>
