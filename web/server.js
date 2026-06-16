@@ -114,6 +114,29 @@ function readBody(req) {
   });
 }
 
+// ── 스마트 규칙 응답 (API 전부 실패 시 폴백) ─────────────────────────
+function getSmartFallback(messages) {
+  const lastUser = [...messages].reverse().find(m => m.role === 'user')?.content || '';
+  const text = lastUser.toLowerCase();
+
+  if (text.includes('싸움') || text.includes('다툼') || text.includes('싸웠'))
+    return '다툼 후엔 잠시 감정이 가라앉을 시간이 필요해요. "나는 ~해서 속상해"처럼 나를 주어로 말해보세요. 상대를 비난하지 않으면 방어벽이 낮아져요 💕';
+  if (text.includes('연락') || text.includes('답장') || text.includes('읽씹'))
+    return '연락이 없을 땐 불안하죠. "바쁜 거 알면서도 나는 걱정이 돼"처럼 솔직하게 감정을 전달해보세요. 기다리는 마음을 표현하면 상대도 이해해요 💌';
+  if (text.includes('불안') || text.includes('걱정') || text.includes('무서'))
+    return '관계에서 불안함은 자연스러운 감정이에요. 그 불안이 어디서 오는지, 과거 경험과 연결되진 않는지 살펴보면 좋겠어요. 어떤 상황에서 가장 불안한가요?';
+  if (text.includes('이별') || text.includes('헤어') || text.includes('헤어지'))
+    return '이별은 정말 힘든 시간이에요. 지금의 감정을 충분히 느끼는 게 중요해요. 억지로 극복하려 하기보다, 오늘의 감정을 일기에 써보는 건 어떨까요?';
+  if (text.includes('화가') || text.includes('화남') || text.includes('짜증'))
+    return '화가 많이 나셨군요. 분노 아래엔 상처받은 감정이 있어요. 화나기 전 어떤 말/행동이 있었나요? 그걸 알면 더 잘 전달할 수 있어요.';
+  if (text.includes('사랑') || text.includes('좋아'))
+    return '사랑을 표현하고 싶으신군요 💗 상대가 어떤 방식으로 사랑을 느끼는지 알면 더 효과적이에요. 상대가 뭘 할 때 가장 행복해 보이던가요?';
+  if (text.includes('외로') || text.includes('혼자'))
+    return '혼자인 느낌은 관계 안에서도 느낄 수 있어요. 상대에게 "요즘 나 외로워"라고 직접 말해봤나요? 솔직한 표현이 연결을 만들어요 🤝';
+
+  return '연인과의 관계에서 느끼는 감정을 더 구체적으로 말해주실 수 있을까요? 어떤 상황인지, 어떤 감정인지 알면 더 잘 도와드릴 수 있어요 💕';
+}
+
 // ── Claude 비전 분석 프롬프트 ─────────────────────────────────────────
 const CAPTURE_PROMPT = `이 이미지는 카카오톡 또는 문자 대화 캡처입니다.
 대화 내용을 읽고 감정 패턴과 관계 신호를 분석해주세요.
@@ -202,16 +225,11 @@ http.createServer(async (req, res) => {
     return;
   }
 
-  // ── POST /api/chat — OpenAI GPT 챗봇 (chatbot.py 포팅) ─────────────
+  // ── POST /api/chat — AI 챗봇 (3단계 폴백) ─────────────────────────
   if (req.method === 'POST' && url === '/api/chat') {
     if (!checkLimit(req, 'chat')) {
       res.writeHead(429, { 'Content-Type': 'application/json' });
       return res.end(JSON.stringify({ error: '오늘 무료 AI 상담(5회)을 모두 사용했어요. 내일 다시 대화해요 💕' }));
-    }
-    const apiKey = loadOpenAIKey();
-    if (!apiKey || !OpenAI) {
-      res.writeHead(503, { 'Content-Type': 'application/json' });
-      return res.end(JSON.stringify({ error: 'OPENAI_API_KEY가 설정되지 않았습니다.' }));
     }
 
     let body;
@@ -224,24 +242,48 @@ http.createServer(async (req, res) => {
       return res.end(JSON.stringify({ error: 'messages 배열이 필요합니다.' }));
     }
 
-    try {
-      const model = process.env.OPENAI_MODEL || 'gpt-4o-mini';
-      const OpenAIClient = OpenAI.default || OpenAI;
-      const client = new OpenAIClient({ apiKey });
-      const response = await client.chat.completions.create({
-        model,
-        messages,
-        temperature: 0.7,
-      });
-      const content = response.choices[0].message.content || '';
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ content: content.trim() }));
-    } catch (err) {
-      console.error('[chat] 오류:', err.message);
-      res.writeHead(500, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ error: 'AI 오류: ' + err.message }));
+    // ── 1단계: OpenAI 시도 ──────────────────────────────────────────
+    const openaiKey = loadOpenAIKey();
+    if (openaiKey && OpenAI) {
+      try {
+        const model = process.env.OPENAI_MODEL || 'gpt-4o-mini';
+        const OpenAIClient = OpenAI.default || OpenAI;
+        const client = new OpenAIClient({ apiKey: openaiKey });
+        const response = await client.chat.completions.create({ model, messages, temperature: 0.7 });
+        const content = response.choices[0].message.content || '';
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify({ content: content.trim(), source: 'openai' }));
+      } catch (err) {
+        console.warn('[chat] OpenAI 실패 →', err.message);
+      }
     }
-    return;
+
+    // ── 2단계: Anthropic Claude 시도 ────────────────────────────────
+    const anthropicKey = loadApiKey();
+    if (anthropicKey && Anthropic) {
+      try {
+        const client = new Anthropic({ apiKey: anthropicKey });
+        const systemMsg = messages.find(m => m.role === 'system')?.content || '';
+        const chatMsgs = messages.filter(m => m.role !== 'system');
+        const msg = await client.messages.create({
+          model: 'claude-3-haiku-20240307',
+          max_tokens: 1024,
+          system: systemMsg,
+          messages: chatMsgs,
+          temperature: 0.7,
+        });
+        const content = msg.content[0].text || '';
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify({ content: content.trim(), source: 'claude' }));
+      } catch (err) {
+        console.warn('[chat] Anthropic 실패 →', err.message);
+      }
+    }
+
+    // ── 3단계: 스마트 규칙 응답 (항상 동작) ────────────────────────
+    console.log('[chat] 스마트 폴백 응답');
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    return res.end(JSON.stringify({ content: getSmartFallback(messages), source: 'fallback' }));
   }
 
   // ── GET — 정적 파일 서빙 ─────────────────────────────────────────
