@@ -35,6 +35,12 @@ function loadOpenAIKey() {
   return (!key || key.includes('여기에')) ? null : key;
 }
 
+// ── Groq API 키 ───────────────────────────────────────────────────────
+function loadGroqKey() {
+  const key = process.env.GROQ_API_KEY || '';
+  return (!key || key.includes('여기에')) ? null : key;
+}
+
 // ── Anthropic SDK ─────────────────────────────────────────────────────
 let Anthropic;
 try {
@@ -240,6 +246,27 @@ http.createServer(async (req, res) => {
     if (!Array.isArray(messages) || !messages.length) {
       res.writeHead(400, { 'Content-Type': 'application/json' });
       return res.end(JSON.stringify({ error: 'messages 배열이 필요합니다.' }));
+    }
+
+    // ── 0단계: Groq 시도 (무료 LLaMA 3.1) ─────────────────────────
+    const groqKey = loadGroqKey();
+    if (groqKey && OpenAI) {
+      try {
+        const groqModel = process.env.GROQ_MODEL || 'llama-3.1-8b-instant';
+        const OpenAIClient = OpenAI.default || OpenAI;
+        const client = new OpenAIClient({
+          apiKey: groqKey,
+          baseURL: 'https://api.groq.com/openai/v1',
+        });
+        const response = await client.chat.completions.create({
+          model: groqModel, messages, temperature: 0.7,
+        });
+        const content = response.choices[0].message.content || '';
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify({ content: content.trim(), source: 'groq' }));
+      } catch (err) {
+        console.warn('[chat] Groq 실패 →', err.message);
+      }
     }
 
     // ── 1단계: OpenAI 시도 ──────────────────────────────────────────
