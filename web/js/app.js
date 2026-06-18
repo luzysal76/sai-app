@@ -477,7 +477,7 @@
       const resultEl=$('#captureResult');
       resultEl.classList.add('hidden');
       btn.disabled=true;
-      btn.textContent='🤖 AI analyzing...';
+      btn.textContent='🤖 AI 분석 중...';
 
       try {
         const res = await fetch(window.HEARIM_CONFIG.api.capture, {
@@ -512,7 +512,7 @@
         resultEl.classList.remove('hidden');
       } finally {
         btn.disabled=false;
-        btn.textContent='Analyze Emotions';
+        btn.textContent='📸 감정 분석하기';
       }
     });
   }

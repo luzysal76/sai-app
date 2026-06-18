@@ -122,15 +122,44 @@
     $('#bbTabNeg')?.classList.remove('active-neg');
   }
 
+  // ── 빠른 인물 추가 (관계 지도 탭 없을 때 인라인 등록) ──
+  function renderQuickAdd(scroll) {
+    scroll.innerHTML = `
+      <div class="bb-quick-add">
+        <p style="font-size:13px;color:var(--gray);margin:0 0 8px">통장을 만들 상대를 추가해주세요 💗</p>
+        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+          <input id="bbQuickName" type="text" placeholder="이름 (예: 준혁)" maxlength="12"
+            style="flex:1;min-width:80px;padding:7px 10px;border-radius:10px;border:1px solid #ddd;font-size:14px">
+          <select id="bbQuickType" style="padding:7px 8px;border-radius:10px;border:1px solid #ddd;font-size:13px">
+            <option value="lover">💑 연인</option>
+            <option value="some">💗 썸</option>
+            <option value="friend">🧑 친구</option>
+            <option value="family">👨‍👩‍👧 가족</option>
+            <option value="work">💼 직장</option>
+          </select>
+          <button id="bbQuickAddBtn" style="padding:7px 14px;border-radius:10px;background:linear-gradient(135deg,#ff6b9d,#6b4eaa);color:#fff;font-size:13px;font-weight:600;border:none;cursor:pointer">추가</button>
+        </div>
+      </div>`;
+    $('#bbMain').classList.add('hidden');
+
+    $('#bbQuickAddBtn').addEventListener('click', () => {
+      const name = $('#bbQuickName').value.trim();
+      if (!name) { $('#bbQuickName').focus(); return; }
+      const type = $('#bbQuickType').value;
+      const EMOJI = { lover:'💑', some:'💗', friend:'🧑', family:'👨‍👩‍👧', work:'💼' };
+      REL.upsert({ name, type, emoji: EMOJI[type] || '👤', affinity: 60, frequency: 1, conflict: 0 }, null);
+      renderPersons();
+    });
+  }
+
   // ── 인물 칩 렌더 ──
   function renderPersons() {
     const scroll = $('#bbPersonScroll'); if (!scroll) return;
-    if (!REL) { scroll.innerHTML = '<p style="color:var(--gray);font-size:13px">관계 지도 데이터 없음</p>'; return; }
+    if (!REL) { scroll.innerHTML = '<p style="color:var(--gray);font-size:13px">관계 데이터를 불러올 수 없어요.</p>'; return; }
 
-    const persons = REL.loadPersons ? REL.loadPersons() : (REL.getPersons ? REL.getPersons() : []);
+    const persons = REL.getAll ? REL.getAll() : [];
     if (!persons?.length) {
-      scroll.innerHTML = '<div class="bb-empty-text" style="padding:8px 0">관계 지도에 사람을 먼저 등록해주세요 💗</div>';
-      $('#bbMain').classList.add('hidden');
+      renderQuickAdd(scroll);
       return;
     }
 
