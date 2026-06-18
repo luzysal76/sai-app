@@ -10,6 +10,26 @@ node_modules/
 *.jpeg
 hearim-result.png
 
+# 스크린샷 PNG (테스트용)
+bankbook.png
+bilingual-home.png
+bilingual-tools.png
+diary.png
+home-screen.png
+mbti-*.png
+nvc-*.png
+relmap-*.png
+tarot-*.png
+timeline-*.png
+timemachine-*.png
+tools*.png
+
+# Flutter 빌드 아티팩트
+hearim_app/.dart_tool/
+hearim_app/build/
+hearim_app/.flutter-plugins
+hearim_app/.flutter-plugins-dependencies
+
 # secrets (Firebase / Fastlane)
 fastlane-key.json
 api_key.json
