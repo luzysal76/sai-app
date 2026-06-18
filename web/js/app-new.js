@@ -16,6 +16,7 @@
   function renderRelmap() {
     const list = R.getAll();
     const empty = $('#relmapEmpty'), cards = $('#relCards'), summary = $('#relmapSummary');
+    if (!empty || !cards || !summary) return;   // 관계 지도 탭 없으면 스킵
 
     if (!list.length) {
       empty.classList.remove('hidden'); cards.innerHTML = ''; summary.classList.add('hidden'); return;
@@ -83,6 +84,7 @@
   }
 
   function initRelForm() {
+    if (!$('#relSaveBtn')) return;   // 관계 등록 폼 없으면 스킵
     // emoji picker
     $$('.epick').forEach(b => b.addEventListener('click', () => {
       $$('.epick').forEach(x=>x.classList.remove('active')); b.classList.add('active');
@@ -99,7 +101,7 @@
     });
     // slider
     const slider = $('#relAffinity'), val = $('#affinityVal');
-    slider.addEventListener('input', () => { val.textContent = slider.value + '%'; });
+    if (slider) slider.addEventListener('input', () => { if (val) val.textContent = slider.value + '%'; });
     // save
     $('#relSaveBtn').addEventListener('click', () => {
       const name = $('#relName').value.trim(); if(!name) return shake($('#relName'));

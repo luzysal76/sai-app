@@ -149,9 +149,10 @@
   function initHome() {
     const D = window.HearimDiary, R = window.HearimRelations;
     const dateStr = D.todayFormatted();
-    $('#reportDate').textContent = dateStr;
+    if ($('#reportDate')) $('#reportDate').textContent = dateStr;
 
     function refreshHome() {
+      if (!$('#reportScore')) return;   // 홈 리포트 요소 없으면 스킵
       const relScore = R.avgAffinity();
       const diary    = D.getToday();
       const diaryNum = diary ? (diary.mood-1)*25 : null;
