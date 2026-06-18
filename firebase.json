@@ -1,32 +1,28 @@
 {
-  "functions": {
-    "source": "functions",
-    "runtime": "nodejs20"
-  },
   "hosting": {
     "public": "web",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "server.js"
+    ],
     "rewrites": [
-      {
-        "source": "/api/translate",
-        "function": "translate"
-      },
-      {
-        "source": "/api/analyzeKakao",
-        "function": "analyzeKakao"
-      },
-      {
-        "source": "/api/diagRelation",
-        "function": "diagRelation"
-      },
       {
         "source": "**",
         "destination": "/index.html"
       }
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(js|css)",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=604800" }
+        ]
+      }
     ]
   },
   "emulators": {
-    "functions": { "port": 5001 },
     "hosting": { "port": 5000 },
     "ui": { "enabled": true, "port": 4000 }
   }
