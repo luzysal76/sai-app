@@ -1,29 +1,26 @@
 /**
- * 헤아림 - API 설정
- * Firebase 배포 후 FIREBASE_PROJECT_ID를 실제 프로젝트 ID로 교체하세요.
+ * 사이(Sai) - API 설정
+ * 환경에 따라 자동으로 로컬/프로덕션 서버를 선택합니다.
  *
- * 로컬 에뮬레이터: http://127.0.0.1:5001/hearim-app/asia-northeast3
- * 프로덕션:        https://asia-northeast3-hearim-app.cloudfunctions.net
+ * 로컬 개발:   http://localhost:4321
+ * 배포 후:     VITE_API_BASE_URL 또는 window.SAI_API_BASE 환경변수 사용
+ *
+ * Render/Railway 배포 시 window.SAI_API_BASE에 서버 URL 주입
  */
 window.HEARIM_CONFIG = (function () {
   const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
-  const PROJECT_ID = 'hearim-app';         // ← Firebase 프로젝트 ID
-  const REGION     = 'asia-northeast3';    // 서울 리전
 
-  const base = isLocal
-    ? `http://127.0.0.1:5001/${PROJECT_ID}/${REGION}`
-    : `https://${REGION}-${PROJECT_ID}.cloudfunctions.net`;
-
-  // 이미지 캡처 분석은 항상 로컬 dev server (Claude 비전 프록시)
-  const captureUrl = 'http://localhost:4321/api/capture';
+  // 배포 환경: window.SAI_API_BASE 로 외부 server.js URL 주입 가능
+  const apiBase = window.SAI_API_BASE
+    || (isLocal ? 'http://localhost:4321' : '');
 
   return {
     api: {
-      translate:    base + '/translate',
-      analyzeKakao: base + '/analyzeKakao',
-      diagRelation: base + '/diagRelation',
-      capture:      captureUrl,
+      capture: apiBase + '/api/capture',
+      chat:    apiBase + '/api/chat',
     },
+    apiBase,
+    isLocal,
     useAI: true,   // false로 바꾸면 DB 전용 모드
   };
 })();

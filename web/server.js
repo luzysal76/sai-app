@@ -70,11 +70,21 @@ const MIME = {
   '.webp': 'image/webp',
 };
 
-// ── API 요청 카운터 (IP 기반 Rate Limiting) ───────────────────────────
+// ── API 요청 카운터 (IP 기반 + 글로벌 Rate Limiting) ────────────────
 const rateLimits = {};          // { ip: { chat: { count, date }, capture: { count, month } } }
+const globalCounter = { date: '', chatCount: 0 };  // 글로벌 일일 AI 호출 상한
+const GLOBAL_CHAT_LIMIT = 500;  // 서버 전체 하루 최대 AI 호출 수
 
 function getIp(req) {
   return req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress || 'unknown';
+}
+
+function checkGlobalLimit() {
+  const today = new Date().toISOString().slice(0, 10);
+  if (globalCounter.date !== today) { globalCounter.date = today; globalCounter.chatCount = 0; }
+  if (globalCounter.chatCount >= GLOBAL_CHAT_LIMIT) return false;
+  globalCounter.chatCount++;
+  return true;
 }
 
 function checkLimit(req, type) {
@@ -231,11 +241,15 @@ http.createServer(async (req, res) => {
     return;
   }
 
-  // ── POST /api/chat — AI 챗봇 (3단계 폴백) ─────────────────────────
+  // ── POST /api/chat — AI 챗봇 (4단계 폴백) ─────────────────────────
   if (req.method === 'POST' && url === '/api/chat') {
     if (!checkLimit(req, 'chat')) {
       res.writeHead(429, { 'Content-Type': 'application/json' });
       return res.end(JSON.stringify({ error: '오늘 무료 AI 상담(5회)을 모두 사용했어요. 내일 다시 대화해요 💕' }));
+    }
+    if (!checkGlobalLimit()) {
+      res.writeHead(429, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ error: '오늘 서버 AI 상담이 마감됐어요. 내일 다시 만나요 💕' }));
     }
 
     let body;
