@@ -71,7 +71,7 @@
     if (sendBtn) sendBtn.disabled = true;
 
     try {
-      const res = await fetch('http://localhost:4321/api/chat', {
+      const res = await fetch(window.HEARIM_CONFIG?.api?.chat || 'http://localhost:4321/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages }),
