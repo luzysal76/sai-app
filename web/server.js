@@ -189,26 +189,26 @@ http.createServer(async (req, res) => {
   // ── POST /api/capture — Claude 비전 이미지 분석 ──────────────────
   if (req.method === 'POST' && url === '/api/capture') {
     if (!checkLimit(req, 'capture')) {
-      res.writeHead(429, { 'Content-Type': 'application/json' });
+      res.writeHead(429, { 'Content-Type': 'application/json; charset=utf-8' });
       return res.end(JSON.stringify({ error: '이번 달 무료 캡처 분석(3회)을 모두 사용했어요. 다음 달에 다시 시도해주세요.' }));
     }
     const apiKey = loadApiKey();
     if (!apiKey) {
-      res.writeHead(503, { 'Content-Type': 'application/json' });
+      res.writeHead(503, { 'Content-Type': 'application/json; charset=utf-8' });
       return res.end(JSON.stringify({ error: 'ANTHROPIC_API_KEY가 설정되지 않았습니다. functions/.env 파일에 API 키를 입력해주세요.' }));
     }
     if (!Anthropic) {
-      res.writeHead(503, { 'Content-Type': 'application/json' });
+      res.writeHead(503, { 'Content-Type': 'application/json; charset=utf-8' });
       return res.end(JSON.stringify({ error: 'Anthropic SDK를 불러올 수 없습니다.' }));
     }
 
     let body;
     try { body = await readBody(req); }
-    catch (e) { res.writeHead(400, { 'Content-Type': 'application/json' }); return res.end(JSON.stringify({ error: '잘못된 요청 형식입니다.' })); }
+    catch (e) { res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' }); return res.end(JSON.stringify({ error: '잘못된 요청 형식입니다.' })); }
 
     const { imageData, mediaType = 'image/jpeg' } = body;
     if (!imageData) {
-      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
       return res.end(JSON.stringify({ error: '이미지 데이터가 없습니다.' }));
     }
 
@@ -231,11 +231,11 @@ http.createServer(async (req, res) => {
       if (!jsonMatch) throw new Error('JSON 파싱 실패');
       const result = JSON.parse(jsonMatch[0]);
 
-      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
       res.end(JSON.stringify({ source: 'claude', ...result }));
     } catch (err) {
       console.error('[capture] 오류:', err.message);
-      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
       res.end(JSON.stringify({ error: 'AI 이미지 분석 오류: ' + err.message }));
     }
     return;
@@ -244,40 +244,49 @@ http.createServer(async (req, res) => {
   // ── POST /api/chat — AI 챗봇 (4단계 폴백) ─────────────────────────
   if (req.method === 'POST' && url === '/api/chat') {
     if (!checkLimit(req, 'chat')) {
-      res.writeHead(429, { 'Content-Type': 'application/json' });
+      res.writeHead(429, { 'Content-Type': 'application/json; charset=utf-8' });
       return res.end(JSON.stringify({ error: '오늘 무료 AI 상담(5회)을 모두 사용했어요. 내일 다시 대화해요 💕' }));
     }
     if (!checkGlobalLimit()) {
-      res.writeHead(429, { 'Content-Type': 'application/json' });
+      res.writeHead(429, { 'Content-Type': 'application/json; charset=utf-8' });
       return res.end(JSON.stringify({ error: '오늘 서버 AI 상담이 마감됐어요. 내일 다시 만나요 💕' }));
     }
 
     let body;
     try { body = await readBody(req); }
-    catch (e) { res.writeHead(400, { 'Content-Type': 'application/json' }); return res.end(JSON.stringify({ error: '잘못된 요청 형식입니다.' })); }
+    catch (e) { res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' }); return res.end(JSON.stringify({ error: '잘못된 요청 형식입니다.' })); }
 
     const { messages } = body;
     if (!Array.isArray(messages) || !messages.length) {
-      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
       return res.end(JSON.stringify({ error: 'messages 배열이 필요합니다.' }));
     }
 
-    // ── 0단계: Groq 시도 (무료 LLaMA 3.1) ─────────────────────────
+    // ── 0단계: Groq 시도 (무료 LLaMA) ─────────────────────────────
     const groqKey = loadGroqKey();
     if (groqKey && OpenAI) {
       try {
-        const groqModel = process.env.GROQ_MODEL || 'llama-3.1-8b-instant';
+        const groqModel = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
         const OpenAIClient = OpenAI.default || OpenAI;
         const client = new OpenAIClient({
           apiKey: groqKey,
           baseURL: 'https://api.groq.com/openai/v1',
         });
+        // 한국어 응답 강제: 시스템 메시지에 언어 지시 추가
+        const groqMessages = messages.map(m => {
+          if (m.role === 'system') {
+            return { ...m, content: '반드시 한국어로만 답변하세요. Do not use any other language.\n\n' + m.content };
+          }
+          return m;
+        });
         const response = await client.chat.completions.create({
-          model: groqModel, messages, temperature: 0.7,
+          model: groqModel, messages: groqMessages, temperature: 0.7, max_tokens: 512,
         });
         const content = response.choices[0].message.content || '';
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        return res.end(JSON.stringify({ content: content.trim(), source: 'groq' }));
+        if (content.trim()) {
+          res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+          return res.end(JSON.stringify({ content: content.trim(), source: 'groq' }));
+        }
       } catch (err) {
         console.warn('[chat] Groq 실패 →', err.message);
       }
@@ -292,7 +301,7 @@ http.createServer(async (req, res) => {
         const client = new OpenAIClient({ apiKey: openaiKey });
         const response = await client.chat.completions.create({ model, messages, temperature: 0.7 });
         const content = response.choices[0].message.content || '';
-        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         return res.end(JSON.stringify({ content: content.trim(), source: 'openai' }));
       } catch (err) {
         console.warn('[chat] OpenAI 실패 →', err.message);
@@ -314,7 +323,7 @@ http.createServer(async (req, res) => {
           temperature: 0.7,
         });
         const content = msg.content[0].text || '';
-        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         return res.end(JSON.stringify({ content: content.trim(), source: 'claude' }));
       } catch (err) {
         console.warn('[chat] Anthropic 실패 →', err.message);
@@ -323,7 +332,7 @@ http.createServer(async (req, res) => {
 
     // ── 3단계: 스마트 규칙 응답 (항상 동작) ────────────────────────
     console.log('[chat] 스마트 폴백 응답');
-    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
     return res.end(JSON.stringify({ content: getSmartFallback(messages), source: 'fallback' }));
   }
 
