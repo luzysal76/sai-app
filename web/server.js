@@ -188,14 +188,29 @@ http.createServer(async (req, res) => {
 
   // ── POST /api/capture — Claude 비전 이미지 분석 ──────────────────
   if (req.method === 'POST' && url === '/api/capture') {
+    const apiKey = loadApiKey();
+
+    // API 키 미설정 → 시뮬레이션 결과 반환 (rate limit 카운트 소진 없음)
+    if (!apiKey) {
+      const simResult = {
+        source: 'simulation',
+        isSimulation: true,
+        emotions: [
+          { label: '설렘', pct: 32 },
+          { label: '기대', pct: 28 },
+          { label: '친밀감', pct: 25 },
+          { label: '불안', pct: 15 }
+        ],
+        risks: ['일방적 연락 패턴 주의'],
+        note: '💡 예시 분석입니다. AI 분석 기능을 활성화하면 실제 대화 내용을 분석할 수 있어요.',
+      };
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+      return res.end(JSON.stringify(simResult));
+    }
+
     if (!checkLimit(req, 'capture')) {
       res.writeHead(429, { 'Content-Type': 'application/json; charset=utf-8' });
       return res.end(JSON.stringify({ error: '이번 달 무료 캡처 분석(3회)을 모두 사용했어요. 다음 달에 다시 시도해주세요.' }));
-    }
-    const apiKey = loadApiKey();
-    if (!apiKey) {
-      res.writeHead(503, { 'Content-Type': 'application/json; charset=utf-8' });
-      return res.end(JSON.stringify({ error: 'ANTHROPIC_API_KEY가 설정되지 않았습니다. functions/.env 파일에 API 키를 입력해주세요.' }));
     }
     if (!Anthropic) {
       res.writeHead(503, { 'Content-Type': 'application/json; charset=utf-8' });
